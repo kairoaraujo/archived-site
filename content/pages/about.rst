@@ -1,8 +1,8 @@
 About
 #####
 
-:date: 2010-10-03 10:20
-:modified: 2010-10-04 18:40
+:date: 2017-10-03 10:20
+:modified: 2017-10-04 18:40
 :tags: About 
 :category: etc
 :authors: Kairo Araujo
@@ -21,5 +21,7 @@ I started to code in Python in 2013 and I create some tools for
 infrastructure and recently I started some contributions with Ansible
 Project.
 
-I like watch & play tennis and I love cook.
+I like watch & play tennis and I love cooking. :)
+
+TODO: Write this page correctly
 
