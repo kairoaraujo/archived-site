@@ -96,7 +96,7 @@
                                 <a href="./author/kairo-araujo.html">Kairo Araujo</a>
                              on Thu 12 October 2017
                         </span>
-                            <span class="meta">Updated on Fri 13 October 2017</span>
+                            <span class="meta">Updated on Sat 14 October 2017</span>
                         
                     </div>
                 </div>
@@ -431,11 +431,13 @@ linux4 <span class="p">|</span> <span class="nv">SUCCESS</span> <span class="o">
 <h3><a class="toc-backref" href="#id16">Playbook example</a></h3>
 <p>Playbooks are configurations, deployments and tasks that you want to perform in a target host.
 For more details, check out <a class="reference external" href="http://docs.ansible.com/ansible/latest/playbooks.html">http://docs.ansible.com/ansible/latest/playbooks.html</a></p>
-<p>My first example of playbook will be: Create a filesystem for images and install TSM software and generate a mksysb backup.
-In details my tasks are:
-- Logical Volume with 5GB (lvmksysb) Remark: (only for servers that I already have +5GB free on vg)
-- Create a filesystem using lvmksysb (/mksysb/images)
-- Install TSM software</p>
+<p>My first example of playbook will be: Create a filesystem for images and install TSM software and generate a mksysb backup.</p>
+<p>In details my tasks are:</p>
+<ul class="simple">
+<li>Logical Volume with 5GB (lvmksysb) Remark: (only for servers that I already have +5GB free on vg)</li>
+<li>Create a filesystem using lvmksysb (/mksysb/images)</li>
+<li>Install TSM software</li>
+</ul>
 <p>My playbook:</p>
 <div class="highlight"><pre><span></span>[root@ansible-cs ~]# cat /playbooks/pb-mksysb-tsm.yml
 ---
