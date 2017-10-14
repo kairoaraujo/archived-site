@@ -12,6 +12,7 @@ TWITTER_URL = 'http://twitter.com/kairoaraujo'
 LINKEDIN_URL = 'https://linkedin/in/kairoaraujo'
 FACEBOOK_URL = 'http://facebook.com/araujo.kairo'
 DISQUS_SITENAME = u'kairoaraujo'
+GOOGLE_ANALYTICS = 'UA-108092336-1'
 HEADER_COVER = 'static/dc.jpg'
 
 PATH = 'content'
