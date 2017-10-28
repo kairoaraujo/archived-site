@@ -9,14 +9,16 @@
 
         <title>AIX & PowerVM automation with Ansible</title>
 
+            <link href="http://kairo.eti.br/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Full Atom Feed" />
+            <link href="http://kairo.eti.br/feeds/automation-ansible-aix.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Categories Atom Feed" />
         <!-- Bootstrap Core CSS -->
-        <link href="./theme/css/bootstrap.min.css" rel="stylesheet">
+        <link href="http://kairo.eti.br/theme/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Custom CSS -->
-        <link href="./theme/css/clean-blog.min.css" rel="stylesheet">
+        <link href="http://kairo.eti.br/theme/css/clean-blog.min.css" rel="stylesheet">
 
         <!-- Code highlight color scheme -->
-            <link href="./theme/css/code_blocks/darkly.css" rel="stylesheet">
+            <link href="http://kairo.eti.br/theme/css/code_blocks/darkly.css" rel="stylesheet">
 
 
         <!-- Custom Fonts -->
@@ -48,13 +50,13 @@
 		<meta property="og:site_name" content="Kairo Araujo">
 
 	<meta property="og:type" content="article">
-            <meta property="article:author" content="./author/kairo-araujo.html">
-	<meta property="og:url" content="./aix-powervm-automation-with-ansible.html">
+            <meta property="article:author" content="http://kairo.eti.br/author/kairo-araujo.html">
+	<meta property="og:url" content="http://kairo.eti.br/aix-powervm-automation-with-ansible.html">
 	<meta property="og:title" content="AIX & PowerVM automation with Ansible">
 	<meta property="article:published_time" content="2017-10-12 23:30:00+02:00">
             <meta property="og:description" content="Using Ansible to manage AIX/PowerVM servers">
 
-            <meta property="og:image" content="./static/dc.jpg">
+            <meta property="og:image" content="http://kairo.eti.br/static/dc.jpg">
 </head>
 
 <body>
@@ -70,14 +72,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="./">Kairo Araujo</a>
+                <a class="navbar-brand" href="http://kairo.eti.br/">Kairo Araujo</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
 
-                            <li><a href="./pages/about.html">About</a></li>
+                            <li><a href="http://kairo.eti.br/pages/about.html">About</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -93,10 +95,10 @@
                     <div class="post-heading">
                         <h1>AIX & PowerVM automation with Ansible</h1>
                         <span class="meta">Posted by
-                                <a href="./author/kairo-araujo.html">Kairo Araujo</a>
+                                <a href="http://kairo.eti.br/author/kairo-araujo.html">Kairo Araujo</a>
                              on Thu 12 October 2017
                         </span>
-                            <span class="meta">Updated on Sat 14 October 2017</span>
+                            <span class="meta">Updated on Sat 28 October 2017</span>
                         
                     </div>
                 </div>
@@ -179,8 +181,12 @@ I created a repository on my Github to make it include this support to current s
 <td>AIX Logical Volume management</td>
 </tr>
 <tr><td>module</td>
+<td>aix_devices</td>
+<td>AIX Devices management</td>
+</tr>
+<tr><td>module</td>
 <td>aix_filesystem</td>
-<td>AIX Files system mamagement (LVM and NFS)</td>
+<td>AIX Files system management (LVM and NFS)</td>
 </tr>
 <tr><td>module</td>
 <td>mksysb</td>
@@ -250,9 +256,9 @@ ansible <span class="m">2</span>.4.0.0
 <ol class="arabic simple">
 <li>Download from github</li>
 </ol>
-<p><a class="reference external" href="https://github.com/kairoaraujo/ansible-aix-support/releases/download/0.0.2/ansible-aix-support-0.0.2.tar.gz">https://github.com/kairoaraujo/ansible-aix-support/releases/download/0.0.2/ansible-aix-support-0.0.2.tar.gz</a></p>
+<p><a class="reference external" href="https://github.com/kairoaraujo/ansible-aix-support/releases/download/0.0.3/ansible-aix-support-0.0.3.tar.gz">https://github.com/kairoaraujo/ansible-aix-support/releases/download/0.0.3/ansible-aix-support-0.0.3.tar.gz</a></p>
 <p>Extract the file</p>
-<div class="highlight"><pre><span></span><span class="o">[</span>root@ansible-cs ~<span class="o">]</span><span class="c1"># tar xvzf ansible-aix-support-0.0.2.tar.gz</span>
+<div class="highlight"><pre><span></span><span class="o">[</span>root@ansible-cs ~<span class="o">]</span><span class="c1"># tar xvzf ansible-aix-support-0.0.3.tar.gz</span>
 </pre></div>
 <p>Or download using git</p>
 <div class="highlight"><pre><span></span><span class="o">[</span>root@ansible-cs ~<span class="o">]</span><span class="c1"># git clone https://github.com/kairoaraujo/ansible-aix-support</span>
@@ -546,7 +552,7 @@ that can help develop the skills about Ansible.</p>
     </article>
 
         <div class="tags">
-            <p>tags: <a href="./tag/aix.html">aix</a>, <a href="./tag/ansible.html">ansible</a>, <a href="./tag/automation.html">automation</a>, <a href="./tag/modules.html">modules</a>, <a href="./tag/setup.html">setup</a>, <a href="./tag/howto.html">howto</a></p>
+            <p>tags: <a href="http://kairo.eti.br/tag/aix.html">aix</a>, <a href="http://kairo.eti.br/tag/ansible.html">ansible</a>, <a href="http://kairo.eti.br/tag/automation.html">automation</a>, <a href="http://kairo.eti.br/tag/modules.html">modules</a>, <a href="http://kairo.eti.br/tag/setup.html">setup</a>, <a href="http://kairo.eti.br/tag/howto.html">howto</a></p>
         </div>
 
     <hr>
@@ -557,7 +563,7 @@ that can help develop the skills about Ansible.</p>
             <script type="text/javascript">
                 var disqus_shortname = 'kairoaraujo';
                 var disqus_identifier = 'aix-powervm-automation-with-ansible.html';
-                var disqus_url = './aix-powervm-automation-with-ansible.html';
+                var disqus_url = 'http://kairo.eti.br/aix-powervm-automation-with-ansible.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//kairoaraujo.disqus.com/embed.js';
@@ -614,13 +620,13 @@ that can help develop the skills about Ansible.</p>
     </footer>
 
     <!-- jQuery -->
-    <script src="./theme/js/jquery.min.js"></script>
+    <script src="http://kairo.eti.br/theme/js/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="./theme/js/bootstrap.min.js"></script>
+    <script src="http://kairo.eti.br/theme/js/bootstrap.min.js"></script>
 
         <!-- Custom Theme JavaScript -->
-        <script src="./theme/js/clean-blog.min.js"></script>
+        <script src="http://kairo.eti.br/theme/js/clean-blog.min.js"></script>
 
     <script type="text/javascript">
     var _gaq = _gaq || [];
