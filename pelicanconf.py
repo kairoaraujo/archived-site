@@ -9,7 +9,7 @@ SITESUBTITLE = "AIX, PowerVM, Linux, Python, automation, infrastructure, etc"
 SITEURL = 'https://kairo.eti.br'
 GITHUB_URL = 'http://github.com/kairoaraujo'
 TWITTER_URL = 'http://twitter.com/kairoaraujo'
-LINKEDIN_URL = 'https://linkedin/in/kairoaraujo'
+LINKEDIN_URL = 'https://linkedin.com/in/kairoaraujo'
 FACEBOOK_URL = 'http://facebook.com/araujo.kairo'
 DISQUS_SITENAME = u'kairoaraujo'
 GOOGLE_ANALYTICS = 'UA-108092336-1'
@@ -22,6 +22,8 @@ EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'},}
 TIMEZONE = 'Europe/Warsaw'
 
 DEFAULT_LANG = 'en'
+
+DELETE_OUTPUT_DIRECTORY = False
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
