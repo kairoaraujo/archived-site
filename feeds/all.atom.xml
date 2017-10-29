@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Kairo Araujo</title><link href="https://kairo.eti.br/" rel="alternate"></link><link href="https://kairo.eti.br/feeds/all.atom.xml" rel="self"></link><id>https://kairo.eti.br/</id><updated>2017-10-28T17:30:00+02:00</updated><entry><title>New Ansible module AIX Devices</title><link href="https://kairo.eti.br/new-ansible-module-aix-devices.html" rel="alternate"></link><published>2017-10-28T17:30:00+02:00</published><updated>2017-10-28T17:30:00+02:00</updated><author><name>Kairo Araujo</name></author><id>tag:kairo.eti.br,2017-10-28:/new-ansible-module-aix-devices.html</id><summary type="html">&lt;p class="first last"&gt;New Ansible module to manage devices on AIX&lt;/p&gt;
+</summary><content type="html">&lt;p&gt;Today I submitted a new pull request (PR) to Ansible Project with a new
+module. The new module aix_devices makes easy discovers, defines, removes
+and modifies attributes of AIX devices.&lt;/p&gt;
+&lt;p&gt;I also released this new module on my &lt;a class="reference external" href="https://github.com/kairoaraujo/ansible-aix-support"&gt;Ansible AIX support
+collections&lt;/a&gt;.
+If you don't what is that, visit &lt;a class="reference external" href="http://kairo.eti.br/aix-powervm-automation-with-ansible.html"&gt;my post about AIX modules&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;I am very motivated to put AIX native supported on Ansible.&lt;/p&gt;
+&lt;p&gt;This module is very useful to manage devices, doing tuning, discovering new
+adapters and also managing network and routing on AIX as it is configurable
+directly on devices as &lt;tt class="docutils literal"&gt;enX&lt;/tt&gt; and &lt;tt class="docutils literal"&gt;inet0&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;See below a collection of uses of this module:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;---
+- name: Testing
+  hosts: lpar22
+
+  tasks:
+    - name: Scan new devices.
+      aix_devices:
+        device: all
+        state: present
+
+    - name: Scan new virtual devices (vio0).
+      aix_devices:
+        device: vio0
+        state: present
+
+    - name: Removes ent2.
+      aix_devices:
+        device: ent2
+        state: absent
+
+    - name: Put device en2 in Defined
+      aix_devices:
+        device: en2
+        state: defined
+
+    - name: Removes ent4 (inexistent).
+      aix_devices:
+        device: ent4
+        state: absent
+
+    - name: Put device en4 in Defined (inexistent)
+      aix_devices:
+        device: en4
+        state: defined
+
+    - name: Put vscsi1 and children devices in Defined state.
+      aix_devices:
+        device: vscsi1
+        recursive: yes
+        state: defined
+
+    - name: Removes vscsi1 and children devices.
+      aix_devices:
+        device: vscsi1
+        recursive: yes
+        state: absent
+
+    - name: Changes en1 mtu to 9000 and disables arp.
+      aix_devices:
+        device: en1
+        attributes: mtu=900,arp=off
+        state: present
+
+    - name: Configure IP, netmask and set en1 up.
+      aix_devices:
+        device: en1
+        attributes: netaddr=192.168.0.100,netmask=255.255.255.0,state=up
+        state: present
+
+    - name: Adding IP alias to en0
+      aix_devices:
+        device: en0
+        attributes: [
+            &amp;quot;alias4=10.0.0.100,255.255.255.0&amp;quot;
+            ]
+        state: present
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Output from this playbook&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# ansible-playbook -i /etc/inventory playbooks/test.yml -v&lt;/span&gt;
+
+PLAY &lt;span class="o"&gt;[&lt;/span&gt;Testing&lt;span class="o"&gt;]&lt;/span&gt; ************************************************************************************************
+
+TASK &lt;span class="o"&gt;[&lt;/span&gt;Gathering Facts&lt;span class="o"&gt;]&lt;/span&gt; ****************************************************************************************
+ok: &lt;span class="o"&gt;[&lt;/span&gt;lpar22&lt;span class="o"&gt;]&lt;/span&gt;
+
+TASK &lt;span class="o"&gt;[&lt;/span&gt;Scan new devices.&lt;span class="o"&gt;]&lt;/span&gt; **************************************************************************************
+changed: &lt;span class="o"&gt;[&lt;/span&gt;lpar22&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: true, &lt;span class="s2"&gt;&amp;quot;failed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;msg&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;&amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;state&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;present&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+
+TASK &lt;span class="o"&gt;[&lt;/span&gt;Scan new virtual devices &lt;span class="o"&gt;(&lt;/span&gt;vio0&lt;span class="o"&gt;)&lt;/span&gt;.&lt;span class="o"&gt;]&lt;/span&gt; ***********************************************************************
+changed: &lt;span class="o"&gt;[&lt;/span&gt;lpar22&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: true, &lt;span class="s2"&gt;&amp;quot;failed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;msg&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;&amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;state&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;present&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+
+TASK &lt;span class="o"&gt;[&lt;/span&gt;Removes ent2.&lt;span class="o"&gt;]&lt;/span&gt; ******************************************************************************************
+changed: &lt;span class="o"&gt;[&lt;/span&gt;lpar22&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: true, &lt;span class="s2"&gt;&amp;quot;failed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;msg&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;ent2 deleted\n&amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;state&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;absent&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+
+TASK &lt;span class="o"&gt;[&lt;/span&gt;Put device en2 in Defined&lt;span class="o"&gt;]&lt;/span&gt; ******************************************************************************
+ok: &lt;span class="o"&gt;[&lt;/span&gt;lpar22&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;failed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;msg&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;Device en2 already in Defined&amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;state&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;defined&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+
+TASK &lt;span class="o"&gt;[&lt;/span&gt;Removes ent4 &lt;span class="o"&gt;(&lt;/span&gt;inexistent&lt;span class="o"&gt;)&lt;/span&gt;.&lt;span class="o"&gt;]&lt;/span&gt; *****************************************************************************
+ok: &lt;span class="o"&gt;[&lt;/span&gt;lpar22&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;failed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;msg&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;Device ent4 does not exist.&amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;state&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;absent&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+
+TASK &lt;span class="o"&gt;[&lt;/span&gt;Put device en4 in Defined &lt;span class="o"&gt;(&lt;/span&gt;inexistent&lt;span class="o"&gt;)]&lt;/span&gt; *****************************************************************
+ok: &lt;span class="o"&gt;[&lt;/span&gt;lpar22&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;failed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;msg&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;Device en4 does not exist.&amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;state&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;defined&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+
+TASK &lt;span class="o"&gt;[&lt;/span&gt;Put vscsi1 and children devices in Defined state.&lt;span class="o"&gt;]&lt;/span&gt; ******************************************************
+changed: &lt;span class="o"&gt;[&lt;/span&gt;lpar22&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: true, &lt;span class="s2"&gt;&amp;quot;failed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;msg&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;vscsi1 Defined\n&amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;state&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;defined&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+
+TASK &lt;span class="o"&gt;[&lt;/span&gt;Removes vscsi1 and children devices.&lt;span class="o"&gt;]&lt;/span&gt; *******************************************************************
+changed: &lt;span class="o"&gt;[&lt;/span&gt;lpar22&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: true, &lt;span class="s2"&gt;&amp;quot;failed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;msg&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;vscsi1 deleted\n&amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;state&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;absent&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+
+TASK &lt;span class="o"&gt;[&lt;/span&gt;Changes en1 mtu to &lt;span class="m"&gt;9000&lt;/span&gt; and disables arp.&lt;span class="o"&gt;]&lt;/span&gt; **************************************************************
+changed: &lt;span class="o"&gt;[&lt;/span&gt;lpar22&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: true, &lt;span class="s2"&gt;&amp;quot;failed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;msg&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;Attributes changed: arp=off. Attributes already set: mtu=900. &amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;state&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;present&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+
+TASK &lt;span class="o"&gt;[&lt;/span&gt;Configure IP, netmask and &lt;span class="nb"&gt;set&lt;/span&gt; en1 up.&lt;span class="o"&gt;]&lt;/span&gt; ******************************************************************
+changed: &lt;span class="o"&gt;[&lt;/span&gt;lpar22&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: true, &lt;span class="s2"&gt;&amp;quot;failed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;msg&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;Attributes changed: netaddr=192.168.0.100,netmask=255.255.255.0,state=up. &amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;state&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;present&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+
+TASK &lt;span class="o"&gt;[&lt;/span&gt;Adding IP &lt;span class="nb"&gt;alias&lt;/span&gt; to en0&lt;span class="o"&gt;]&lt;/span&gt; *********************************************************************************
+changed: &lt;span class="o"&gt;[&lt;/span&gt;lpar22&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: true, &lt;span class="s2"&gt;&amp;quot;failed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;msg&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;Attributes changed: alias4=10.0.0.100,255.255.255.0. &amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;state&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;present&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+
+PLAY RECAP ****************************************************************************************************
+lpar22                     : &lt;span class="nv"&gt;ok&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;12&lt;/span&gt;   &lt;span class="nv"&gt;changed&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;8&lt;/span&gt;    &lt;span class="nv"&gt;unreachable&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;    &lt;span class="nv"&gt;failed&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+</content><category term="aix"></category><category term="ansible"></category><category term="automation"></category><category term="modules"></category><category term="aix_devices"></category></entry><entry><title>AIX &amp; PowerVM automation with Ansible</title><link href="https://kairo.eti.br/aix-powervm-automation-with-ansible.html" rel="alternate"></link><published>2017-10-12T23:30:00+02:00</published><updated>2017-10-28T13:00:00+02:00</updated><author><name>Kairo Araujo</name></author><id>tag:kairo.eti.br,2017-10-12:/aix-powervm-automation-with-ansible.html</id><summary type="html">&lt;p class="first last"&gt;Using Ansible to manage AIX/PowerVM servers&lt;/p&gt;
+</summary><content type="html">&lt;p&gt;&lt;strong&gt;On this post I will show how to setup Ansible control with special modules and
+facts for AIX and give you some useful examples.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Ansible is a simple and powerful open source tool to automate repeated tasks
+for the system administrator, making life easier.
+The biggest advantage of Ansible, in my opinion is that Ansible is agent less
+and only has two requirements, SSH and Python on the target.&lt;/p&gt;
+&lt;p&gt;I have been playing a lot with Ansible to automate AIX and I also have been
+writing some contributions to the project to make Ansible work smooth with AIX.&lt;/p&gt;
+&lt;div class="contents topic" id="table-of-contents"&gt;
+&lt;p class="topic-title first"&gt;Table of Contents&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#overview" id="id2"&gt;Overview&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#special-modules-facts-for-aix" id="id3"&gt;Special modules/facts for AIX&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#ansible-control-setup" id="id4"&gt;Ansible Control setup&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#operational-system-installation-and-preparation" id="id5"&gt;Operational System installation and preparation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#ansible-2-4-installation" id="id6"&gt;Ansible 2.4 Installation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#ansible-aix-modules-support-installation" id="id7"&gt;Ansible AIX modules/support installation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#id1" id="id8"&gt;Ansible Control Setup&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#generating-keys" id="id9"&gt;Generating keys&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#ansible-targets-aix-vios-setup" id="id10"&gt;Ansible targets (AIX/VIOS) setup&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#installing-python-on-aix" id="id11"&gt;Installing Python on AIX&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#distributing-keys" id="id12"&gt;Distributing keys&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#ansible-inventory-and-validation" id="id13"&gt;Ansible Inventory and validation&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#creating-an-inventory" id="id14"&gt;Creating an inventory&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#checking-configuration" id="id15"&gt;Checking configuration&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#playbook-example" id="id16"&gt;Playbook example&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#running-the-playbook" id="id17"&gt;Running the playbook&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#conclusion" id="id18"&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="section" id="overview"&gt;
+&lt;h2&gt;&lt;a class="toc-backref" href="#id2"&gt;Overview&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;For that I’m using a Red Hat Linux 7.4 as Ansible control to manage my AIX 6.1, 7.1 and 7.2 servers/nodes.
+My servers/nodes are AIXs and Linuxes boxes.&lt;/p&gt;
+&lt;div class="section" id="special-modules-facts-for-aix"&gt;
+&lt;h3&gt;&lt;a class="toc-backref" href="#id3"&gt;Special modules/facts for AIX&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;I have been writing some AIX modules and core (facts) to make it smoother  for AIX.
+All codes I have submitted Pull Requests to Ansible project, my goal is to have it on next versions of Ansible.
+While it is not available on the official Ansible repository — I hope to have something on 2.5 —
+I created a repository on my Github to make it include this support to current stable version 2.4 .&lt;/p&gt;
+&lt;p&gt;&lt;a class="reference external" href="https://github.com/kairoaraujo/ansible-AIX-support"&gt;https://github.com/kairoaraujo/ansible-AIX-support&lt;/a&gt;&lt;/p&gt;
+&lt;table border="1" class="docutils"&gt;
+&lt;colgroup&gt;
+&lt;col width="14%" /&gt;
+&lt;col width="23%" /&gt;
+&lt;col width="64%" /&gt;
+&lt;/colgroup&gt;
+&lt;thead valign="bottom"&gt;
+&lt;tr&gt;&lt;th class="head"&gt;Type&lt;/th&gt;
+&lt;th class="head"&gt;Name&lt;/th&gt;
+&lt;th class="head"&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td&gt;module&lt;/td&gt;
+&lt;td&gt;aix_lvg&lt;/td&gt;
+&lt;td&gt;AIX Logical Volume management&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;module&lt;/td&gt;
+&lt;td&gt;aix_devices&lt;/td&gt;
+&lt;td&gt;AIX Devices management&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;module&lt;/td&gt;
+&lt;td&gt;aix_filesystem&lt;/td&gt;
+&lt;td&gt;AIX Files system management (LVM and NFS)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;module&lt;/td&gt;
+&lt;td&gt;mksysb&lt;/td&gt;
+&lt;td&gt;AIX rootvg backup with mksysb&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;module&lt;/td&gt;
+&lt;td&gt;installp&lt;/td&gt;
+&lt;td&gt;AIX package management&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;utils&lt;/td&gt;
+&lt;td&gt;aix&lt;/td&gt;
+&lt;td&gt;AIX hardware Ansible facts&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="ansible-control-setup"&gt;
+&lt;h2&gt;&lt;a class="toc-backref" href="#id4"&gt;Ansible Control setup&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Operational System: Red Hat Linux 7.4
+Ansible: 2.4
+Python: 2.7
+Custom modules and core for AIX&lt;/p&gt;
+&lt;div class="section" id="operational-system-installation-and-preparation"&gt;
+&lt;h3&gt;&lt;a class="toc-backref" href="#id5"&gt;Operational System installation and preparation&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;The Operation System (OS) installation follows a basic installation for Red hat 7.4 as a server.&lt;/p&gt;
+&lt;p&gt;Requisites for Ansible Control server installation&lt;/p&gt;
+&lt;ol class="arabic simple"&gt;
+&lt;li&gt;Validate if Python is already installed&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;root@ansible-cs ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# python --version&lt;/span&gt;
+Python &lt;span class="m"&gt;2&lt;/span&gt;.7.5
+&lt;/pre&gt;&lt;/div&gt;
+&lt;ol class="arabic simple" start="2"&gt;
+&lt;li&gt;Install PIP and python devel&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;root@ansible-cs ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# yum install python-pip python-devel&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;ol class="arabic simple" start="3"&gt;
+&lt;li&gt;Upgrade pip&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;root@ansible-cs ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# pip install --upgrade pip&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="ansible-2-4-installation"&gt;
+&lt;h3&gt;&lt;a class="toc-backref" href="#id6"&gt;Ansible 2.4 Installation&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;The installation can be done using PIP&lt;/p&gt;
+&lt;ol class="arabic simple"&gt;
+&lt;li&gt;Run PIP to install&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;root@ansible-cs ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# pip install ansible&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;ol class="arabic simple" start="2"&gt;
+&lt;li&gt;Check Ansible Version&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;root@ansible-cs ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# ansible --version&lt;/span&gt;
+ansible &lt;span class="m"&gt;2&lt;/span&gt;.4.0.0
+    config &lt;span class="nv"&gt;file&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; None
+    configured module search &lt;span class="nv"&gt;path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;u&lt;span class="s1"&gt;&amp;#39;/root/.ansible/plugins/modules&amp;#39;&lt;/span&gt;, u&lt;span class="s1"&gt;&amp;#39;/usr/share/ansible/plugins/modules&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;
+    ansible python module &lt;span class="nv"&gt;location&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; /usr/lib/python2.7/site-packages/ansible
+    executable &lt;span class="nv"&gt;location&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; /bin/ansible
+    python &lt;span class="nv"&gt;version&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="m"&gt;2&lt;/span&gt;.7.5 &lt;span class="o"&gt;(&lt;/span&gt;default, May  &lt;span class="m"&gt;3&lt;/span&gt; &lt;span class="m"&gt;2017&lt;/span&gt;, &lt;span class="m"&gt;07&lt;/span&gt;:55:04&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;GCC &lt;span class="m"&gt;4&lt;/span&gt;.8.5 &lt;span class="m"&gt;20150623&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;Red Hat &lt;span class="m"&gt;4&lt;/span&gt;.8.5-14&lt;span class="o"&gt;)]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="ansible-aix-modules-support-installation"&gt;
+&lt;h3&gt;&lt;a class="toc-backref" href="#id7"&gt;Ansible AIX modules/support installation&lt;/a&gt;&lt;/h3&gt;
+&lt;ol class="arabic simple"&gt;
+&lt;li&gt;Download from github&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;a class="reference external" href="https://github.com/kairoaraujo/ansible-aix-support/releases/download/0.0.3/ansible-aix-support-0.0.3.tar.gz"&gt;https://github.com/kairoaraujo/ansible-aix-support/releases/download/0.0.3/ansible-aix-support-0.0.3.tar.gz&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Extract the file&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;root@ansible-cs ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# tar xvzf ansible-aix-support-0.0.3.tar.gz&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Or download using git&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;root@ansible-cs ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# git clone https://github.com/kairoaraujo/ansible-aix-support&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;ol class="arabic simple" start="2"&gt;
+&lt;li&gt;Go to the directory&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;root@ansible-cs ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# cd ansible-aix-support&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;ol class="arabic simple" start="3"&gt;
+&lt;li&gt;Run installation script&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;root@ansible-cs ansible-aix-support&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# sh install-ansible-aix-support.sh&lt;/span&gt;
+Starting installation of Ansible AIX support
+
+&lt;span class="o"&gt;[&lt;/span&gt;INFO&lt;span class="o"&gt;]&lt;/span&gt; Checking Ansible installation.
+&lt;span class="o"&gt;[&lt;/span&gt;INFO&lt;span class="o"&gt;]&lt;/span&gt; Ansible found.
+&lt;span class="o"&gt;[&lt;/span&gt;INFO&lt;span class="o"&gt;]&lt;/span&gt; Checking Ansible installation
+&lt;span class="o"&gt;[&lt;/span&gt;INFO&lt;span class="o"&gt;]&lt;/span&gt; Version compatible.
+&lt;span class="o"&gt;[&lt;/span&gt;INFO&lt;span class="o"&gt;]&lt;/span&gt; Backup file /usr/lib/python2.7/site-packages/ansible/module_utils/facts/hardware/aix.py
+&lt;span class="o"&gt;[&lt;/span&gt;INFO&lt;span class="o"&gt;]&lt;/span&gt; Adding /usr/lib/python2.7/site-packages/ansible/module_utils/facts/hardware/aix.py
+&lt;span class="o"&gt;[&lt;/span&gt;INFO&lt;span class="o"&gt;]&lt;/span&gt; Adding /usr/lib/python2.7/site-packages/ansible/modules/packaging/os/installp.py
+&lt;span class="o"&gt;[&lt;/span&gt;INFO&lt;span class="o"&gt;]&lt;/span&gt; Adding /usr/lib/python2.7/site-packages/ansible/modules/system/aix_filesystem.py
+&lt;span class="o"&gt;[&lt;/span&gt;INFO&lt;span class="o"&gt;]&lt;/span&gt; Adding /usr/lib/python2.7/site-packages/ansible/modules/system/aix_lvg.py
+&lt;span class="o"&gt;[&lt;/span&gt;INFO&lt;span class="o"&gt;]&lt;/span&gt; Adding /usr/lib/python2.7/site-packages/ansible/modules/system/mksysb.py
+&lt;span class="o"&gt;[&lt;/span&gt;INFO&lt;span class="o"&gt;]&lt;/span&gt; Finished.
+&lt;/pre&gt;&lt;/div&gt;
+&lt;ol class="arabic simple" start="3"&gt;
+&lt;li&gt;Verifying&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;root@ansible-cs ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# ansible-doc aix_lvg&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="id1"&gt;
+&lt;h2&gt;&lt;a class="toc-backref" href="#id8"&gt;Ansible Control Setup&lt;/a&gt;&lt;/h2&gt;
+&lt;div class="section" id="generating-keys"&gt;
+&lt;h3&gt;&lt;a class="toc-backref" href="#id9"&gt;Generating keys&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;On Ansible Control you need to generate the keys to be used by targets (AIX/VIOSes).&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;root@ansible-cs ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# ssh-keygen&lt;/span&gt;
+Generating public/private rsa key pair.
+Enter file in which to save the key &lt;span class="o"&gt;(&lt;/span&gt;/root/.ssh/id_rsa&lt;span class="o"&gt;)&lt;/span&gt;:
+Created directory &lt;span class="s1"&gt;&amp;#39;/root/.ssh&amp;#39;&lt;/span&gt;.
+Enter passphrase &lt;span class="o"&gt;(&lt;/span&gt;empty &lt;span class="k"&gt;for&lt;/span&gt; no passphrase&lt;span class="o"&gt;)&lt;/span&gt;:
+Enter same passphrase again:
+Your identification has been saved in /root/.ssh/id_rsa.
+Your public key has been saved in /root/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:FsuneRLg7Ugqk4rp12Goip8GaQAaBEFNIANZCgSU1l8 root@ansible-cs
+The key&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;s randomart image is:
++---&lt;span class="o"&gt;[&lt;/span&gt;RSA &lt;span class="m"&gt;2048&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;----+
+&lt;span class="p"&gt;|&lt;/span&gt;^XB.             &lt;span class="p"&gt;|&lt;/span&gt;
+&lt;span class="p"&gt;|&lt;/span&gt;*&lt;span class="o"&gt;=&lt;/span&gt; o   E         &lt;span class="p"&gt;|&lt;/span&gt;
+&lt;span class="p"&gt;|&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;.  . o .        &lt;span class="p"&gt;|&lt;/span&gt;
+&lt;span class="p"&gt;|&lt;/span&gt;o    o + o       &lt;span class="p"&gt;|&lt;/span&gt;
+&lt;span class="p"&gt;|&lt;/span&gt;..  . o S .      &lt;span class="p"&gt;|&lt;/span&gt;
+&lt;span class="p"&gt;|&lt;/span&gt;o. &lt;span class="nv"&gt;o&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; + &lt;span class="o"&gt;=&lt;/span&gt;       &lt;span class="p"&gt;|&lt;/span&gt;
+&lt;span class="p"&gt;|&lt;/span&gt;..&lt;span class="o"&gt;=&lt;/span&gt; + &lt;span class="nv"&gt;o&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; .      &lt;span class="p"&gt;|&lt;/span&gt;
+&lt;span class="p"&gt;|&lt;/span&gt;o+.&lt;span class="o"&gt;=&lt;/span&gt; .   o       &lt;span class="p"&gt;|&lt;/span&gt;
+&lt;span class="p"&gt;|&lt;/span&gt;O++              &lt;span class="p"&gt;|&lt;/span&gt;
++----&lt;span class="o"&gt;[&lt;/span&gt;SHA256&lt;span class="o"&gt;]&lt;/span&gt;-----+
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="ansible-targets-aix-vios-setup"&gt;
+&lt;h2&gt;&lt;a class="toc-backref" href="#id10"&gt;Ansible targets (AIX/VIOS) setup&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Ansible is agentless, this means that Ansible installation is not required.
+Ansible requires just two things: SSH (probably you already have it) and Python.&lt;/p&gt;
+&lt;div class="section" id="installing-python-on-aix"&gt;
+&lt;h3&gt;&lt;a class="toc-backref" href="#id11"&gt;Installing Python on AIX&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;So, to install Python on AIX I recommend downloading AIX Python package from &lt;a class="reference external" href="http://www.aixtools.net/index.php/python"&gt;http://www.aixtools.net/index.php/python&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Remark: The only requisite is &amp;gt;= openssl.base.rte.1.0.1.515&lt;/p&gt;
+&lt;ol class="arabic simple"&gt;
+&lt;li&gt;Send the package to AIX boxes on /tmp&lt;/li&gt;
+&lt;li&gt;Install using installp command&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# installp -aF -XY -d /tmp/ aixtools.python&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;ol class="arabic simple" start="4"&gt;
+&lt;li&gt;Create the symbolic links&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# ln -s /opt/bin/python /usr/bin/python&lt;/span&gt;
+&lt;span class="c1"&gt;# ln -s /opt/bin/pip /usr/bin/pip&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;ol class="arabic simple" start="3"&gt;
+&lt;li&gt;Test it&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# python python --version&lt;/span&gt;
+Python &lt;span class="m"&gt;2&lt;/span&gt;.7.12
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="distributing-keys"&gt;
+&lt;h3&gt;&lt;a class="toc-backref" href="#id12"&gt;Distributing keys&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;The easy way to distribute the SSH keys to the AIX/VIOS servers is using ssh-copy-id&lt;/p&gt;
+&lt;p&gt;If you cannot use keys with root to use SSH, Ansible supports sudo. This means that you can have another user to connect to AIX/VIOS and run Ansible with sudo. Check out &lt;a class="reference external" href="http://docs.ansible.com/ansible/latest/become.html"&gt;http://docs.ansible.com/ansible/latest/become.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;In that case, you need to use ssh-copy-id to user that you want to perform Ansible connection and have properly sudoers configured.&lt;/p&gt;
+&lt;p&gt;On that example we are using root.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;root@ansible-cs ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# ssh-copy-id -i .ssh/id_rsa.pub root@lpar24&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;root@ansible-cs ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# ssh-copy-id -i .ssh/id_rsa.pub root@lpar28&lt;/span&gt;
+&lt;span class="o"&gt;(&lt;/span&gt;...&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Example from root to user ansible.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;root@ansible-cs ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# ssh-copy-id -i .ssh/id_rsa ansible@lpar24&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;root@ansible-cs ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# ssh-copy-id -i .ssh/id_rsa ansible@lpar28&lt;/span&gt;
+&lt;span class="o"&gt;(&lt;/span&gt;...&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Another way is to copy the .ssh/id_rsa.pub to the AIX LPAR to root the user home (or another user), inside .ssh/authorized_keys&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="ansible-inventory-and-validation"&gt;
+&lt;h2&gt;&lt;a class="toc-backref" href="#id13"&gt;Ansible Inventory and validation&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;To perform Ansible in your environment an Inventory on Ansible Control is required.
+The Inventory will have your target definitions, I encourage you to read it &lt;a class="reference external" href="http://docs.ansible.com/ansible/latest/intro_inventory.html"&gt;http://docs.ansible.com/ansible/latest/intro_inventory.html&lt;/a&gt;
+You can also have a dynamic inventory, you can search about it ;)&lt;/p&gt;
+&lt;div class="section" id="creating-an-inventory"&gt;
+&lt;h3&gt;&lt;a class="toc-backref" href="#id14"&gt;Creating an inventory&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;On this doc I created a simple inventory as example, including also a Linux server.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;root@ansible-cs ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# cat /etc/ansible_inventory&lt;/span&gt;
+&lt;span class="c1"&gt;# Global variables&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;all:vars&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="nv"&gt;ansible_user&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;root
+
+&lt;span class="o"&gt;[&lt;/span&gt;aix&lt;span class="o"&gt;]&lt;/span&gt;
+lpar24
+lpar28
+
+&lt;span class="o"&gt;[&lt;/span&gt;hacmp&lt;span class="o"&gt;]&lt;/span&gt;
+lpar21
+lpar22
+
+&lt;span class="o"&gt;[&lt;/span&gt;legacy&lt;span class="o"&gt;]&lt;/span&gt;
+lpar23
+
+&lt;span class="o"&gt;[&lt;/span&gt;linux&lt;span class="o"&gt;]&lt;/span&gt;
+linux4
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;As you can see, I also included a Linux to show how you can manage both platforms together.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="checking-configuration"&gt;
+&lt;h3&gt;&lt;a class="toc-backref" href="#id15"&gt;Checking configuration&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Let's check if our configuration is working well:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;root@ansible-cs ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# ansible -i /etc/inventory all -m ping&lt;/span&gt;
+lpar24 &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="nv"&gt;SUCCESS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: false,
+    &lt;span class="s2"&gt;&amp;quot;failed&amp;quot;&lt;/span&gt;: false,
+    &lt;span class="s2"&gt;&amp;quot;ping&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;pong&amp;quot;&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+lpar28 &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="nv"&gt;SUCCESS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: false,
+    &lt;span class="s2"&gt;&amp;quot;failed&amp;quot;&lt;/span&gt;: false,
+    &lt;span class="s2"&gt;&amp;quot;ping&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;pong&amp;quot;&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+lpar22 &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="nv"&gt;SUCCESS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: false,
+    &lt;span class="s2"&gt;&amp;quot;failed&amp;quot;&lt;/span&gt;: false,
+    &lt;span class="s2"&gt;&amp;quot;ping&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;pong&amp;quot;&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+lpar23 &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="nv"&gt;SUCCESS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: false,
+    &lt;span class="s2"&gt;&amp;quot;failed&amp;quot;&lt;/span&gt;: false,
+    &lt;span class="s2"&gt;&amp;quot;ping&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;pong&amp;quot;&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+lpar21 &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="nv"&gt;SUCCESS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: false,
+    &lt;span class="s2"&gt;&amp;quot;failed&amp;quot;&lt;/span&gt;: false,
+    &lt;span class="s2"&gt;&amp;quot;ping&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;pong&amp;quot;&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+linux4 &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="nv"&gt;SUCCESS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: false,
+    &lt;span class="s2"&gt;&amp;quot;failed&amp;quot;&lt;/span&gt;: false,
+    &lt;span class="s2"&gt;&amp;quot;ping&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;pong&amp;quot;&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="playbook-example"&gt;
+&lt;h3&gt;&lt;a class="toc-backref" href="#id16"&gt;Playbook example&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Playbooks are configurations, deployments and tasks that you want to perform in a target host.
+For more details, check out &lt;a class="reference external" href="http://docs.ansible.com/ansible/latest/playbooks.html"&gt;http://docs.ansible.com/ansible/latest/playbooks.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;My first example of playbook will be: Create a filesystem for images and install TSM software and generate a mksysb backup.&lt;/p&gt;
+&lt;p&gt;In details my tasks are:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Logical Volume with 5GB (lvmksysb) Remark: (only for servers that I already have +5GB free on vg)&lt;/li&gt;
+&lt;li&gt;Create a filesystem using lvmksysb (/mksysb/images)&lt;/li&gt;
+&lt;li&gt;Install TSM software&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;My playbook:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;[root@ansible-cs ~]# cat /playbooks/pb-mksysb-tsm.yml
+---
+- name: mksysb &amp;amp; tsm client install
+  hosts: prd
+
+  tasks:
+    - name: Create LV (mksysblv) with 5GB
+      aix_lvol:
+        vg: rootvg
+        lv: mksysblv
+        size: 5G
+        state: present
+      register: lv_result
+      when:
+        - ansible_system == &amp;quot;AIX&amp;quot;
+
+    - name: Create file system using mksysblv
+      aix_filesystem:
+        device: mksysblv
+        filesystem: /mksysb/images
+        state: present
+      register: fs_result
+      when:
+        - lv_result.changed
+
+    - name: Mount filesystem /mksysb/images
+      aix_filesystem:
+        filesystem: /mksysb/images
+        state: mounted
+      register: mount_result
+      when:
+        - fs_result.changed
+
+    - name: Install TSM client
+      installp:
+        repository_path: /software/tsm/TSMCLI
+        name: all
+        state: present
+      when:
+        - ansible_system == &amp;quot;AIX&amp;quot;
+
+    - name: Generate a mksysb on /mksysb/images
+      mksysb:
+        name: myserver
+        storage_path: /mksysb/images
+        exclude_files: yes
+        exclude_wpar_files: yes
+      when:
+        - ansible_system == &amp;quot;AIX&amp;quot;
+        - ansible_nodename == &amp;quot;lpar28&amp;quot;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="running-the-playbook"&gt;
+&lt;h3&gt;&lt;a class="toc-backref" href="#id17"&gt;Running the playbook&lt;/a&gt;&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;root@ansible-cs ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# ansible-playbook -i /etc/inventory /playbooks/pb-mksysb-tsm.yml -v&lt;/span&gt;
+
+PLAY &lt;span class="o"&gt;[&lt;/span&gt;mksysb &lt;span class="p"&gt;&amp;amp;&lt;/span&gt; tsm client install&lt;span class="o"&gt;]&lt;/span&gt; **********************************************************************************************
+
+TASK &lt;span class="o"&gt;[&lt;/span&gt;Gathering Facts&lt;span class="o"&gt;]&lt;/span&gt; **********************************************************************************************************
+ok: &lt;span class="o"&gt;[&lt;/span&gt;linux4&lt;span class="o"&gt;]&lt;/span&gt;
+ok: &lt;span class="o"&gt;[&lt;/span&gt;lpar28&lt;span class="o"&gt;]&lt;/span&gt;
+ok: &lt;span class="o"&gt;[&lt;/span&gt;lpar24&lt;span class="o"&gt;]&lt;/span&gt;
+
+TASK &lt;span class="o"&gt;[&lt;/span&gt;Create LV &lt;span class="o"&gt;(&lt;/span&gt;mksysblv&lt;span class="o"&gt;)&lt;/span&gt; with 5GB&lt;span class="o"&gt;]&lt;/span&gt; ********************************************************************************************
+skipping: &lt;span class="o"&gt;[&lt;/span&gt;linux4&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;skip_reason&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;Conditional result was False&amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;skipped&amp;quot;&lt;/span&gt;: true&lt;span class="o"&gt;}&lt;/span&gt;
+changed: &lt;span class="o"&gt;[&lt;/span&gt;lpar28&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: true, &lt;span class="s2"&gt;&amp;quot;failed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;msg&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;Logical volume mksysblv created.&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+changed: &lt;span class="o"&gt;[&lt;/span&gt;lpar24&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: true, &lt;span class="s2"&gt;&amp;quot;failed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;msg&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;Logical volume mksysblv created.&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+
+TASK &lt;span class="o"&gt;[&lt;/span&gt;Create file system using mksysblv&lt;span class="o"&gt;]&lt;/span&gt; ****************************************************************************************
+skipping: &lt;span class="o"&gt;[&lt;/span&gt;linux4&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;skip_reason&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;Conditional result was False&amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;skipped&amp;quot;&lt;/span&gt;: true&lt;span class="o"&gt;}&lt;/span&gt;
+changed: &lt;span class="o"&gt;[&lt;/span&gt;lpar28&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: true, &lt;span class="s2"&gt;&amp;quot;failed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;msg&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;File system created successfully.\n5242516 kilobytes total disk space.\nNew File System size is 10485760\n&amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;state&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;present&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+changed: &lt;span class="o"&gt;[&lt;/span&gt;lpar24&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: true, &lt;span class="s2"&gt;&amp;quot;failed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;msg&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;File system created successfully.\n5242516 kilobytes total disk space.\nNew File System size is 10485760\n&amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;state&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;present&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+
+TASK &lt;span class="o"&gt;[&lt;/span&gt;Mount filesystem /mksysb/images&lt;span class="o"&gt;]&lt;/span&gt; ******************************************************************************************
+skipping: &lt;span class="o"&gt;[&lt;/span&gt;linux4&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;skip_reason&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;Conditional result was False&amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;skipped&amp;quot;&lt;/span&gt;: true&lt;span class="o"&gt;}&lt;/span&gt;
+changed: &lt;span class="o"&gt;[&lt;/span&gt;lpar28&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: true, &lt;span class="s2"&gt;&amp;quot;failed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;msg&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;File system /mksysb/images mounted.&amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;state&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;mounted&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+changed: &lt;span class="o"&gt;[&lt;/span&gt;lpar24&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: true, &lt;span class="s2"&gt;&amp;quot;failed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;msg&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;File system /mksysb/images mounted.&amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;state&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;mounted&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+
+TASK &lt;span class="o"&gt;[&lt;/span&gt;Install TSM client&lt;span class="o"&gt;]&lt;/span&gt; *******************************************************************************************************
+skipping: &lt;span class="o"&gt;[&lt;/span&gt;linux4&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;skip_reason&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;Conditional result was False&amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;skipped&amp;quot;&lt;/span&gt;: true&lt;span class="o"&gt;}&lt;/span&gt;
+changed: &lt;span class="o"&gt;[&lt;/span&gt;lpar24&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: true, &lt;span class="s2"&gt;&amp;quot;failed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;msg&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot; Installed: all.&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+changed: &lt;span class="o"&gt;[&lt;/span&gt;lpar28&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: true, &lt;span class="s2"&gt;&amp;quot;failed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;msg&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot; Installed: all.&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+
+TASK &lt;span class="o"&gt;[&lt;/span&gt;Generate a mksysb on /mksysb/images&lt;span class="o"&gt;]&lt;/span&gt; **************************************************************************************
+skipping: &lt;span class="o"&gt;[&lt;/span&gt;lpar24&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;skip_reason&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;Conditional result was False&amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;skipped&amp;quot;&lt;/span&gt;: true&lt;span class="o"&gt;}&lt;/span&gt;
+skipping: &lt;span class="o"&gt;[&lt;/span&gt;linux4&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;skip_reason&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;Conditional result was False&amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;skipped&amp;quot;&lt;/span&gt;: true&lt;span class="o"&gt;}&lt;/span&gt;
+changed: &lt;span class="o"&gt;[&lt;/span&gt;lpar28&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: true, &lt;span class="s2"&gt;&amp;quot;failed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;msg&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;\nCreating information file (/image.data) for rootvg.\n\nCreating list of files to back up \n.\nBacking up 80239 files........................\n\n80239 of 80239 files backed up (100%)\n0512-038 mksysb: Backup Completed Successfully.\n&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+
+PLAY RECAP **********************************************************************************************************************
+linux4                     : &lt;span class="nv"&gt;ok&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;    &lt;span class="nv"&gt;changed&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;    &lt;span class="nv"&gt;unreachable&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;    &lt;span class="nv"&gt;failed&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;
+lpar24                     : &lt;span class="nv"&gt;ok&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;5&lt;/span&gt;    &lt;span class="nv"&gt;changed&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;4&lt;/span&gt;    &lt;span class="nv"&gt;unreachable&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;    &lt;span class="nv"&gt;failed&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;
+lpar28                     : &lt;span class="nv"&gt;ok&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;6&lt;/span&gt;    &lt;span class="nv"&gt;changed&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;5&lt;/span&gt;    &lt;span class="nv"&gt;unreachable&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;    &lt;span class="nv"&gt;failed&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="conclusion"&gt;
+&lt;h2&gt;&lt;a class="toc-backref" href="#id18"&gt;Conclusion&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Ansible is simple tool that can helps a lot system administrators and DevOps to manage their environments.
+In my humble opinion the Ansible documentation is nice and there are a lot of training, tutorials, webinars
+that can help develop the skills about Ansible.&lt;/p&gt;
+&lt;p&gt;I will keep working on modules and more support between Ansible and AIX/PowerVM.&lt;/p&gt;
+&lt;p&gt;Suggestions are welcome. :)&lt;/p&gt;
+&lt;/div&gt;
+</content><category term="aix"></category><category term="ansible"></category><category term="automation"></category><category term="modules"></category><category term="setup"></category><category term="howto"></category></entry><entry><title>Starting again my website</title><link href="https://kairo.eti.br/starting-again-my-website.html" rel="alternate"></link><published>2017-10-12T21:30:00+02:00</published><updated>2017-10-12T21:30:00+02:00</updated><author><name>Kairo Araujo</name></author><id>tag:kairo.eti.br,2017-10-12:/starting-again-my-website.html</id><summary type="html">&lt;p&gt;Last night I did prepare a big post to use in some service and it didn't work.
+Final store? I lost everything that I wrote.&lt;/p&gt;
+&lt;p&gt;After that I decided re-create my website. I tried it in 2016 but as I moved
+to another country I didn't have time to it …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Last night I did prepare a big post to use in some service and it didn't work.
+Final store? I lost everything that I wrote.&lt;/p&gt;
+&lt;p&gt;After that I decided re-create my website. I tried it in 2016 but as I moved
+to another country I didn't have time to it.&lt;/p&gt;
+&lt;p&gt;So, when I have something to write we will be here.&lt;/p&gt;
+&lt;p&gt;Regarding my old posts stored on IBM DeveloperWorks and WordPress, I didn't
+decide about migrate it to here. Opinions are welcomed.&lt;/p&gt;
+</content><category term="About"></category></entry></feed>
