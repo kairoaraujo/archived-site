@@ -2,7 +2,7 @@ AIX & PowerVM automation with Ansible
 #####################################
 
 :date: 2017-10-12 23:30
-:modified: 2017-10-28 13:00
+:modified: 2017-11-13 20:00
 :tags: aix, ansible, automation, modules, setup, howto
 :category: Automation Ansible AIX
 :authors: Kairo Araujo
@@ -122,13 +122,13 @@ Ansible AIX modules/support installation
 
 1. Download from github
 
-https://github.com/kairoaraujo/ansible-aix-support/releases/download/0.0.3/ansible-aix-support-0.0.3.tar.gz
+https://github.com/kairoaraujo/ansible-aix-support/releases/download/0.3.1/ansible-aix-support-0.3.1.tar.gz
 
 Extract the file
 
 .. code-block:: bash
 
-    [root@ansible-cs ~]# tar xvzf ansible-aix-support-0.0.3.tar.gz
+    [root@ansible-cs ~]# tar xvzf ansible-aix-support-0.3.1.tar.gz
 
 Or download using git
 
