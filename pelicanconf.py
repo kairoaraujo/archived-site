@@ -33,7 +33,7 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 # Blogroll
-LINKS = (('You can modify those links in your config file', '#'),)
+LINKS = ''
 
 # Social widget
 SOCIAL = (('LinkedIn', LINKEDIN_URL),
