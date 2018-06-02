@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Kairo Araujo - Python OpenSource Career</title><link href="http://kairo.eti.br/" rel="alternate"></link><link href="http://kairo.eti.br/feeds/python-opensource-career.atom.xml" rel="self"></link><id>http://kairo.eti.br/</id><updated>2018-06-02T15:00:00+02:00</updated><entry><title>Python Developer and Open Source</title><link href="http://kairo.eti.br/python-developer-and-open-source.html" rel="alternate"></link><published>2018-06-02T15:00:00+02:00</published><updated>2018-06-02T15:00:00+02:00</updated><author><name>Kairo Araujo</name></author><id>tag:kairo.eti.br,2018-06-02:/python-developer-and-open-source.html</id><summary type="html">&lt;p&gt;Since March 1st (2018) I have been working as Python Developer (Solution
+Engineer). It was a big change in my life as I had been working as System
+Engineer for almost 18 years.&lt;/p&gt;
+&lt;p&gt;It was not a fast change that I made the decision during a night 🙃. Since 2013 I …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Since March 1st (2018) I have been working as Python Developer (Solution
+Engineer). It was a big change in my life as I had been working as System
+Engineer for almost 18 years.&lt;/p&gt;
+&lt;p&gt;It was not a fast change that I made the decision during a night 🙃. Since 2013 I
+have started to code in Python.&lt;/p&gt;
+&lt;p&gt;I started creating my first Python tool, &lt;a class="reference external" href="http://poweradm.org"&gt;http://poweradm.org&lt;/a&gt;. It is a tool to
+help System Engineers to deploy AIX LPARs in Power Systems, including
+integrations with vCO.&lt;/p&gt;
+&lt;p&gt;I used this tool in my previous company and I used it to learn Python and
+programming using Git and Gerrit for example.&lt;/p&gt;
+&lt;p&gt;When I was writing this code I also started with very small contributions to
+OpenStack project to nova-powervm (&lt;a class="reference external" href="https://github.com/openstack/nova-powervm"&gt;https://github.com/openstack/nova-powervm&lt;/a&gt;).
+My problem to continue developing and learning more to code on that was related
+to have the Power8 system (very expensive hardware to buy by myself).&lt;/p&gt;
+&lt;p&gt;During 3 years I wrote PowerAdm and followed OpenStack project. OpenStack still
+been my reference to the OpenSource project and Python code best practices.
+Always when I need a reference to do, I got to their repositories 😉&lt;/p&gt;
+&lt;p&gt;Around 2016, I also wrote my first Python module for Storage Disk
+&lt;a class="reference external" href="https://pypi.org/project/PyStorage/"&gt;https://pypi.org/project/PyStorage/&lt;/a&gt; and it was my first experience with Python
+Package/module. It is a module to manage IBM and EMC (some models) Storage
+Disk. It doesn't use API os pretty solution but was a good start.&lt;/p&gt;
+&lt;p&gt;I was writing a similar tool as PowerAdm to Storage Team at TIVIT, this tool is
+STGAdm (&lt;a class="reference external" href="https://github.com/kairoaraujo/STGAdm"&gt;https://github.com/kairoaraujo/STGAdm&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;At that time I discover that I was having more fun writing in Python than doing
+System Engineer tasks. 😕&lt;/p&gt;
+&lt;p&gt;So, in May of 2016, I moved from Brazil to work in Poland as System Engineer
+Specialist at IBM&lt;/p&gt;
+&lt;p&gt;I was not using PowerAdm anymore, it means no coding for that. I leave TIVIT
+and STGAdm, I released the code to be continued for someone. I didn't have a
+POWER8 machine to back to OpenStack contributions. I was not coding anymore 😩.&lt;/p&gt;
+&lt;p&gt;After a while, I was missing code so much and I decided to have some project. I
+tried to start a project with Brazilian friend but it was put on hold by us.&lt;/p&gt;
+&lt;p&gt;One day I decide to write something to help in my work at IBM. I started to work
+on Security APAR Assistant. &lt;a class="reference external" href="https://saassist.github.io"&gt;https://saassist.github.io&lt;/a&gt;
+This was nice to learn parsing, client, server in Python and I was having fun,
+but I was working alone.&lt;/p&gt;
+&lt;p&gt;I decided that I should do something to learn to work in group/team following
+strict rules of quality and so on and I decided to find some Open Source
+project to contribute.&lt;/p&gt;
+&lt;p&gt;Why did I decide it? I was planning a move from System Engineer and be a Python
+Developer and I thought that it could be a good way to learning.&lt;/p&gt;
+&lt;p&gt;In 2017, September I started to contribute to Ansible writing modules for
+AIX/PowerVM 🤪 &lt;a class="reference external" href="https://github.com/pulls?&amp;amp;q=is%3Apr+author%3Akairoaraujo+ansible"&gt;https://github.com/pulls?&amp;amp;q=is%3Apr+author%3Akairoaraujo+ansible&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;In parallel, I also distribute this AIX module collection in a git repository
+&lt;a class="reference external" href="https://github.com/kairoaraujo/ansible-aix-support"&gt;https://github.com/kairoaraujo/ansible-aix-support&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;It made me feel good again!&lt;/p&gt;
+&lt;p&gt;As I mentioned, since 2018 March I moved internally in IBM Poland and now I
+work as Python Developer as Solution Engineer for IBM Cloud Brokerage (
+&lt;a class="reference external" href="https://www.ibm.com/us-en/marketplace/cloud-brokerage-solutions"&gt;https://www.ibm.com/us-en/marketplace/cloud-brokerage-solutions&lt;/a&gt;) and I'm having
+fun daily.🤓&lt;/p&gt;
+&lt;p&gt;This year I have been studying a lot of testing and continuous integrations (CI)
+to have codes more reliable.&lt;/p&gt;
+&lt;p&gt;If I miss System Engineering? Yes, I miss IBM Power systems. Would be a dream
+if I could join something to work directly with Python + PowerSystems... but is
+not easy.&lt;/p&gt;
+&lt;p&gt;I am thinking about to start to contribute to Python project (CPython).&lt;/p&gt;
+&lt;p&gt;What do I like to do? Python for infrastructure is what I like (Networking,
+Storage, OS, etc), working with API, testing the code and nice CI.&lt;/p&gt;
+&lt;p&gt;The good news is coming.&lt;/p&gt;
+</content><category term="About"></category></entry></feed>
