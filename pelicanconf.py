@@ -17,7 +17,7 @@ HEADER_COVER = 'static/dc.jpg'
 
 PATH = 'content'
 STATIC_PATHS = ['static', 'extra/CNAME']
-EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'},}
+EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'}}
 
 TIMEZONE = 'Europe/Warsaw'
 
@@ -38,7 +38,7 @@ LINKS = ''
 # Social widget
 SOCIAL = (('LinkedIn', LINKEDIN_URL),
           ('GitHub', GITHUB_URL),
-          ('Twitter', LINKEDIN_URL),)
+          ('Twitter', TWITTER_URL),)
 
 DEFAULT_PAGINATION = 10
 
