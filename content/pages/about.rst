@@ -13,9 +13,8 @@ My name is Kairo Araujo, 36 years old, Brazilian, married living in Poland.
 
 I really love Information Technology/Open Source and I have the pleasure to
 work with IT. I work managing systems and solving problems since 1999. :)
-I current work at IBM Poland as AIX / Linux Senior IT Specialist managing
-servers, high availability, critical mission and developing automation to my
-team/project.
+I current work at IBM Poland as Python Developer/Solution Engineer, previously
+asAIX / Linux Senior IT Specialist.
 
 More about my career and skills, please check out my LinkedIn
 http://linkedin.com/in/kairoaraujo
