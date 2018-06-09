@@ -1,5 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Kairo Araujo</title><link href="http://kairo.eti.br/" rel="alternate"></link><link href="http://kairo.eti.br/feeds/all.atom.xml" rel="self"></link><id>http://kairo.eti.br/</id><updated>2018-06-02T15:00:00+02:00</updated><entry><title>Python Developer and Open Source</title><link href="http://kairo.eti.br/python-developer-and-open-source.html" rel="alternate"></link><published>2018-06-02T15:00:00+02:00</published><updated>2018-06-02T15:00:00+02:00</updated><author><name>Kairo Araujo</name></author><id>tag:kairo.eti.br,2018-06-02:/python-developer-and-open-source.html</id><summary type="html">&lt;p&gt;Since March 1st (2018) I have been working as Python Developer (Solution
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Kairo Araujo</title><link href="http://kairo.eti.br/" rel="alternate"></link><link href="http://kairo.eti.br/feeds/all.atom.xml" rel="self"></link><id>http://kairo.eti.br/</id><updated>2018-06-09T22:15:00+02:00</updated><entry><title>Pelican blog with Github Pages (Github.io)</title><link href="http://kairo.eti.br/pelican-blog-with-github-pages-githubio.html" rel="alternate"></link><published>2018-06-09T22:15:00+02:00</published><updated>2018-06-09T22:15:00+02:00</updated><author><name>Kairo Araujo</name></author><id>tag:kairo.eti.br,2018-06-09:/pelican-blog-with-github-pages-githubio.html</id><summary type="html">&lt;p&gt;This post is how I use Pelican. I guess I found a good way to have it. Keep in
+mind, I didn't create this way fully by my self, I went to different blog posts
+and I decided that way was easy to me.&lt;/p&gt;
+&lt;p&gt;I am trying to use Pelican …&lt;/p&gt;</summary><content type="html">&lt;p&gt;This post is how I use Pelican. I guess I found a good way to have it. Keep in
+mind, I didn't create this way fully by my self, I went to different blog posts
+and I decided that way was easy to me.&lt;/p&gt;
+&lt;p&gt;I am trying to use Pelican for a while and finally I created a good/easy way.&lt;/p&gt;
+&lt;div class="section" id="resources"&gt;
+&lt;h2&gt;Resources&lt;/h2&gt;
+&lt;p&gt;First I use GitHub.io (Github Pages) to publish my blog&lt;/p&gt;
+&lt;p&gt;I will not cover this part, it can be find well described here
+&lt;a class="reference external" href="https://pages.github.com"&gt;https://pages.github.com&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;My repository is &lt;tt class="docutils literal"&gt;kairoaraujo.github.io&lt;/tt&gt; as standard for GitHub Pages.
+&lt;a class="reference external" href="https://github.com/kairoaraujo/kairoaraujo.github.io"&gt;https://github.com/kairoaraujo/kairoaraujo.github.io&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="pelican-installation"&gt;
+&lt;h2&gt;Pelican installation&lt;/h2&gt;
+&lt;p&gt;Pelican has a very good documentation. I suggest you to read it
+&lt;a class="reference external" href="http://docs.getpelican.com/en/stable/"&gt;http://docs.getpelican.com/en/stable/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;There are dozen of blog posts how to do it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="structure-on-github"&gt;
+&lt;h2&gt;Structure on Github&lt;/h2&gt;
+&lt;p&gt;After you have your blog working locally is time to publish it and here is may
+way to do it. It is quite simple and works well.&lt;/p&gt;
+&lt;div class="section" id="source-branch-pelican"&gt;
+&lt;h3&gt;Source branch (pelican)&lt;/h3&gt;
+&lt;p&gt;First I created a branch named &lt;tt class="docutils literal"&gt;pelican&lt;/tt&gt;. It has my folder that I used to
+create my blog, using the &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;pelican-quickstart&lt;/span&gt;&lt;/tt&gt;&lt;/p&gt;
+&lt;p&gt;This is my example:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;kairo.eti.br
+├── Makefile
+├── README.rst
+├── content
+├── develop_server.sh
+├── extras
+├── fabfile.py
+├── output
+├── pelicanconf.py
+├── publishconf.py
+└── themes
+    └── pelican-clean-blog
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;In &lt;tt class="docutils literal"&gt;pelican&lt;/tt&gt; branch I created my &lt;tt class="docutils literal"&gt;.gitignore&lt;/tt&gt; excluding some files&lt;/p&gt;
+&lt;p&gt;The most important here is exclude the &lt;em&gt;output&lt;/em&gt; folder. Because it is my
+blog/site content itself and I want it on different branch.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;.idea
+*.pyc
+*.log
+output   &amp;lt;---------- Important!
+cache
+*.pid
+venv
+.venv
+.ropeproject
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;I use a theme and I store it in &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;themes/pelican-clean-blog&lt;/span&gt;&lt;/tt&gt;. As this theme is
+available in Github (as most of them) I store it using &lt;tt class="docutils literal"&gt;git submodule add&lt;/tt&gt;. It
+makes easy to keep it updated and linked to my repository&lt;/p&gt;
+&lt;p&gt;I did like that:&lt;/p&gt;
+&lt;p&gt;&lt;tt class="docutils literal"&gt;git submodule add &lt;span class="pre"&gt;https://github.com/gilsondev/pelican-clean-blog.git&lt;/span&gt; &lt;span class="pre"&gt;themes/pelican-clean-blog&lt;/span&gt;&lt;/tt&gt;&lt;/p&gt;
+&lt;p&gt;TIP: About &lt;tt class="docutils literal"&gt;CNAME&lt;/tt&gt; used by Github pages, I store it in extras folder and
+setup in &lt;tt class="docutils literal"&gt;pelicanconf.py&lt;/tt&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="blog-branch-master"&gt;
+&lt;h3&gt;Blog branch (master)&lt;/h3&gt;
+&lt;p&gt;It is the blog itself.&lt;/p&gt;
+&lt;p&gt;As the folder &lt;tt class="docutils literal"&gt;output&lt;/tt&gt; is excluded in my pelican branch what I did was create
+in output as a new git repository as my master branch. ;)&lt;/p&gt;
+&lt;p&gt;TIP: Do not use the overwrite option from Pelican and I recommend include this
+option on your &lt;tt class="docutils literal"&gt;pelicanconf.py&lt;/tt&gt; and &lt;tt class="docutils literal"&gt;publishconf.py&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;tt class="docutils literal"&gt;DELETE_OUTPUT_DIRECTORY = False&lt;/tt&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="using"&gt;
+&lt;h2&gt;Using&lt;/h2&gt;
+&lt;p&gt;Now is easy to me to use my blog. I just follow the instructions that I wrote
+to myself in my &lt;tt class="docutils literal"&gt;README.rst&lt;/tt&gt; on pelican branch :D&lt;/p&gt;
+&lt;p&gt;Basically 4 steps:&lt;/p&gt;
+&lt;ol class="arabic simple"&gt;
+&lt;li&gt;Just rst files in content :D&lt;/li&gt;
+&lt;li&gt;&lt;tt class="docutils literal"&gt;pelican &lt;span class="pre"&gt;-s&lt;/span&gt; publishconf.py&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;Preview: &lt;tt class="docutils literal"&gt;cd output &amp;amp;&amp;amp; python3 &lt;span class="pre"&gt;-m&lt;/span&gt; http.server&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;Commit branches pelican and master&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</content><category term="Blog Pelican Python Github Pages Github.io"></category></entry><entry><title>Python Developer and Open Source</title><link href="http://kairo.eti.br/python-developer-and-open-source.html" rel="alternate"></link><published>2018-06-02T15:00:00+02:00</published><updated>2018-06-02T15:00:00+02:00</updated><author><name>Kairo Araujo</name></author><id>tag:kairo.eti.br,2018-06-02:/python-developer-and-open-source.html</id><summary type="html">&lt;p&gt;Since March 1st (2018) I have been working as Python Developer (Solution
 Engineer). It was a big change in my life as I had been working as System
 Engineer for almost 18 years.&lt;/p&gt;
 &lt;p&gt;It was not a fast change that I made the decision during a night 🙃. Since 2013 I …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Since March 1st (2018) I have been working as Python Developer (Solution

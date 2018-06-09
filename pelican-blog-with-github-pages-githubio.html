@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>Pelican blog with Github Pages (Github.io)</title>
+
+            <link href="http://kairo.eti.br/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Full Atom Feed" />
+            <link href="http://kairo.eti.br/feeds/pelican-github-structure-githubio-pages.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Categories Atom Feed" />
+        <!-- Bootstrap Core CSS -->
+        <link href="http://kairo.eti.br/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://kairo.eti.br/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://kairo.eti.br/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+        <meta name="description" content="This post is how I use Pelican. I guess I found a good way to have it. Keep in mind, I didn't create this way fully by my self, I went...">
+
+        <meta name="author" content="Kairo Araujo">
+
+        <meta name="tags" content="Blog Pelican Python Github Pages Github.io">
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Kairo Araujo">
+
+	<meta property="og:type" content="article">
+            <meta property="article:author" content="http://kairo.eti.br/author/kairo-araujo.html">
+	<meta property="og:url" content="http://kairo.eti.br/pelican-blog-with-github-pages-githubio.html">
+	<meta property="og:title" content="Pelican blog with Github Pages (Github.io)">
+	<meta property="article:published_time" content="2018-06-09 22:15:00+02:00">
+            <meta property="og:description" content="This post is how I use Pelican. I guess I found a good way to have it. Keep in mind, I didn't create this way fully by my self, I went...">
+
+            <meta property="og:image" content="http://kairo.eti.br/static/dc.jpg">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://kairo.eti.br/">Kairo Araujo</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+
+                            <li><a href="http://kairo.eti.br/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://kairo.eti.br/static/dc.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Pelican blog with Github Pages (Github.io)</h1>
+                        <span class="meta">Posted by
+                                <a href="http://kairo.eti.br/author/kairo-araujo.html">Kairo Araujo</a>
+                             on Sat 09 June 2018
+                        </span>
+                            <span class="meta">Updated on Sat 09 June 2018</span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p>This post is how I use Pelican. I guess I found a good way to have it. Keep in
+mind, I didn't create this way fully by my self, I went to different blog posts
+and I decided that way was easy to me.</p>
+<p>I am trying to use Pelican for a while and finally I created a good/easy way.</p>
+<div class="section" id="resources">
+<h2>Resources</h2>
+<p>First I use GitHub.io (Github Pages) to publish my blog</p>
+<p>I will not cover this part, it can be find well described here
+<a class="reference external" href="https://pages.github.com">https://pages.github.com</a></p>
+<p>My repository is <tt class="docutils literal">kairoaraujo.github.io</tt> as standard for GitHub Pages.
+<a class="reference external" href="https://github.com/kairoaraujo/kairoaraujo.github.io">https://github.com/kairoaraujo/kairoaraujo.github.io</a></p>
+</div>
+<div class="section" id="pelican-installation">
+<h2>Pelican installation</h2>
+<p>Pelican has a very good documentation. I suggest you to read it
+<a class="reference external" href="http://docs.getpelican.com/en/stable/">http://docs.getpelican.com/en/stable/</a></p>
+<p>There are dozen of blog posts how to do it.</p>
+</div>
+<div class="section" id="structure-on-github">
+<h2>Structure on Github</h2>
+<p>After you have your blog working locally is time to publish it and here is may
+way to do it. It is quite simple and works well.</p>
+<div class="section" id="source-branch-pelican">
+<h3>Source branch (pelican)</h3>
+<p>First I created a branch named <tt class="docutils literal">pelican</tt>. It has my folder that I used to
+create my blog, using the <tt class="docutils literal"><span class="pre">pelican-quickstart</span></tt></p>
+<p>This is my example:</p>
+<div class="highlight"><pre><span></span>kairo.eti.br
+├── Makefile
+├── README.rst
+├── content
+├── develop_server.sh
+├── extras
+├── fabfile.py
+├── output
+├── pelicanconf.py
+├── publishconf.py
+└── themes
+    └── pelican-clean-blog
+</pre></div>
+<p>In <tt class="docutils literal">pelican</tt> branch I created my <tt class="docutils literal">.gitignore</tt> excluding some files</p>
+<p>The most important here is exclude the <em>output</em> folder. Because it is my
+blog/site content itself and I want it on different branch.</p>
+<div class="highlight"><pre><span></span>.idea
+*.pyc
+*.log
+output   &lt;---------- Important!
+cache
+*.pid
+venv
+.venv
+.ropeproject
+</pre></div>
+<p>I use a theme and I store it in <tt class="docutils literal"><span class="pre">themes/pelican-clean-blog</span></tt>. As this theme is
+available in Github (as most of them) I store it using <tt class="docutils literal">git submodule add</tt>. It
+makes easy to keep it updated and linked to my repository</p>
+<p>I did like that:</p>
+<p><tt class="docutils literal">git submodule add <span class="pre">https://github.com/gilsondev/pelican-clean-blog.git</span> <span class="pre">themes/pelican-clean-blog</span></tt></p>
+<p>TIP: About <tt class="docutils literal">CNAME</tt> used by Github pages, I store it in extras folder and
+setup in <tt class="docutils literal">pelicanconf.py</tt></p>
+</div>
+<div class="section" id="blog-branch-master">
+<h3>Blog branch (master)</h3>
+<p>It is the blog itself.</p>
+<p>As the folder <tt class="docutils literal">output</tt> is excluded in my pelican branch what I did was create
+in output as a new git repository as my master branch. ;)</p>
+<p>TIP: Do not use the overwrite option from Pelican and I recommend include this
+option on your <tt class="docutils literal">pelicanconf.py</tt> and <tt class="docutils literal">publishconf.py</tt>.</p>
+<p><tt class="docutils literal">DELETE_OUTPUT_DIRECTORY = False</tt></p>
+</div>
+</div>
+<div class="section" id="using">
+<h2>Using</h2>
+<p>Now is easy to me to use my blog. I just follow the instructions that I wrote
+to myself in my <tt class="docutils literal">README.rst</tt> on pelican branch :D</p>
+<p>Basically 4 steps:</p>
+<ol class="arabic simple">
+<li>Just rst files in content :D</li>
+<li><tt class="docutils literal">pelican <span class="pre">-s</span> publishconf.py</tt></li>
+<li>Preview: <tt class="docutils literal">cd output &amp;&amp; python3 <span class="pre">-m</span> http.server</tt></li>
+<li>Commit branches pelican and master</li>
+</ol>
+</div>
+
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://kairo.eti.br/tag/blog-pelican-python-github-pages-githubio.html">Blog Pelican Python Github Pages Github.io</a></p>
+        </div>
+
+    <hr>
+
+        <div class="comments">
+            <h2>Comments !</h2>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'kairoaraujo';
+                var disqus_identifier = 'pelican-blog-with-github-pages-githubio.html';
+                var disqus_url = 'http://kairo.eti.br/pelican-blog-with-github-pages-githubio.html';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//kairoaraujo.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://linkedin.com/in/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://github.com/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://twitter.com/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>. <br />        &copy;  Kairo Araujo 
+    <br />
+    These are my personal opinions
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://kairo.eti.br/theme/js/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://kairo.eti.br/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://kairo.eti.br/theme/js/clean-blog.min.js"></script>
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-108092336-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    var disqus_shortname = 'kairoaraujo';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+</body>
+
+</html>
