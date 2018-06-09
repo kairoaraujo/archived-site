@@ -44,7 +44,7 @@ Preview
 .. code-block::
 
   cd output
-  python3 http.server
+  python3 -m http.server
 
 
 Publishing
