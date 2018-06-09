@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Kairo Araujo - Uncategorized</title><link href="http://kairo.eti.br/" rel="alternate"></link><link href="http://kairo.eti.br/feeds/uncategorized.atom.xml" rel="self"></link><id>http://kairo.eti.br/</id><updated>2010-05-13T14:39:00+02:00</updated><entry><title>Identify QLogic WWN on Red Hat Enterprise Linux 5 and 4 (RHEL)</title><link href="http://kairo.eti.br/identify-qlogic-wwn-on-red-hat-enterprise-linux-5-and-4-rhel.html" rel="alternate"></link><published>2010-05-13T14:39:00+02:00</published><updated>2010-05-13T14:39:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2010-05-13:/identify-qlogic-wwn-on-red-hat-enterprise-linux-5-and-4-rhel.html</id><summary type="html">&lt;h2&gt;Esse blog mudou para &lt;a href="http://blog.kairo.eti.br"&gt;http://blog.kairo.eti.br&lt;/a&gt;&lt;/h2&gt;
+&lt;h2&gt;This blog has moved to &lt;a href="http://blog.kairo.eti.br"&gt;http://blog.kairo.eti.br&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;How to identify/get QLogic WWN on Red Hat Enterprise Linux 5 (RHEL5).&lt;/p&gt;
+&lt;p&gt;First identify your installed or recognized&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# lspci | grep -i fibre 04:00.0 Fibre Channel: QLogic Corp.
+ISP2432-based …&lt;/code&gt;&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Esse blog mudou para &lt;a href="http://blog.kairo.eti.br"&gt;http://blog.kairo.eti.br&lt;/a&gt;&lt;/h2&gt;
+&lt;h2&gt;This blog has moved to &lt;a href="http://blog.kairo.eti.br"&gt;http://blog.kairo.eti.br&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;How to identify/get QLogic WWN on Red Hat Enterprise Linux 5 (RHEL5).&lt;/p&gt;
+&lt;p&gt;First identify your installed or recognized&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# lspci | grep -i fibre 04:00.0 Fibre Channel: QLogic Corp.
+ISP2432-based 4Gb Fibre Channel to PCI Express HBA (rev 03) 04:00.1
+Fibre Channel: QLogic Corp. ISP2432-based 4Gb Fibre Channel to PCI
+Express HBA (rev 03) 05:00.0 Fibre Channel: QLogic Corp.
+ISP2432-based 4Gb Fibre Channel to PCI Express HBA (rev 03) 05:00.1
+Fibre Channel: QLogic Corp. ISP2432-based 4Gb Fibre Channel to PCI
+Express HBA (rev 03)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;On  Red Hat Enterprise Linux 5&lt;/strong&gt; (5.x) is on
+/sys/class/fc_host/hostX/port_name&lt;/p&gt;
+&lt;p&gt;(X is your device 1,2,3,...N)&lt;/p&gt;
+&lt;p&gt;For get use:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cat /sys/class/fc_host/hostX/port_name&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Sample with multiple HBA (Fibre) QLogic&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# ls /sys/class/fc_host/ host3  host4  host5  host6 # cat
+/sys/class/fc_host/host[3-6]/port_name 0x2100001b32936e24 0x2101001b32b36e24 0x2100001b32932821 0x2101001b32b32821&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;On Red Hat Enterprise Linux 4 (AS/ES)&lt;/strong&gt; is on /proc/scsi/qla2xxx/1
+(1,2,3,..N)&lt;/p&gt;
+&lt;p&gt;Sample:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# egrep [node|port] /proc/scsi/qlx2xxx/0
+scsi-qla0-adapter-node=200000e08b1c19f2;
+scsi-qla0-adapter-port=210000e08b1c19f2;&lt;/code&gt;&lt;/p&gt;</content><category term="Get WWN Red Hat Enterprise Linux"></category><category term="Get WWNP Red Hat Enterprise Linux"></category><category term="Identify WWN Red Hat Enterprise Linux"></category><category term="Identify WWNP Red Hat Enterprise Linux"></category><category term="lpfc"></category><category term="QLogic"></category><category term="RHEL"></category><category term="RHEL 4"></category><category term="RHEL 5"></category><category term="WWN"></category><category term="WWNP"></category></entry><entry><title>Problema Motorola Q11 com o Roteador Wireless DLink DI-524 - Suporte (!?)</title><link href="http://kairo.eti.br/problema-motorola-q11-com-o-roteador-wireless-dlink-di-524.html" rel="alternate"></link><published>2009-08-06T12:50:00+02:00</published><updated>2009-08-06T12:50:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2009-08-06:/problema-motorola-q11-com-o-roteador-wireless-dlink-di-524.html</id><summary type="html">&lt;h2&gt;Esse blog mudou para &lt;a href="http://blog.kairo.eti.br"&gt;http://blog.kairo.eti.br&lt;/a&gt;&lt;/h2&gt;
+&lt;h2&gt;This blog has moved to &lt;a href="http://blog.kairo.eti.br"&gt;http://blog.kairo.eti.br&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;A oito meses tenho problemas de conectividade do meu Motorola Q11 e meu
+Roteador Wireless DLink DI-524, lembram-se? (&lt;a href="http://kairo.wordpress.com/2009/03/25/resolucao-parcial-da-incompatibilidade-problema-entre-motorola-q11-e-roteadores-d-link-di-524/"&gt;ver post anterior sobre o
+problema&lt;/a&gt;)&lt;br&gt;
+Abaixo segue o atendimento online da Motorola …&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Esse blog mudou para &lt;a href="http://blog.kairo.eti.br"&gt;http://blog.kairo.eti.br&lt;/a&gt;&lt;/h2&gt;
+&lt;h2&gt;This blog has moved to &lt;a href="http://blog.kairo.eti.br"&gt;http://blog.kairo.eti.br&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;A oito meses tenho problemas de conectividade do meu Motorola Q11 e meu
+Roteador Wireless DLink DI-524, lembram-se? (&lt;a href="http://kairo.wordpress.com/2009/03/25/resolucao-parcial-da-incompatibilidade-problema-entre-motorola-q11-e-roteadores-d-link-di-524/"&gt;ver post anterior sobre o
+problema&lt;/a&gt;)&lt;br&gt;
+Abaixo segue o atendimento online da Motorola:&lt;/p&gt;
+&lt;p&gt;PS: Substitui o nome da pessoa por &lt;strong&gt;ATENDENTE&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;ATENDENTE&lt;/strong&gt;: Oi, meu nome é &lt;strong&gt;ATENDENTE&lt;/strong&gt;. Em que posso ajudá-lo?&lt;br&gt;
+&lt;strong&gt;Kairo Araujo&lt;/strong&gt;: Olá ATENDENTE, bom dia.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Kairo Araujo&lt;/strong&gt;: Eu tenho um Motorola Q11 a cerca de 8 meses e tenho
+problemas com a conexão com Wireless especificamente com o equipamento
+do fabricante DLink modelo DI-524.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Kairo Araujo&lt;/strong&gt;: Não só eu como várias pessoas vem ao meu site relatar
+o mesmo problema.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;ATENDENTE&lt;/strong&gt;: Bom dia Kairo.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Kairo Araujo&lt;/strong&gt;: Isso pode ver aqui no meu site
+&lt;a href="../2009/03/25/resolucao-parcial-da-incompatibilidade-problema-entre-motorola-q11-e-roteadores-d-link-di-524"&gt;http://kairo.wordpress.com/2009/03/25/resolucao-parcial-da-incompatibilidade-problema-entre-motorola-q11-e-roteadores-d-link-di-524&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;ATENDENTE&lt;/strong&gt;: Nesse caso você tem que entrar em contato com a Dlink e
+verificar se eles disponibilizam uma atualização de firmware para o
+roteador.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Kairo Araujo&lt;/strong&gt;: Eles não tem nenhum firmware para o problema
+especifico e meu roteador encontra-se no último nivel de firmware.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Kairo Araujo&lt;/strong&gt;: Ocorre que qualquer outro equipamento, exceto o
+Motorola Q11.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Kairo Araujo&lt;/strong&gt;: Gostaria de saber se já simularam este problema em
+seus laboratórios.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Kairo Araujo&lt;/strong&gt;: A resposta deles é a mesma de vocês, solicitando que
+eu veja com a Motorola.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Kairo Araujo&lt;/strong&gt;: É simples simularem isto. Vocês poderiam simular e
+contactar a DLink.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;ATENDENTE&lt;/strong&gt;: Não há nenhuma incompatibilidade por parte do aparelho,
+deve verificar diretamente com a Dlink.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Kairo Araujo&lt;/strong&gt;: Como você tem certeza disso?&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Kairo Araujo&lt;/strong&gt;: Baseado em quê?&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;ATENDENTE&lt;/strong&gt;: Sim Kairo, pois não há incompatibilidade com nenhum
+outro!&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;ATENDENTE&lt;/strong&gt;: Deseja mais alguma informação?&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Kairo Araujo&lt;/strong&gt;: Sim desejo.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Kairo Araujo&lt;/strong&gt;: Eu tenho um D-link, celular Nokia que funciona com o
+meu roteador, 3 notebooks que funcionam com o roteador, um video gameWII
+que funciona com o roteador. Apenas o Motorola Q11 não funciona.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Kairo Araujo&lt;/strong&gt;: Como pode ser o roteador?!&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Kairo Araujo&lt;/strong&gt;: Além disso no meu site tem 40 comentários de pessoas
+diferentes com o mesmo problema.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Kairo Araujo&lt;/strong&gt;: Gostaria de saber porque vocês não contactam o
+Fabricante D-Link para realizar testes em conjunto e definirem de quem é
+oproblema.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;ATENDENTE&lt;/strong&gt;: Nesse caso, para verificar se é alguma irregularidade no
+aparelho, encaminhe ele para analise na assistência.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;ATENDENTE&lt;/strong&gt;: A Motorola não possui esse procedimento!&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Kairo Araujo&lt;/strong&gt;: Não é um aparelho como eu disse, são varias pessoas
+que tem o mesmo problema.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Kairo Araujo&lt;/strong&gt;: OK, já vi que não vai ajudar. Vou divulgar o suporte
+que ofereceram para estas pessoas. Não vou especificar seu nome por
+privacidade.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Kairo Araujo&lt;/strong&gt;: Motorola nunca mais!&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;ATENDENTE&lt;/strong&gt;: Deseja mais alguma informação?&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Kairo Araujo&lt;/strong&gt;: Não, obrigado. Tenha um bom dia.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;ATENDENTE&lt;/strong&gt;: Se precisar de mais alguma informação entre em contato. A
+Motorola agradece, até logo! tenha um bom dia!&lt;/p&gt;</content><category term="DI-524"></category><category term="dlink"></category><category term="DLink DI-524"></category><category term="Motorola"></category><category term="Motorola Q11"></category><category term="não funciona"></category><category term="Problema"></category><category term="Problemas"></category><category term="Q11"></category><category term="Sem fio"></category><category term="Wireless"></category></entry></feed>

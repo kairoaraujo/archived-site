@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Kairo Araujo - Fedora Project</title><link href="http://kairo.eti.br/" rel="alternate"></link><link href="http://kairo.eti.br/feeds/fedora-project.atom.xml" rel="self"></link><id>http://kairo.eti.br/</id><updated>2008-07-22T00:15:00+02:00</updated><entry><title>atop updated to 1.23-8</title><link href="http://kairo.eti.br/atop-updated-to-123-8.html" rel="alternate"></link><published>2008-07-22T00:15:00+02:00</published><updated>2008-07-22T00:15:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2008-07-22:/atop-updated-to-123-8.html</id><summary type="html">&lt;p&gt;Bug #455223 reported by Gregoire Barbier e Milão Slanar (Fedora 8 and
+9)&lt;br&gt;
+Bug #455375 reported by Ulrik Mikaelsson (EL 4 and EL 5)&lt;br&gt;
+My thanks!&lt;/p&gt;
+&lt;p&gt;All bugs are solved in version 1.23-8&lt;/p&gt;
+&lt;p&gt;New packages are temporarily available here:&lt;/p&gt;
+&lt;p&gt;-
+&lt;a href="http://koji.fedoraproject.org/koji/buildinfo?buildID=56987"&gt;Fedora 8&lt;/a&gt;&lt;br&gt;
+-
+&lt;a href="http://koji.fedoraproject.org/koji/buildinfo?buildID=57006"&gt;Fedora 9&lt;/a&gt;&lt;br&gt;
+-
+&lt;a href="http://buildsys.fedoraproject.org/plague-results/fedora-4-epel/atop/1.23-8.el4/"&gt;EL-4&lt;/a&gt;&lt;br&gt;
+-
+&lt;a href="http://buildsys.fedoraproject.org/plague-results/fedora-5-epel/atop/1.23-8.el5/"&gt;EL-5&lt;/a&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;Bug #455223 reported by Gregoire Barbier e Milão Slanar (Fedora 8 and
+9)&lt;br&gt;
+Bug #455375 reported by Ulrik Mikaelsson (EL 4 and EL 5)&lt;br&gt;
+My thanks!&lt;/p&gt;
+&lt;p&gt;All bugs are solved in version 1.23-8&lt;/p&gt;
+&lt;p&gt;New packages are temporarily available here:&lt;/p&gt;
+&lt;p&gt;-
+&lt;a href="http://koji.fedoraproject.org/koji/buildinfo?buildID=56987"&gt;Fedora 8&lt;/a&gt;&lt;br&gt;
+-
+&lt;a href="http://koji.fedoraproject.org/koji/buildinfo?buildID=57006"&gt;Fedora 9&lt;/a&gt;&lt;br&gt;
+-
+&lt;a href="http://buildsys.fedoraproject.org/plague-results/fedora-4-epel/atop/1.23-8.el4/"&gt;EL-4&lt;/a&gt;&lt;br&gt;
+-
+&lt;a href="http://buildsys.fedoraproject.org/plague-results/fedora-5-epel/atop/1.23-8.el5/"&gt;EL-5&lt;/a&gt;&lt;/p&gt;</content></entry><entry><title>Fedora: Update for atop</title><link href="http://kairo.eti.br/fedora-update-for-atop.html" rel="alternate"></link><published>2008-05-07T13:06:00+02:00</published><updated>2008-05-07T13:06:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2008-05-07:/fedora-update-for-atop.html</id><summary type="html">&lt;p&gt;Update for atop&lt;/p&gt;
+&lt;p&gt;Bruno Wolff reported a bug
+&lt;a href="https://bugzilla.redhat.com/show_bug.cgi?id=445174"&gt;#445174&lt;/a&gt; for atop
+1.23-6&lt;br&gt;
+Bug are resolved on version 1.23-7&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;atop&lt;br&gt;
+&lt;/strong&gt;-
+    &lt;a href="http://koji.fedoraproject.org/koji/buildinfo?buildID=48153"&gt;Fedora 8&lt;/a&gt;&lt;br&gt;
+    -
+    &lt;a href="http://koji.fedoraproject.org/koji/buildinfo?buildID=48146"&gt;Fedora 9&lt;/a&gt;&lt;br&gt;
+    -
+    &lt;a href="http://koji.fedoraproject.org/koji/buildinfo?buildID=48140"&gt;Fedora 10&lt;/a&gt;&lt;br&gt;
+    -
+    &lt;a href="http://buildsys.fedoraproject.org/plague-results/fedora-4-epel/atop/1.23-7.el4/"&gt;EL 4&lt;/a&gt;
+    (RHEL 4 compatible)&lt;br&gt;
+    -
+    &lt;a href="http://buildsys.fedoraproject.org/plague-results/fedora-5-epel/atop/1.23-7.el5/"&gt;EL 5&lt;/a&gt;
+    (RHEL 5 compatible)&lt;/li&gt;
+&lt;/ul&gt;</summary><content type="html">&lt;p&gt;Update for atop&lt;/p&gt;
+&lt;p&gt;Bruno Wolff reported a bug
+&lt;a href="https://bugzilla.redhat.com/show_bug.cgi?id=445174"&gt;#445174&lt;/a&gt; for atop
+1.23-6&lt;br&gt;
+Bug are resolved on version 1.23-7&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;atop&lt;br&gt;
+&lt;/strong&gt;-
+    &lt;a href="http://koji.fedoraproject.org/koji/buildinfo?buildID=48153"&gt;Fedora 8&lt;/a&gt;&lt;br&gt;
+    -
+    &lt;a href="http://koji.fedoraproject.org/koji/buildinfo?buildID=48146"&gt;Fedora 9&lt;/a&gt;&lt;br&gt;
+    -
+    &lt;a href="http://koji.fedoraproject.org/koji/buildinfo?buildID=48140"&gt;Fedora 10&lt;/a&gt;&lt;br&gt;
+    -
+    &lt;a href="http://buildsys.fedoraproject.org/plague-results/fedora-4-epel/atop/1.23-7.el4/"&gt;EL 4&lt;/a&gt;
+    (RHEL 4 compatible)&lt;br&gt;
+    -
+    &lt;a href="http://buildsys.fedoraproject.org/plague-results/fedora-5-epel/atop/1.23-7.el5/"&gt;EL 5&lt;/a&gt;
+    (RHEL 5 compatible)&lt;/li&gt;
+&lt;/ul&gt;</content></entry><entry><title>Fedora: Updates for clex</title><link href="http://kairo.eti.br/fedora-updates-for-clex.html" rel="alternate"></link><published>2008-05-07T12:49:00+02:00</published><updated>2008-05-07T12:49:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2008-05-07:/fedora-updates-for-clex.html</id><summary type="html">&lt;p&gt;Update for clex.&lt;/p&gt;
+&lt;p&gt;Clex Developer released version 3.18 and I update that for Fedora.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;clex&lt;/strong&gt;&lt;br&gt;
+    -
+    &lt;a href="http://koji.fedoraproject.org/koji/buildinfo?buildID=48154"&gt;Fedora 8&lt;/a&gt;&lt;br&gt;
+    -
+    &lt;a href="http://koji.fedoraproject.org/koji/buildinfo?buildID=48158"&gt;Fedora 9&lt;/a&gt;&lt;br&gt;
+    - &lt;a href="http://koji.fedoraproject.org/koji/buildinfo?buildID=48147"&gt;Fedora 10
+    (devel)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</summary><content type="html">&lt;p&gt;Update for clex.&lt;/p&gt;
+&lt;p&gt;Clex Developer released version 3.18 and I update that for Fedora.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;clex&lt;/strong&gt;&lt;br&gt;
+    -
+    &lt;a href="http://koji.fedoraproject.org/koji/buildinfo?buildID=48154"&gt;Fedora 8&lt;/a&gt;&lt;br&gt;
+    -
+    &lt;a href="http://koji.fedoraproject.org/koji/buildinfo?buildID=48158"&gt;Fedora 9&lt;/a&gt;&lt;br&gt;
+    - &lt;a href="http://koji.fedoraproject.org/koji/buildinfo?buildID=48147"&gt;Fedora 10
+    (devel)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content></entry><entry><title>atop no Fedora e futuramente no Red Hat Enterprise Linux</title><link href="http://kairo.eti.br/atop-no-fedora-e-futuramente-no-red-hat-enterprise-linux.html" rel="alternate"></link><published>2008-04-04T00:24:00+02:00</published><updated>2008-04-04T00:24:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2008-04-04:/atop-no-fedora-e-futuramente-no-red-hat-enterprise-linux.html</id><summary type="html">&lt;p&gt;ATOP é uma ferramenta de diagnóstico e monitoração avançada e interativa
+para sistemas Linux. Resumindo eu o denomino um 'top' avançado.&lt;/p&gt;
+&lt;p&gt;Foi um dos primeiros pacotes que escolhi para manter no Fedora. Hoje meu
+Sponsor no projeto recomendou adicioná-lo ao EL-4 e EL-5. Essa já era
+uma intensão minha, tê-lo …&lt;/p&gt;</summary><content type="html">&lt;p&gt;ATOP é uma ferramenta de diagnóstico e monitoração avançada e interativa
+para sistemas Linux. Resumindo eu o denomino um 'top' avançado.&lt;/p&gt;
+&lt;p&gt;Foi um dos primeiros pacotes que escolhi para manter no Fedora. Hoje meu
+Sponsor no projeto recomendou adicioná-lo ao EL-4 e EL-5. Essa já era
+uma intensão minha, tê-lo nos ambientes enterprise.&lt;/p&gt;
+&lt;p&gt;Sendo assim adicionei ele no CVS hoje e ja solicitei o build para
+Fedora-8 e Fedora-9 além dos EL-4 e EL-5.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Em breve para quem quiser testar os RPMs podem ser &lt;a href="http://download.fedora.redhat.com/pub/"&gt;baixados
+    aqui&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Os buildings podem ser vistos aqui:&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://koji.fedoraproject.org/koji/packageinfo?packageID=5997"&gt;Para Fedora 8 e 9
+    (devel)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://buildsys.fedoraproject.org/build-status/indiv.psp?email=kairoaraujo%40gmail.com"&gt;Para Enterprise
+    Linux&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href="https://admin.fedoraproject.org/pkgdb/users/packages/kairo"&gt;Todos os meus pacotes podem ser vistos
+aqui.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;&lt;a href="https://admin.fedoraproject.org/pkgdb/users/packages/kairo"&gt;&lt;br&gt;
+&lt;/a&gt;Um pouco
+mais sobre o atop (abaixo)&lt;/em&gt;  &lt;/p&gt;
+&lt;p&gt;Ele funciona opcionalmente com um daemon armazendo em raw os dados do
+sistema sendo possível fazer uma pesquisa em determinados horários.&lt;/p&gt;
+&lt;p&gt;Além da monitoração/diagnóstico básico de memória e processador ele tem
+capacidade de monitorar, discos (excelente para quem como eu usa muito
+sistemas conectados a storage disk), redes, paginação/swap,
+etc.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="http://kairo.wordpress.com/DOCUME%7E1/ADMINI%7E1/LOCALS%7E1/Temp/moz-screenshot.jpg"&gt;&lt;/p&gt;</content></entry></feed>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>Mantendo modulos externos na atualização do Kernel do RHEL 4 (ES/AS)</title>
+
+            <link href="http://kairo.eti.br/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Full Atom Feed" />
+            <link href="http://kairo.eti.br/feeds/linux-unix-notes.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Categories Atom Feed" />
+        <!-- Bootstrap Core CSS -->
+        <link href="http://kairo.eti.br/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://kairo.eti.br/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://kairo.eti.br/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+        <meta name="description" content="Contexto Servidor contém por exemplo o módulo de uma controladora RAID (a320raid no exemplo prático). Este módulo não tem suporte no...">
+
+        <meta name="author" content="kairo">
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Kairo Araujo">
+
+	<meta property="og:type" content="article">
+            <meta property="article:author" content="http://kairo.eti.br/author/kairo.html">
+	<meta property="og:url" content="http://kairo.eti.br/mantendo-modulos-externos-na-atualizacao-do-kernel-do-rhel-4-esas.html">
+	<meta property="og:title" content="Mantendo modulos externos na atualização do Kernel do RHEL 4 (ES/AS)">
+	<meta property="article:published_time" content="2007-07-28 11:18:00+02:00">
+            <meta property="og:description" content="Contexto Servidor contém por exemplo o módulo de uma controladora RAID (a320raid no exemplo prático). Este módulo não tem suporte no...">
+
+            <meta property="og:image" content="http://kairo.eti.br/static/dc.jpg">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://kairo.eti.br/">Kairo Araujo</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+
+                            <li><a href="http://kairo.eti.br/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://kairo.eti.br/static/dc.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Mantendo modulos externos na atualização do Kernel do RHEL 4 (ES/AS)</h1>
+                        <span class="meta">Posted by
+                                <a href="http://kairo.eti.br/author/kairo.html">kairo</a>
+                             on Sat 28 July 2007
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p><strong>Contexto</strong></p>
+<p>Servidor contém por exemplo o módulo de uma controladora RAID (a320raid
+no exemplo prático). Este módulo não tem suporte no Kernel padrão do Red
+Hat Enterprise Linux (RHEL), desta forma ele não está incluso no initrd
+gerado pós instalação.</p>
+<p>Essa documentação mostra uma forma simples de incluir este modulo no
+initrd.</p>
+<p><strong>Pré-requesistos</strong></p>
+<p>1. Instalar Kernel novo;<br>
+2. Instalar pacote devel do Kernel novo;<br>
+3. Fazer backup do initrd atual existente no /boot/.</p>
+<p><strong>Procedimento</strong></p>
+<p>1. Copiar o modulo do kernel atual (rodando) para o novo kernel
+(instalado);<br>
+2. Gerar novo initrd com o módulo;<br>
+3. Certificar que o modulo está no novo initrd.</p>
+<p><strong><em>Na prática:</em></strong></p>
+<p><strong>Pré-requesistos</strong></p>
+<p>1. Instalar Kernel novo:</p>
+<p><code>[root@kfaserver kairo]# rpm -ivh kernel-smp-2.6.9-55.0.2.EL.i686.rpm
+–test Preparing… ########################################### [100%]
+[root@kfaserver kairo]# rpm -ivh kernel-smp-2.6.9-55.0.2.EL.i686.rpm
+Preparing… ###########################################
+[100%] 1:kernel-smp ########################################### [100%]
+WARNING: No module a320raid found for kernel 2.6.9-55.0.2.ELsmp,
+continuing anyway [root@kfaserver kairo]#</code></p>
+<p>Veja que no WARNING acima o Sistema Operacional já informa que um modulo
+não foi encontrado.<br>
+Justamente este que estaremos incluindo.</p>
+<p>2. Instalar pacote devel do Kernel novo:</p>
+<p>Este pacote contem os sources necessários.<br>
+`[root@kfaserver kairo]# rpm -ivh
+kernel-smp-devel-2.6.9-55.0.2.EL.i686.rpm –test Preparing…</p>
+<h6>##################################### [100%] [root@kfaserver</h6>
+<p>kairo]# rpm -ivh kernel-smp-devel-2.6.9-55.0.2.EL.i686.rpm Preparing…</p>
+<h6>##################################### [100%] 1:kernel-smp-devel</h6>
+<h6>##################################### [100%] [root@kfaserver</h6>
+<p>kairo]#`</p>
+<p>Fazer backup do initrd atual existente no /boot/: Este backup nos
+garante um fallback.</p>
+<p><code>[root@kfaserver kairo]# cp initrd-2.6.9-55.0.2.ELsmp.img
+initrd-2.6.9-55.0.2.ELsmp.img_bkp</code></p>
+<p><strong>Procedimento</strong></p>
+<p>1. Copiar o modulo do kernel atual (rodando) para o novo kernel
+(instalado):</p>
+<p>Verificando a versão original, nesse caso 2.6.9-11.ELsmp</p>
+<p><code>[root@kfaserver kairo]# uname -a Linux
+kfaserver.kairo.eti.br 2.6.9-11.ELsmp #1 SMP Fri May 20 18:26:27
+EDT 2005 i686 i686 i386 GNU/Linux</code></p>
+<p>Acessando o diretório do novo Kernel instalado</p>
+<p><code>[root@kfaserver kairo]# cd /lib/modules/2.6.9-55.0.2.ELsmp/</code></p>
+<p>Localizando na versão original a localização default do módulo</p>
+<p><code>[root@kfaserver 2.6.9-55.0.2.ELsmp]# find /lib/modules/2.6.9-11.ELsmp
+-name a320raid* /lib/modules/2.6.9-11.ELsmp/updates/a320raid.ko</code></p>
+<p>Criando os diretórios existentes e o módulo. O importante é deixar o
+mesmo path.</p>
+<p><code>[root@kfaserver 2.6.9-55.0.2.ELsmp]# mkdir updates
+[root@kfaserver 2.6.9-55.0.2.ELsmp]# cd updates [root@kfaserver
+updates]# cp /lib/modules/2.6.9-11.ELsmp/updates/a320raid.ko</code></p>
+<p>2. Gerar novo initrd com o módulo:</p>
+<p><code>[root@kfaserver kairo]# mkinitrd -fv –with=a320raid
+/boot/initrd-2.6.9-55.0.2.ELsmp.img 2.6.9-55.0.2.ELsmp [root@kfaserver
+kairo]# mkinitrd -v -f –with=a320raid
+/boot/initrd-2.6.9-55.0.2.ELsmp.img 2.6.9-55.0.2.ELsmp Creating
+initramfs Looking for deps of module scsi_mod Looking for deps of module
+sd_mod scsi_mod Looking for deps of module scsi_mod Looking for deps of
+module unknown Looking for deps of module a320raid Looking for deps of
+module aic79xx scsi_mod Looking for deps of module scsi_mod Looking for
+deps of module ide-disk Looking for deps of module ext3 jbd Looking for
+deps of module jbd Looking for deps of module a320raid Using modules:
+./kernel/drivers/scsi/scsi_mod.ko ./kernel/drivers/scsi/sd_mod.ko
+./a320raid.ko ./kernel/drivers/scsi/aic7xxx/aic79xx.ko
+./kernel/fs/jbd/jbd.ko ./kernel/fs/ext3/ext3.ko /sbin/nash -&gt;
+/tmp/initrd.EV1881/bin/nash /sbin/insmod.static -&gt;
+/tmp/initrd.EV1881/bin/insmod /sbin/udev.static -&gt;
+/tmp/initrd.EV1881/sbin/udev /etc/udev/udev.conf -&gt;
+/tmp/initrd.EV1881/etc/udev/udev.conf copy from
+/lib/modules/2.6.9-55.0.2.ELsmp/./kernel/drivers/scsi/scsi_mod.ko(elf32-i386)
+to /tmp/initrd.EV1881/lib/scsi_mod.ko(elf32-i386) copy from
+/lib/modules/2.6.9-55.0.2.ELsmp/./kernel/drivers/scsi/sd_mod.ko(elf32-i386)
+to /tmp/initrd.EV1881/lib/sd_mod.ko(elf32-i386) copy from
+/lib/modules/2.6.9-55.0.2.ELsmp/./a320raid.ko(elf32-i386) to
+/tmp/initrd.EV1881/lib/a320raid.ko(elf32-i386) copy from
+/lib/modules/2.6.9-55.0.2.ELsmp/./kernel/drivers/scsi/aic7xxx/aic79xx.ko(elf32-i386)
+to /tmp/initrd.EV1881/lib/aic79xx.ko(elf32-i386) copy from
+/lib/modules/2.6.9-55.0.2.ELsmp/./kernel/fs/jbd/jbd.ko(elf32-i386) to
+/tmp/initrd.EV1881/lib/jbd.ko(elf32-i386) copy from
+/lib/modules/2.6.9-55.0.2.ELsmp/./kernel/fs/ext3/ext3.ko(elf32-i386) to
+/tmp/initrd.EV1881/lib/ext3.ko(elf32-i386) Loading module scsi_mod
+Loading module sd_mod Loading module a320raid Loading module aic79xx
+Loading module jbd Loading module ext3</code></p>
+<p>3. Certificar que o modulo está no novo initrd:</p>
+<p>Descompactar o novo initrd e verificar o conteúdo garantindo que o
+modulo esta interno</p>
+<p><code>[root@kfaserver kairo]# cd /tmp [root@kfaserver tmp]# mkdir initrd
+[root@kfaserver tmp]# cd initrd [root@kfaserver initrd]# mkdir src
+[root@kfaserver initrd]# cp /boot/initrd-2.6.9-55.0.2.ELsmp.img .
+[root@kfaserver initrd]# cd src [root@kfaserver src]# gzip -dc
+../initrd-2.6.9-55.0.2.ELsmp.img | cpio -idv . etc etc/udev
+etc/udev/udev.conf init dev dev/console dev/tty2 dev/tty4 dev/null
+dev/ram dev/systty dev/tty1 dev/tty3 lib lib/a320raid.ko lib/jbd.ko
+lib/scsi_mod.ko lib/sd_mod.ko lib/ext3.ko lib/aic79xx.ko sys proc bin
+bin/nash bin/modprobe bin/udevstart bin/udev bin/hotplug bin/insmod
+loopfs sysroot sbin 3078 blocks</code></p>
+    </article>
+
+
+    <hr>
+
+        <div class="comments">
+            <h2>Comments !</h2>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'kairoaraujo';
+                var disqus_identifier = 'mantendo-modulos-externos-na-atualizacao-do-kernel-do-rhel-4-esas.html';
+                var disqus_url = 'http://kairo.eti.br/mantendo-modulos-externos-na-atualizacao-do-kernel-do-rhel-4-esas.html';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//kairoaraujo.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://linkedin.com/in/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://github.com/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://twitter.com/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>. <br />        &copy;  Kairo Araujo 
+    <br />
+    These are my personal opinions
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://kairo.eti.br/theme/js/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://kairo.eti.br/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://kairo.eti.br/theme/js/clean-blog.min.js"></script>
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-108092336-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    var disqus_shortname = 'kairoaraujo';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+</body>
+
+</html>

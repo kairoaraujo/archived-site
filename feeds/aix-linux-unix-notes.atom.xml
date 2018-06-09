@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Kairo Araujo - AIX, Linux, Unix Notes</title><link href="http://kairo.eti.br/" rel="alternate"></link><link href="http://kairo.eti.br/feeds/aix-linux-unix-notes.atom.xml" rel="self"></link><id>http://kairo.eti.br/</id><updated>2008-12-17T12:59:00+01:00</updated><entry><title>Linux and AIX Users Locked (Usuários com status lock)</title><link href="http://kairo.eti.br/linux-aix-users-locked-status.html" rel="alternate"></link><published>2008-12-17T12:59:00+01:00</published><updated>2008-12-17T12:59:00+01:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2008-12-17:/linux-aix-users-locked-status.html</id><summary type="html">&lt;p&gt;Como identificar usuários com senhas em status lock&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;LINUX&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Verificando status do usuário&lt;br&gt;
+&lt;code&gt;# passwd -S kairo kairo LK 2008-10-31 0 99999 7 -1 (Password locked.)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Retirando lock do usuário&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# passwd -u kairo Unlocking password for user kairo. passwd: Success.&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;o status fica normal&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# passwd -S kairo kairo PS 2008-10-31 0 …&lt;/code&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;Como identificar usuários com senhas em status lock&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;LINUX&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Verificando status do usuário&lt;br&gt;
+&lt;code&gt;# passwd -S kairo kairo LK 2008-10-31 0 99999 7 -1 (Password locked.)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Retirando lock do usuário&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# passwd -u kairo Unlocking password for user kairo. passwd: Success.&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;o status fica normal&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# passwd -S kairo kairo PS 2008-10-31 0 99999 7 -1 (Password set, MD5
+crypt.)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Fazendo lock de senha do usuário&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# passwd -l kairo Locking password for user kairo. passwd: Success&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;AIX&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# lsuser kairo kairo id=15000 pgrp=staff groups=staff,so
+home=/home/kairo shell=/usr/bin/ksh gecos=Kairo Araujo login=true
+su=true rlogin=true daemon=true admin=false sugroups=ALL admgroups=
+tpath=nosak ttys=ALL expires=0 auth1=SYSTEM auth2=NONE umask=22
+registry=files SYSTEM=compat logintimes= loginretries=0 pwdwarntime=0
+account_locked=false minage=0 maxage=0 maxexpired=-1 minalpha=0
+minother=0 mindiff=0 maxrepeats=8 minlen=0 histexpire=0 histsize=0
+pwdchecks= dictionlist= fsize=-1 cpu=-1 data=262144 stack=65536
+core=2097151 rss=65536 nofiles=2000 fsize_hard=-1
+time_last_login=1229521872 time_last_unsuccessful_login=1224871660
+tty_last_login=/dev/pts/0 tty_last_unsuccessful_login=ssh
+host_last_login=myserver host_last_unsuccessful_login=127.0.0.1
+unsuccessful_login_count=0 roles=&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Verifique o item "account_locked".&lt;/p&gt;
+&lt;p&gt;Para gerenciar, recomendo utilizar o smitty&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;smitty user&lt;/code&gt;&lt;/p&gt;</content></entry><entry><title>AIX NFS Client with Linux NFS Server - Error: Operation not permitted</title><link href="http://kairo.eti.br/aix-nfs-client-with-linux-nfs-server-error-operation-not-permitted.html" rel="alternate"></link><published>2008-07-27T17:47:00+02:00</published><updated>2008-07-27T17:47:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2008-07-27:/aix-nfs-client-with-linux-nfs-server-error-operation-not-permitted.html</id><summary type="html">&lt;p&gt;Este é um erro comum quando tenta-se montar um filesystem exportado por
+um servidor Linux no AIX&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;root@serveraix /&amp;gt;mount serverlinux:/my/fs/exported   /my/mountpint/here
+mount: 1831-008 giving up on: serverlinux:/my/fs/exported vmount:
+Operation not permitted.&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Solução:&lt;/p&gt;
+&lt;p&gt;Setar opção de utilização de portas reservadas para desativado …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Este é um erro comum quando tenta-se montar um filesystem exportado por
+um servidor Linux no AIX&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;root@serveraix /&amp;gt;mount serverlinux:/my/fs/exported   /my/mountpint/here
+mount: 1831-008 giving up on: serverlinux:/my/fs/exported vmount:
+Operation not permitted.&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Solução:&lt;/p&gt;
+&lt;p&gt;Setar opção de utilização de portas reservadas para desativado&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# nfso -o nfs_use_reserved_ports=1&lt;/code&gt;&lt;/p&gt;</content></entry><entry><title>Gerenciamento de Shared Memory no AIX e Linux (resumido)</title><link href="http://kairo.eti.br/gerenciamento-de-shared-memory-no-aix-e-linux-resumido.html" rel="alternate"></link><published>2008-04-13T23:48:00+02:00</published><updated>2008-04-13T23:48:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2008-04-13:/gerenciamento-de-shared-memory-no-aix-e-linux-resumido.html</id><summary type="html">&lt;p&gt;Shared Memory são áreas de memórias compartilhadas com outros processos
+(se permitido).&lt;br&gt;
+Uma definição mais detalhada pode ser vista
+&lt;a href="http://en.wikipedia.org/wiki/Shared_memory"&gt;aqui.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;As vezes uma aplicação após um travamento pode ter falha no reestart
+devido a processos presos no Shared Memory. Tanto no AIX quanto no Linux
+existe a possibilidade de remover …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Shared Memory são áreas de memórias compartilhadas com outros processos
+(se permitido).&lt;br&gt;
+Uma definição mais detalhada pode ser vista
+&lt;a href="http://en.wikipedia.org/wiki/Shared_memory"&gt;aqui.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;As vezes uma aplicação após um travamento pode ter falha no reestart
+devido a processos presos no Shared Memory. Tanto no AIX quanto no Linux
+existe a possibilidade de remover estes processos.&lt;br&gt;
+Basicamente utilizamos dois comandos:&lt;br&gt;
+ipcs - Verificar o shared memory&lt;br&gt;
+ipcrm - Remover do shared memory.&lt;/p&gt;
+&lt;p&gt;Abaixo segue a dica de forma resumida.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Listando processos no shared memory&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# ipcs -a&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Exemplo:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# ipcs -a IPC status from /dev/mem as of Sun Apr 13 20:15:25
+GRNLNDST 2008 T ID KEY MODE OWNER GROUP CREATOR CGROUP CBYTES QNUM
+QBYTES LSPID LRPID STIME RTIME CTIME Message Queues: q 0 0x4107001c
+-Rrw-rw---- root printq root printq 0 0 4194304 0 0 no-entry
+no-entry 16:36:07 T ID KEY MODE OWNER GROUP CREATOR CGROUP NATTCH SEGSZ
+CPID LPID ATIME DTIME CTIME Shared Memory: m 3145728 0x00004dbe
+--rw-rw-rw- root system root
+system 0 1848776 1822840 1802430 17:19:13 17:10:31 17:43:06
+m 1048577 0xffffffff --rw-rw---- root system root
+system 1 4096 278780 278780 20:14:16 20:14:16 16:36:37 m 5 0x0382becc
+--rw-rw-rw- uxxxx gxxxx uxxxx
+gxxxx 0 4096 995570 2125946 14:28:49 17:22:40 18:39:36
+m 12582924 0xffffffff --rw------- root system root
+system 0 557192 2121966 254178 15:14:02 15:57:39 15:14:01
+m 12582925 0xffffffff --rw------- root system root
+system 0 557192 1900732 254178 15:14:02 15:55:09 15:14:01
+m 12582926 0xffffffff --rw------- root system root
+system 0 557192 2121966 254178 15:14:16 15:58:39 15:14:15
+m 15728725 0x0382be85 --rw-rw-rw- uxxxx gxxxx uxxxx
+gxxxx 0 4096 2142322 716904 15:21:09 14:51:57 17:47:09
+m 36700248 0xffffffff --rw------- root system root
+system 0 557192 2293896 2293896 15:51:34 15:52:21 15:51:34&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="text-decoration:underline;"&gt;Dica 01:&lt;/span&gt; o CPID
+corresponde ao PID do processo no sistema operacional, exemplo:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;m 5 0x0382becc --rw-rw-rw- uxxxx gxxxx uxxxx
+gxxxx 0 4096 995570 2125946 14:28:49 17:22:40 18:39:36&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;4096 é o PID do processo, que pode ser identificado pelo "&lt;code&gt;ps -ef |
+grep 4096&lt;/code&gt;".&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Removendo processo do shared memory&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# ipcrm -m ID&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Exemplo&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# ipcrm -m 15728725 # ipcs -a IPC status from /dev/mem as of Sun
+Apr 13 20:19:48 GRNLNDST 2008 T ID KEY MODE OWNER GROUP CREATOR CGROUP
+CBYTES QNUM QBYTES LSPID LRPID STIME RTIME CTIME Message Queues:
+q 0 0x4107001c -Rrw-rw---- root printq root printq 0 0 4194304 0 0
+no-entry no-entry 16:36:07 T ID KEY MODE OWNER GROUP CREATOR CGROUP
+NATTCH SEGSZ CPID LPID ATIME DTIME CTIME Shared Memory:
+m 3145728 0x00004dbe --rw-rw-rw- root system root
+system 0 1848776 1822840 1802430 17:19:13 17:10:31 17:43:06
+m 1048577 0xffffffff --rw-rw---- root system root
+system 1 4096 278780 278780 20:18:16 20:18:16 16:36:37 m 5 0x0382becc
+--rw-rw-rw- uxxxx gxxxx uxxxx
+gxxxx 0 4096 995570 2125946 14:28:49 17:22:40 18:39:36
+m 12582924 0xffffffff --rw------- root system root
+system 0 557192 2121966 254178 15:14:02 15:57:39 15:14:01
+m 12582925 0xffffffff --rw------- root system root
+system 0 557192 1900732 254178 15:14:02 15:55:09 15:14:01
+m 12582926 0xffffffff --rw------- root system root
+system 0 557192 2121966 254178 15:14:16 15:58:39 15:14:15
+m 36700248 0xffffffff --rw------- root system root
+system 0 557192 2293896 2293896 15:51:34 15:52:21 15:51:34
+m 28311641 0xffffffff --rw------- root system root
+system 0 557192 475312 475312 14:10:25 15:43:32 14:10:22
+m 23068762 0xffffffff --rw------- root system root
+system 0 557192 1798238 1798238 15:49:36 15:52:32 15:49:36&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="text-decoration:underline;"&gt;Dica 01:&lt;/span&gt; Processo no
+shared memory em Defunct&lt;/p&gt;
+&lt;p&gt;O processos ficam com um "D" no inicio, exemplo:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;m 23068762 0xffffffff D-rw------- root system root
+system 0 557192 1798238 1798238 15:49:36 15:52:32 15:49:36&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Estes processos não podem ser removidos. :(&lt;/p&gt;</content></entry></feed>

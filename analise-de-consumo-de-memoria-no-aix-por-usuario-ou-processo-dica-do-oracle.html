@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>Analise de consumo de memória no AIX por usuário ou Processo + Dica do Oracle</title>
+
+            <link href="http://kairo.eti.br/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Full Atom Feed" />
+            <link href="http://kairo.eti.br/feeds/aix-unix-notes.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Categories Atom Feed" />
+        <!-- Bootstrap Core CSS -->
+        <link href="http://kairo.eti.br/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://kairo.eti.br/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://kairo.eti.br/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+        <meta name="description" content="Para fazermos análise do consumo de memória do usuário ou processo fazemos o uso do svmon. Consumo por usuário: # svmon -U kairoa | grep...">
+
+        <meta name="author" content="kairo">
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Kairo Araujo">
+
+	<meta property="og:type" content="article">
+            <meta property="article:author" content="http://kairo.eti.br/author/kairo.html">
+	<meta property="og:url" content="http://kairo.eti.br/analise-de-consumo-de-memoria-no-aix-por-usuario-ou-processo-dica-do-oracle.html">
+	<meta property="og:title" content="Analise de consumo de memória no AIX por usuário ou Processo + Dica do Oracle">
+	<meta property="article:published_time" content="2008-04-06 15:56:00+02:00">
+            <meta property="og:description" content="Para fazermos análise do consumo de memória do usuário ou processo fazemos o uso do svmon. Consumo por usuário: # svmon -U kairoa | grep...">
+
+            <meta property="og:image" content="http://kairo.eti.br/static/dc.jpg">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://kairo.eti.br/">Kairo Araujo</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+
+                            <li><a href="http://kairo.eti.br/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://kairo.eti.br/static/dc.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Analise de consumo de memória no AIX por usuário ou Processo + Dica do Oracle</h1>
+                        <span class="meta">Posted by
+                                <a href="http://kairo.eti.br/author/kairo.html">kairo</a>
+                             on Sun 06 April 2008
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p>Para fazermos análise do consumo de memória do usuário ou processo
+fazemos o uso do svmon.</p>
+<p><strong>Consumo por usuário:</strong></p>
+<p><code># svmon -U kairoa | grep kairoa kairoa 20115 7393 0 19739</code></p>
+<p>O primeiro valor é o Inuse, o valor que precisamos. Porém ele está em
+blocos de 4096.<br>
+Para obter o valor em Megabytes multiplique por 4096, em seguida divida
+por 1024 para obter em bytes e novamente por 1024 para obter os valores
+em megas.</p>
+<p>Exemplo utilizando o BC<br>
+<code># echo "20324*4096/1024/1024" | bc 79</code></p>
+<p>Sendo assim meu usuário está consumindo 79Mb da memória.</p>
+<p>Outro exemplo, o do root:</p>
+<p><code># svmon -U root | grep root root 80333 8481 26 65502 #echo
+"80333*4096/1024/1024"|bc 313</code></p>
+<p>Como sabemos que o root é responsável pelos processos do sistema
+operacional AIX, podemos concluir que o sistema operacional está
+consumindo 313Mb.</p>
+<p><strong>Consumo de um processo:</strong></p>
+<p>Basta utilizar o parâmetro -P pid</p>
+<p>Exemplo:</p>
+<p><code># svmon -P 757966 | grep 757966 757966 sshd 19916 7390 0 19602 N N N</code></p>
+<p># echo "19916*4096/1024/1024" | bc<br>
+77</p>
+<p><strong>Dica sobre memória do Oracle no AIX</strong></p>
+<p>O Oracle possui dois processos distintos no AIX, são eles:</p>
+<p>*smon* - SGA do banco<br>
+*pmon* - Reserva para processos do banco</p>
+<p>Se deseja saber quanto de SGA está definida para o banco faça:</p>
+<p><code># ps -ef | grep smon root 1306682 4423854 0 12:49:33 pts/1 0:00 grep
+smon oracle 3698866 1 0 Feb 17 - 16:03 ora_smon_XXX # svmon -P 3698866 |
+grep 3698866 3698866 oracle 5917562 65586 4872321 5896659 Y N N # echo
+"5917562*4096/1024/1024" | bc 23115</code></p>
+<p>Ou seja, a SGA do banco está setado com 23Gb.</p>
+<p>Para pegar o pmon proceda da mesma forma.</p>
+<p>Observação: o pmon e smon pode acessar a mesma área que está em shared.
+sendo assim confirme com o DBA. ;)</p>
+<p>Mais informações: <code>man svmon</code></p>
+    </article>
+
+
+    <hr>
+
+        <div class="comments">
+            <h2>Comments !</h2>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'kairoaraujo';
+                var disqus_identifier = 'analise-de-consumo-de-memoria-no-aix-por-usuario-ou-processo-dica-do-oracle.html';
+                var disqus_url = 'http://kairo.eti.br/analise-de-consumo-de-memoria-no-aix-por-usuario-ou-processo-dica-do-oracle.html';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//kairoaraujo.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://linkedin.com/in/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://github.com/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://twitter.com/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>. <br />        &copy;  Kairo Araujo 
+    <br />
+    These are my personal opinions
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://kairo.eti.br/theme/js/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://kairo.eti.br/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://kairo.eti.br/theme/js/clean-blog.min.js"></script>
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-108092336-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    var disqus_shortname = 'kairoaraujo';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+</body>
+
+</html>

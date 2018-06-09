@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>Security APAR Assistant (SAAssist)</title>
+
+            <link href="http://kairo.eti.br/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Full Atom Feed" />
+            <link href="http://kairo.eti.br/feeds/misc.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Categories Atom Feed" />
+        <!-- Bootstrap Core CSS -->
+        <link href="http://kairo.eti.br/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://kairo.eti.br/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://kairo.eti.br/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+        <meta name="description" content="Hi there, During my last vacation I started a new project with intention learn more about Python and AIX/PowerVM APARs and ifix. Now,...">
+
+        <meta name="author" content="Kairo Araujo">
+
+        <meta name="tags" content="comments">
+        <meta name="tags" content="recommend">
+        <meta name="tags" content="ibm">
+        <meta name="tags" content="apar">
+        <meta name="tags" content="assistance">
+        <meta name="tags" content="update">
+        <meta name="tags" content="power">
+        <meta name="tags" content="ifix">
+        <meta name="tags" content="security">
+        <meta name="tags" content="aix">
+        <meta name="tags" content="powervm">
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Kairo Araujo">
+
+	<meta property="og:type" content="article">
+            <meta property="article:author" content="http://kairo.eti.br/author/kairo-araujo.html">
+	<meta property="og:url" content="http://kairo.eti.br/security-apar-assistant-saassist.html">
+	<meta property="og:title" content="Security APAR Assistant (SAAssist)">
+	<meta property="article:published_time" content="2017-02-01 18:16:00+01:00">
+            <meta property="og:description" content="Hi there, During my last vacation I started a new project with intention learn more about Python and AIX/PowerVM APARs and ifix. Now,...">
+
+            <meta property="og:image" content="http://kairo.eti.br/static/dc.jpg">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://kairo.eti.br/">Kairo Araujo</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+
+                            <li><a href="http://kairo.eti.br/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://kairo.eti.br/static/dc.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Security APAR Assistant (SAAssist)</h1>
+                        <span class="meta">Posted by
+                                <a href="http://kairo.eti.br/author/kairo-araujo.html">Kairo Araujo</a>
+                             on Wed 01 February 2017
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p><span style="color: rgb(92, 93, 94); font-family: -apple-system, BlinkMacSystemFont, &#39;Segoe UI&#39;, Roboto, Oxygen-Sans, Ubuntu, Cantarell, &#39;Helvetica Neue&#39;, sans-serif; font-size: 14px;">Hi
+there,</span></p>
+<p><span style="color: rgb(92, 93, 94); font-family: -apple-system, BlinkMacSystemFont, &#39;Segoe UI&#39;, Roboto, Oxygen-Sans, Ubuntu, Cantarell, &#39;Helvetica Neue&#39;, sans-serif; font-size: 14px;">During
+my last vacation I started a new project with intention learn more
+about </span><span style="font-size: 14px;">Python and AIX/PowerVM
+APARs and ifix. Now, I'm releasing it as an Open Source tool. </span></p>
+<p><span style="font-size: 14px;">This project objectives is make easy to
+administrate and manage AIX/PowerVM APARs/ifix . This is the first
+version</span></p>
+<p><span style="font-size: 14px;">http://github.com/SAAssist/</span></p>
+<h2>Overview</h2>
+<p>Security APAR Assist (SAAssist) is a tool to controls security APARs for
+IBM AIX and IBM PowerVM environment.</p>
+<p>There are two basic components on SAAssist, SAAssist Server
+(saassist-server) and SAAssist Client (saassist-client).</p>
+<p>This is a Open Source software licensed by Apache License 2.0.</p>
+<p>Important:</p>
+<p>The Security APAR Assistant (including saassist-server and
+saassist-client) is not an IBM Inc. software and it is not supported or
+guaranteed by IBM.</p>
+<p>IBM AIX, IBM PowerVM and IBM Fix Level Recommended Tool website are
+registered trademarks of IBM Corporation in the United States, other
+countries, or
+both.</p>
+<h2><a href="https://github.com/SAAssist/saassist-server#how-it-works"></a>How it works</h2>
+<p>SAAssist Server (saassist-server) is the tool that works directly with
+the IBM Fix Level Recommendation Tool (FLRT) website
+( <a href="https://www-304.ibm.com/support/customercare/flrt/">https://www-304.ibm.com/support/customercare/flrt/</a>) and it creates
+a repository with APARs information and packages based on CVE or IV
+number.</p>
+<p>Those APARs information and packages are accessed by SAAssist Client
+(saassist-client) by HTTP or NFS protocol and checks if the APAR affect
+the server and if it can be installed.</p>
+<p>Only the SAAssist Server needs to access the IBM FLRT website, proxy is
+also supported and it can be used. AAssist Client needs to access only
+SAAssist Server by HTTP or NFS.</p>
+<ul>
+<li>
+<p>Schema
+    overvivew</p>
+<p><code>_________________|                 | -----[ Internet ]-----[ IBM FLRT website ]| saassist server |        * web proxy|_________________|        |        |        `----- [  Repository  ]               [  info, fixes ]               [  HTTP: :NFS  ]                       |        .--------------'        |________|_________|                 || saassist client ||_________________|        |        |        |`-{check}   verifies if APAR is applicable &amp; boot required        |        |`-{info}    gets detailed information about APAR (asc file)        |         `-{install} installs APARsaassist-server:     it can be an AIX, Linux or MacOS with Internet access directly     or through proxy.saassist-client:     AIX or PowerVM server</code></p>
+</li>
+</ul>
+<h3><a href="https://github.com/SAAssist/saassist-server#saassist-server-saassist-server"></a>SAAssist Server (saassist-server)</h3>
+<p>The SAAssist Server (saassist-server) is written in Python.</p>
+<p>saassist-server accesses the IBM FLRT website and collects all
+information about a specific CVE or IV number. It downloads data from
+website and stores it in a repository to be used by SAAssist Client
+(saassist-client) upon request through HTTP or NFS.</p>
+<p>The saassist-server includes the HTTP server (saassist-webserver), if a
+non static HTTP server is available it can be used as well.</p>
+<p>To use NFS is necessary that the system administrator exports the full
+path of repository ([saassist-server
+directory]/saassist/data/repos).</p>
+<h4><a href="https://github.com/SAAssist/saassist-server#using-saassist-server"></a>Using saassist-server</h4>
+<p>The saassist-server is simple to use. You need to run the
+saassist-server specifying the CVE or IV number that you want to create
+(-c) on the repository.</p>
+<p>Example: <code>saassist-server -c CVE-2016-3053</code> or <code>saassist-server -c
+IV88136</code></p>
+<p>The other options are -h to help of -u to update an existent
+CVE/IV.</p>
+<h5><a href="https://github.com/SAAssist/saassist-server#screenshots"></a>Screenshots</h5>
+<ul>
+<li>Help</li>
+</ul>
+<p><a href="https://github.com/SAAssist/saassist-server/blob/master/doc/screenshots/help.png"><img alt="doc/screenshots/help.png" src="https://github.com/SAAssist/saassist-server/raw/master/doc/screenshots/help.png"></a></p>
+<ul>
+<li>Creating a repository for a
+CVE</li>
+</ul>
+<p><a href="https://github.com/SAAssist/saassist-server/blob/master/doc/screenshots/creating_repo.png"><img alt="doc/screenshots/creating_repo.png" src="https://github.com/SAAssist/saassist-server/raw/master/doc/screenshots/creating_repo.png"></a></p>
+<ul>
+<li>Updating an existing repository for
+IV</li>
+</ul>
+<p><a href="https://github.com/SAAssist/saassist-server/blob/master/doc/screenshots/updating_repo.png"><img alt="doc/screenshots/updating_repo.png" src="https://github.com/SAAssist/saassist-server/raw/master/doc/screenshots/updating_repo.png"></a></p>
+<h4><a href="https://github.com/SAAssist/saassist-server#running-saassist-webserver"></a>Running saassist-webserver</h4>
+<p>The web server is included. If you want to have a static HTTP Server is
+recommended install Apache or another one. If you want to run this
+temporary, just
+run:</p>
+<p><code>saassist-webserver</code></p>
+<h5><a href="https://github.com/SAAssist/saassist-server#screenshots-1"></a>Screenshots</h5>
+<p><a href="https://github.com/SAAssist/saassist-server/blob/master/doc/screenshots/saassist-webserver.png"><img alt="doc/screenshots/saassist-webserver.png" src="https://github.com/SAAssist/saassist-server/raw/master/doc/screenshots/saassist-webserver.png"></a></p>
+<h3><a href="https://github.com/SAAssist/saassist-server#saassist-client-saassist-client"></a>SAAssist Client (saassist-client)</h3>
+<p>The SAAssist Client (saassist-client) is written in Korn Shell (ksh).</p>
+<p>This is a simple ksh script that accesses the SAAssist Server
+(saassist-server) using HTTP or NFS protocol and collects information
+about a specific APAR (CVE/IV), checks if it is applicable for the
+server, provides detailed information and installs the fix if required
+by you.</p>
+<p>Using NFS procotol, there is no requirements. Curl is required if you
+want to use saassist-client through HTTP
+procotol.</p>
+<h4><a href="https://github.com/SAAssist/saassist-server#using-saassist-client"></a>Using saassist-client</h4>
+<p>The saassist-server is simple to use. You need to run the
+saassist-client.sh with the actions (parameters) that you want to
+perform and specify the CVE or IV Number.</p>
+<p>To get full help use: <code>saassist-client.sh help</code></p>
+<ul>
+<li>check : Verifies if the system is affected by CVE/IV</li>
+<li>info : Shows details about the CVE/IV</li>
+<li>install : Installs the APAR if it is available and applicable to the
+    system</li>
+</ul>
+<p>Example:</p>
+<blockquote>
+<p><code>saassist-client check CVE-2016-0281</code></p>
+<p><code>saassist-client info IV91004</code></p>
+<p><code>saassist-client install
+CVE-2016-0281</code></p>
+</blockquote>
+<h5><a href="https://github.com/SAAssist/saassist-server#screenshots-2"></a>Screenshots</h5>
+<ul>
+<li>Checking</li>
+</ul>
+<p>not
+affected</p>
+<p><a href="https://github.com/SAAssist/saassist-server/blob/master/doc/screenshots/client_not_affected.png"><img alt="doc/screenshots/client_not_affected.png" src="https://github.com/SAAssist/saassist-server/raw/master/doc/screenshots/client_not_affected.png"></a></p>
+<p>affected</p>
+<p><a href="https://github.com/SAAssist/saassist-server/blob/master/doc/screenshots/client_affected.png"><img alt="doc/screenshots/client_affected.png" src="https://github.com/SAAssist/saassist-server/raw/master/doc/screenshots/client_affected.png"></a></p>
+<ul>
+<li>Reading
+info</li>
+</ul>
+<p><a href="https://github.com/SAAssist/saassist-server/blob/master/doc/screenshots/client_info.png"><img alt="doc/screenshots/client_info.png" src="https://github.com/SAAssist/saassist-server/raw/master/doc/screenshots/client_info.png"></a></p>
+<ul>
+<li>Install
+APAR/Fix</li>
+</ul>
+<p><a href="https://github.com/SAAssist/saassist-server/blob/master/doc/screenshots/client_install.png"><img alt="doc/screenshots/client_install.png" src="https://github.com/SAAssist/saassist-server/raw/master/doc/screenshots/client_install.png"></a></p>
+<p><a href="https://github.com/SAAssist/saassist-server/blob/master/doc/screenshots/client_install_end.png"><img alt="doc/screenshots/client_install_end.png" src="https://github.com/SAAssist/saassist-server/raw/master/doc/screenshots/client_install_end.png"></a></p>
+<h2><a href="https://github.com/SAAssist/saassist-server#saassist-server-saassist-server-installation"></a>SAAssist Server (saassist-server) Installation</h2>
+<p>The dependencies to install the saassist-server are Python version 3 and
+BeautifulSoup4 module for
+Python.</p>
+<h3><a href="https://github.com/SAAssist/saassist-server#installing-python-3"></a>Installing Python 3</h3>
+<p>Python version 3 is required by saassist-server and it can runs on
+Linux, AIX and MacOS (I have never on Windows, but I believe that it is
+possible too).</p>
+<p>Follow bellow the instruction for Linux and AIX.</p>
+<h4><a href="https://github.com/SAAssist/saassist-server#linux"></a>LINUX</h4>
+<p>To install Python 3 use yum or apt-get from your Linux distribution, do
+the same to install pip3</p>
+<p><code>yum install python3 pip3</code></p>
+<h4><a href="https://github.com/SAAssist/saassist-server#aix"></a>AIX</h4>
+<p>I have been using this Python3 package to my environment and it can be
+installed using <code>smitty
+install</code></p>
+<p><a href="http://www.aixtools.net/index.php/python3">http://www.aixtools.net/index.php/python3</a></p>
+<h3><a href="https://github.com/SAAssist/saassist-server#installing-beautifulsoup4"></a>Installing BeautifulSoup4</h3>
+<p>BeautifulSoup is a Python package (module) and it is required for
+saassist-server. It can be installed using PIP</p>
+<h4><a href="https://github.com/SAAssist/saassist-server#pip"></a>PIP</h4>
+<p><code>pip3 install
+bs4</code></p>
+<h3><a href="https://github.com/SAAssist/saassist-server#installing-saassist-server"></a>Installing saassist-server</h3>
+<p>To install saassist-server you need to download the latest version,
+extract the content and edit config server_config.py file.</p>
+<ol>
+<li>
+<p>Download</p>
+<blockquote>
+<p><a href="http://github.com/SAAssist">http://github.com/SAAssist</a></p>
+</blockquote>
+</li>
+<li>
+<p>Extract</p>
+<blockquote>
+<p>.zip <code>unzip saassist-server[version].zip</code></p>
+<p>.tar <code>tar xvf saassist-server[version].zip</code></p>
+</blockquote>
+</li>
+</ol>
+<!-- end list -->
+
+<ol>
+<li>
+<p>Configure the server_config.py</p>
+<blockquote>
+<p>Please check the comments inside of config file</p>
+<p><code>vi
+server_config.py</code></p>
+</blockquote>
+</li>
+</ol>
+<h2><a href="https://github.com/SAAssist/saassist-server#saassist-client-saassist-client-installation"></a>SAAssist Client (saassist-client) Installation</h2>
+<p>If you want to use HTTP protocol, remember the package curl is required
+for IBM AIX/PowerVM.</p>
+<p>Download the saassist-client from the link, extract the files and edit
+client_config file.</p>
+<ol>
+<li>
+<p>Download</p>
+<blockquote>
+<p><a href="http://github.com/SAAssist/saassist-client">http://github.com/SAAssist/saassist-client</a></p>
+</blockquote>
+</li>
+<li>
+<p>Extract the files</p>
+<blockquote>
+<p>.zip <code>unzip saassist-client[version].zip</code></p>
+<p>.tar <code>tar xvf saassist-client[version].zip</code></p>
+</blockquote>
+</li>
+</ol>
+<!-- end list -->
+
+<ol>
+<li>
+<p>Configure the client_config</p>
+<blockquote>
+<p>Please check the comments inside the config file</p>
+<p><code>vi
+client_config</code></p>
+</blockquote>
+</li>
+</ol>
+<h2><a href="https://github.com/SAAssist/saassist-server#reporting-bugs-and-improvements"></a>Reporting bugs and improvements</h2>
+<p>SAAssist Server <a href="https://github.com/SAAssist/saassist-server/issues">https://github.com/SAAssist/saassist-server/issues</a></p>
+<p>SAAssist
+Client <a href="https://github.com/SAAssist/saassist-client/issues">https://github.com/SAAssist/saassist-client/issues</a></p>
+<h2><a href="https://github.com/SAAssist/saassist-server#contributing"></a>Contributing</h2>
+<p>SAAssist Server (saassist-server) is developed in Python (version 3)
+language</p>
+<p>and SAAssist Client (saassist-client) is developed in Korn Shell (ksh).</p>
+<h3><a href="https://github.com/SAAssist/saassist-server#to-do"></a>To Do</h3>
+<ul>
+<li>[server] Avoid to store the same fix for different versions to
+    reduce data storage usage.</li>
+<li>[server/client] implement checksum for files</li>
+<li>[server/client] Include support for ftp protocol</li>
+<li>[server] Create all unit tests for Python
+code</li>
+</ul>
+<h3><a href="https://github.com/SAAssist/saassist-server#new-code-or-bug-fixes"></a>New code or bug fixes</h3>
+<ol>
+<li>Do the fork from <a href="http://github.com/SAAssist/saassist-server">http://github.com/SAAssist/saassist-server</a> or
+    saassist-client</li>
+<li>Do the clone from your fork <code>git clone
+    http://github.com/username/saassist-server</code></li>
+<li>Create a branch <code>git checkout -b new_feature</code> or <code>git checkout -b
+    bug_000X</code></li>
+<li>Do your code or fix a bug :)</li>
+<li>Run tests <code>tox -e py34</code> (if your version is Python 3.5 use py35)</li>
+<li>Submit your code to review <code>git-review</code></li>
+</ol>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://kairo.eti.br/tag/comments.html">comments</a>, <a href="http://kairo.eti.br/tag/recommend.html">recommend</a>, <a href="http://kairo.eti.br/tag/ibm.html">ibm</a>, <a href="http://kairo.eti.br/tag/apar.html">apar</a>, <a href="http://kairo.eti.br/tag/assistance.html">assistance</a>, <a href="http://kairo.eti.br/tag/update.html">update</a>, <a href="http://kairo.eti.br/tag/power.html">power</a>, <a href="http://kairo.eti.br/tag/ifix.html">ifix</a>, <a href="http://kairo.eti.br/tag/security.html">security</a>, <a href="http://kairo.eti.br/tag/aix.html">aix</a>, <a href="http://kairo.eti.br/tag/powervm.html">powervm</a></p>
+        </div>
+
+    <hr>
+
+        <div class="comments">
+            <h2>Comments !</h2>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'kairoaraujo';
+                var disqus_identifier = 'security-apar-assistant-saassist.html';
+                var disqus_url = 'http://kairo.eti.br/security-apar-assistant-saassist.html';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//kairoaraujo.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://linkedin.com/in/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://github.com/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://twitter.com/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>. <br />        &copy;  Kairo Araujo 
+    <br />
+    These are my personal opinions
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://kairo.eti.br/theme/js/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://kairo.eti.br/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://kairo.eti.br/theme/js/clean-blog.min.js"></script>
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-108092336-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    var disqus_shortname = 'kairoaraujo';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+</body>
+
+</html>

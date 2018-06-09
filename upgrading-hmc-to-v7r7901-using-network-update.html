@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>Upgrading HMC to V7R7.9.0.1 Using network update</title>
+
+            <link href="http://kairo.eti.br/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Full Atom Feed" />
+            <link href="http://kairo.eti.br/feeds/misc.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Categories Atom Feed" />
+        <!-- Bootstrap Core CSS -->
+        <link href="http://kairo.eti.br/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://kairo.eti.br/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://kairo.eti.br/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+        <meta name="description" content="[sorry my bad english] 0. Check the firmware x HMC version matrix...">
+
+        <meta name="author" content="Kairo Araujo">
+
+        <meta name="tags" content="comments">
+        <meta name="tags" content="recommend">
+        <meta name="tags" content="7">
+        <meta name="tags" content="update">
+        <meta name="tags" content="hmc">
+        <meta name="tags" content="v7r7902">
+        <meta name="tags" content="upgrade">
+        <meta name="tags" content="power">
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Kairo Araujo">
+
+	<meta property="og:type" content="article">
+            <meta property="article:author" content="http://kairo.eti.br/author/kairo-araujo.html">
+	<meta property="og:url" content="http://kairo.eti.br/upgrading-hmc-to-v7r7901-using-network-update.html">
+	<meta property="og:title" content="Upgrading HMC to V7R7.9.0.1 Using network update">
+	<meta property="article:published_time" content="2015-03-05 18:01:00+01:00">
+            <meta property="og:description" content="[sorry my bad english] 0. Check the firmware x HMC version matrix...">
+
+            <meta property="og:image" content="http://kairo.eti.br/static/dc.jpg">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://kairo.eti.br/">Kairo Araujo</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+
+                            <li><a href="http://kairo.eti.br/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://kairo.eti.br/static/dc.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Upgrading HMC to V7R7.9.0.1 Using network update</h1>
+                        <span class="meta">Posted by
+                                <a href="http://kairo.eti.br/author/kairo-araujo.html">Kairo Araujo</a>
+                             on Thu 05 March 2015
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p>[sorry my bad english]</p>
+<p><strong>0. Check the firmware x HMC version
+matrix</strong></p>
+<p><a href="http://www-933.ibm.com/support/fixcentral/main/transform?xml=http://download.boulder.ibm.com/ibmdl/pub/software/server/firmware/sfw_fixSupportedCombos.xml&amp;title=Supported+Combinations">http://www-933.ibm.com/support/fixcentral/main/transform?xml=http://download.boulder.ibm.com/ibmdl/pub/software/server/firmware/sfw_fixSupportedCombos.xml&amp;title=Supported+Combinations</a></p>
+<p>Don't update to HMC 7.7.90 if you have these firmwares</p>
+<ul>
+<li>
+<p>01Ax770 levels 032 (GA) to 064</p>
+</li>
+<li>
+<p>01Ax773 levels 033 to 051</p>
+</li>
+<li>
+<p>01Ax780 levels 040 (GA) to 050</p>
+</li>
+</ul>
+<p>Check it for more details:
+<a href="http://www-01.ibm.com/support/docview.wss?uid=nas8N1020088">http://www-01.ibm.com/support/docview.wss?uid=nas8N1020088</a></p>
+<p><strong>1. Download the V7R7.9.0</strong></p>
+<p>The files:</p>
+<blockquote>
+<p>-rw-r--r--    1 17037    209         2730176 Apr 25 2014  bzImage  </p>
+<p>-rw-r--r--    1 17037    209       817065984 Apr 25 2014  disk1.img  </p>
+<p>-rw-r--r--    1 17037    209      1456427008 Apr 25 2014  disk2.img  </p>
+<p>-rw-r--r--    1 17037    209       873922560 Apr 25 2014  disk3.img  </p>
+<p>-rw-r--r--    1 17037    209              78 Apr 25 2014 
+hmcnetworkfiles.sum  </p>
+<p>-rw-r--r--    1 17037    209        34185788 Apr 25 2014  initrd.gz</p>
+<p># ftp  </p>
+<p>ftp> open ftp.software.ibm.com  </p>
+<p>Name: anonymous  </p>
+<p>Password: ftp  </p>
+<p>ftp> cd software/server/hmc/network/v7790  </p>
+<p>ftp> prompt  </p>
+<p>ftp> bin    </p>
+<p>ftp> mget *   </p>
+<p>ftp> bye  </p>
+</blockquote>
+<p><strong>2. On IBM Fix Central you need get files to upgrade to
+V7R7.9.0.1</strong></p>
+<p><span class="dummyQOClass" style="WORD-BREAK:BREAK-ALL"><a href="http://www.ibm.com/support/fixcentral/main/quickorder?parent=powersysmgmntcouncil&amp;product=ibm/hmc/9100HMC&amp;release=V7R7.9.0&amp;platform=All&amp;function=all&amp;source=fc">http://www.ibm.com/support/fixcentral/main/quickorder?parent=powersysmgmntcouncil&amp;product=ibm/hmc/9100HMC&amp;release=V7R7.9.0&amp;platform=All&amp;function=all&amp;source=fc</a></span></p>
+<p>The required files is *.iso:</p>
+<p>HMC_Update_V7R790_SP1.iso  </p>
+<p>MH01406.iso  </p>
+<p>MH01435.iso  </p>
+<p>MH01463.iso  </p>
+<p>MH01467.iso  </p>
+<p>MH01473.iso  </p>
+<p>MH01484.iso  </p>
+<p>MH01490.iso</p>
+<p>Tip: Put this files in local FTP  too.</p>
+<p><strong>3. Upgrading to v7790</strong></p>
+<p>Put all files downloaded on item 1 in a local FTP Server</p>
+<p><strong>4. Login at HMC using SSH and run the commands (hscroot)</strong></p>
+<p><span style="font-family:courier new,courier,monospace;"># saveupgdata
+-r disk</span></p>
+<p><span style="font-family:courier new,courier,monospace;"># getupgfiles
+-h ftpserver -u root --passwd xxxxx -d /tmp/v7790</span></p>
+<p><span style="font-family:courier new,courier,monospace;"># chhmc -c
+altdiskboot -s enable --mode upgrade</span></p>
+<p><span style="font-family:courier new,courier,monospace;"># hmcshutdown
+-r -t now</span></p>
+<p><span style="font-family:courier new,courier,monospace;">The upgrade
+time for my HMC was 30 minutes.</span></p>
+<p><strong>5. Updating to v7r7.9.0.1</strong></p>
+<p>Log on HMC Web interface</p>
+<p>a. Updates (left menu)</p>
+<p>b. HMC Update</p>
+<p>b.1. Next</p>
+<p>b.2. Remote Server</p>
+<p>b.3. FTP , Remote Server Address, User ID, Password and Dir files</p>
+<p>b.4. Select File</p>
+<p>At this point, apply MHXXXX.iso files (one by one) using number
+sequence. If you receive the message requiring the version V7R79.0.1 is
+the momment to apply the HMC_Update_V7R790_SP1.iso . I don't know if
+this is correct method, but works fine to me.</p>
+<p>All the .iso requires HMC reboot.</p>
+<p>When you apply the  HMC_Update_V7R790_SP1.iso you will receive that
+screen (sorry, my HMC in Portuguese)</p>
+<p>The reboot for Update is ~30
+minutes</p>
+<p><a href="https://www.ibm.com/developerworks/community/blogs/kairoaraujo/resource/BLOGS_UPLOADED_IMAGES/ScreenShot2015-03-05at10.32.09.png">https://www.ibm.com/developerworks/community/blogs/kairoaraujo/resource/BLOGS_UPLOADED_IMAGES/ScreenShot2015-03-05at10.32.09.png</a></p>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://kairo.eti.br/tag/comments.html">comments</a>, <a href="http://kairo.eti.br/tag/recommend.html">recommend</a>, <a href="http://kairo.eti.br/tag/7.html">7</a>, <a href="http://kairo.eti.br/tag/update.html">update</a>, <a href="http://kairo.eti.br/tag/hmc.html">hmc</a>, <a href="http://kairo.eti.br/tag/v7r7902.html">v7r7902</a>, <a href="http://kairo.eti.br/tag/upgrade.html">upgrade</a>, <a href="http://kairo.eti.br/tag/power.html">power</a></p>
+        </div>
+
+    <hr>
+
+        <div class="comments">
+            <h2>Comments !</h2>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'kairoaraujo';
+                var disqus_identifier = 'upgrading-hmc-to-v7r7901-using-network-update.html';
+                var disqus_url = 'http://kairo.eti.br/upgrading-hmc-to-v7r7901-using-network-update.html';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//kairoaraujo.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://linkedin.com/in/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://github.com/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://twitter.com/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>. <br />        &copy;  Kairo Araujo 
+    <br />
+    These are my personal opinions
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://kairo.eti.br/theme/js/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://kairo.eti.br/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://kairo.eti.br/theme/js/clean-blog.min.js"></script>
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-108092336-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    var disqus_shortname = 'kairoaraujo';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+</body>
+
+</html>

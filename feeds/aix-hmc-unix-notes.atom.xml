@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Kairo Araujo - AIX, HMC, Unix Notes</title><link href="http://kairo.eti.br/" rel="alternate"></link><link href="http://kairo.eti.br/feeds/aix-hmc-unix-notes.atom.xml" rel="self"></link><id>http://kairo.eti.br/</id><updated>2007-09-28T11:00:00+02:00</updated><entry><title>SSH Virtual Terminal HMC Basic Commands</title><link href="http://kairo.eti.br/ssh-virtual-terminal-hmc-basic-commands.html" rel="alternate"></link><published>2007-09-28T11:00:00+02:00</published><updated>2007-09-28T11:00:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2007-09-28:/ssh-virtual-terminal-hmc-basic-commands.html</id><summary type="html">&lt;p&gt;Comandos basicos a serem utilizados na HMC para abertura de console Unix
+(Linux ou AIX) via SSH.&lt;/p&gt;
+&lt;p&gt;Comandos vtmenu e o rmvterm&lt;br&gt;
+Exemplos  &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Abrir Remote Console&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Comando: vtmenu&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# vtmenu Retrieving name of managed system(s) . . .
+Server-TYPE-MODEL-SERIALNUMBER 2-Server-TYPE-MODEL-SERIALNUMBER
+---------------------------------------------------------- Managed
+Systems: ---------------------------------------------------------- 1)
+Server-TYPE-MODEL-SERIALNUMBER 2) 2-Server-TYPE-MODEL-SERIALNUMBER Enter
+Number of Managed System. (q to …&lt;/code&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;Comandos basicos a serem utilizados na HMC para abertura de console Unix
+(Linux ou AIX) via SSH.&lt;/p&gt;
+&lt;p&gt;Comandos vtmenu e o rmvterm&lt;br&gt;
+Exemplos  &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Abrir Remote Console&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Comando: vtmenu&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# vtmenu Retrieving name of managed system(s) . . .
+Server-TYPE-MODEL-SERIALNUMBER 2-Server-TYPE-MODEL-SERIALNUMBER
+---------------------------------------------------------- Managed
+Systems: ---------------------------------------------------------- 1)
+Server-TYPE-MODEL-SERIALNUMBER 2) 2-Server-TYPE-MODEL-SERIALNUMBER Enter
+Number of Managed System. (q to quit): 2
+---------------------------------------------------------- Partitions On
+Managed System: 2-Server-TYPE-MODEL-SERIALNUMBER OS/400 Partitions not
+listed ---------------------------------------------------------- 1)
+server01 Running 2) server02 Running 3) server03 Running 4) server04
+Running 5) server05 Running Enter Number of Running Partition (q to
+quit): 4 Opening Virtual Terminal On Partition server04 . . . Open in
+progress.. Open in progress Open Completed. AIX Version 5 (C) Copyrights
+by IBM and by others 1982, 2006. Console login:&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Caso a console esteja ocupada é possível matar&lt;/p&gt;
+&lt;p&gt;Exemplo:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Enter Number of Running Partition (q to quit): 4 Opening Virtual
+Terminal On Partition server04 . . .Open in progress..A terminal session
+is already open for this partition. Only one open session is allowed for
+a partition. Exiting.... Received end of file, Exiting.&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Hit To Continue, q to quit: q&lt;/p&gt;
+&lt;p&gt;Bye.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Comando: rmvterm&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;rmvterm -m 2-Server-TYPE-MODEL-SERIALNUMBER -p server04 Sending Force
+close..&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Sair da console&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Digite "~" e em seguido "."&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;AIX Version 5 (C) Copyrights by IBM and by others 1982, 2006. Console
+login:Terminate session? [y/n] ~Hit To Continue, q to quit: q Bye.&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Mais:
+&lt;a href="http://www-941.ibm.com/collaboration/wiki/display/LinuxP/HMC+command+line"&gt;http://www-941.ibm.com/collaboration/wiki/display/LinuxP/HMC+command+line&lt;/a&gt;&lt;/p&gt;</content></entry></feed>

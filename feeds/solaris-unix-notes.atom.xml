@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Kairo Araujo - Solaris, Unix Notes</title><link href="http://kairo.eti.br/" rel="alternate"></link><link href="http://kairo.eti.br/feeds/solaris-unix-notes.atom.xml" rel="self"></link><id>http://kairo.eti.br/</id><updated>2010-05-08T10:47:00+02:00</updated><entry><title>NMON for Solaris? Yes, you can use SARMON</title><link href="http://kairo.eti.br/nmon-for-solaris-yes-you-can-use-sarmon.html" rel="alternate"></link><published>2010-05-08T10:47:00+02:00</published><updated>2010-05-08T10:47:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2010-05-08:/nmon-for-solaris-yes-you-can-use-sarmon.html</id><summary type="html">&lt;p&gt;&lt;a href="http://kairo.files.wordpress.com/2010/05/sarmon_cpuall.png"&gt;&lt;img alt="SARMON, NMON for
+Solaris" src="http://kairo.files.wordpress.com/2010/05/sarmon_cpuall.png?w=300" title="SARMON"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Searching about NMON I find the SARMON. This is a great solution for
+reports of capacity on Solaris.&lt;/p&gt;
+&lt;p&gt;If you know the NMON
+(&lt;a href="http://www.ibm.com/developerworks/wikis/display/WikiPtype/nmon"&gt;website&lt;/a&gt;)
+for AIX e Linux and need for Solaris you can use the SARMON
+(&lt;a href="http://www.geckotechnology.com/sarmon"&gt;website&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;For reports you can use &lt;a href="http://www.ibm.com/developerworks/wikis/display/WikiPtype/nmonanalyser"&gt;the original
+tool&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The installation is very …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;a href="http://kairo.files.wordpress.com/2010/05/sarmon_cpuall.png"&gt;&lt;img alt="SARMON, NMON for
+Solaris" src="http://kairo.files.wordpress.com/2010/05/sarmon_cpuall.png?w=300" title="SARMON"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Searching about NMON I find the SARMON. This is a great solution for
+reports of capacity on Solaris.&lt;/p&gt;
+&lt;p&gt;If you know the NMON
+(&lt;a href="http://www.ibm.com/developerworks/wikis/display/WikiPtype/nmon"&gt;website&lt;/a&gt;)
+for AIX e Linux and need for Solaris you can use the SARMON
+(&lt;a href="http://www.geckotechnology.com/sarmon"&gt;website&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;For reports you can use &lt;a href="http://www.ibm.com/developerworks/wikis/display/WikiPtype/nmonanalyser"&gt;the original
+tool&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The installation is very ease&lt;/p&gt;
+&lt;p&gt;1. Get the .zip file&lt;/p&gt;
+&lt;p&gt;2. Save on /var/tmp&lt;/p&gt;
+&lt;p&gt;3. Unzip the .zip&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# unzip sarmon_v1.01.bin_sparc.zip&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;4. Make backup of original files&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# cp /usr/bin/sar /usr/bin/sar.orig # cp /usr/bin/timex
+/usr/bin/timex.orig # cp /usr/lib/sa/sadc /usr/lib/sa/sadc.orig&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;5. Move the sarmon to /usr/local&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# mv /var/tmp/sarmon_v1.01.bin_sparc /usr/local/sarmon&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;6. Copy files&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# cp /usr/local/sarmon/sar /usr/bin/sar # cp /usr/local/sarmon/timex
+/usr/bin/timex # cp /usr/local/sarmon/sadc /usr/lib/sa/sadc&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;7. Edit the crontab and put the entry for collect&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;0 0 * * * /usr/local/sarmon/sa1 300 288 &amp;amp;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;This start collect every day at 00:00&lt;/p&gt;
+&lt;p&gt;The files generated are in /var/adm/sa/ (day-by-day)&lt;/p&gt;</content><category term="capacity"></category><category term="capacity and peformance"></category><category term="nmon"></category><category term="nmon for solaris"></category><category term="peformance"></category><category term="sarmon"></category></entry><entry><title>How to identify ssd devices on Solaris (MX000 Servers only)</title><link href="http://kairo.eti.br/how-to-identify-ssd-devices-on-solaris-mx000-servers-only.html" rel="alternate"></link><published>2010-03-23T17:25:00+01:00</published><updated>2010-03-23T17:25:00+01:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2010-03-23:/how-to-identify-ssd-devices-on-solaris-mx000-servers-only.html</id><summary type="html">&lt;h2&gt;Esse blog mudou para &lt;a href="http://blog.kairo.eti.br"&gt;http://blog.kairo.eti.br&lt;/a&gt;&lt;/h2&gt;
+&lt;h2&gt;This blog has moved to &lt;a href="http://blog.kairo.eti.br"&gt;http://blog.kairo.eti.br&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;How to identify ssd devices on Solaris (MX000 Servers only)&lt;/p&gt;
+&lt;p&gt;1. Open one SSH on XSCF&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Last login: Tue Mar 23 12:22:37 2010 from XXX.YYY.ZZZ.KKKK XSCF …&lt;/code&gt;&lt;/p&gt;</summary><content type="html">&lt;h2&gt;Esse blog mudou para &lt;a href="http://blog.kairo.eti.br"&gt;http://blog.kairo.eti.br&lt;/a&gt;&lt;/h2&gt;
+&lt;h2&gt;This blog has moved to &lt;a href="http://blog.kairo.eti.br"&gt;http://blog.kairo.eti.br&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;How to identify ssd devices on Solaris (MX000 Servers only)&lt;/p&gt;
+&lt;p&gt;1. Open one SSH on XSCF&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Last login: Tue Mar 23 12:22:37 2010 from XXX.YYY.ZZZ.KKKK XSCF&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;2. Open on SSH session on your Solaris Server&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Last login: Tue Mar 23 11:35:06 2010 from XXX.YYY.ZZZ.KKKK Sun
+Microsystems Inc. SunOS 5.10 Generic January 2005 You have new mail.
+[root@MYSERVER ]#&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;3. Verify your top disks I/O with iostat&lt;/p&gt;
+&lt;p&gt;Sample:&lt;br&gt;
+&lt;code&gt;[root@MYSERVER ]# iostat -xM | grep ssd
+ssd0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0 0
+ssd43 0.0 0.0 0.0 0.0 0.0 0.0 0.9 0 0
+ssd50 0.0 0.0 0.0 0.0 0.0 0.0 0.2 0 0
+ssd61 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0 0
+ssd62 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0 0
+ssd148 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0 0
+ssd159 0.3 0.6 0.0 0.0 0.0 0.0 2.0 0 0
+ssd160 0.1 0.3 0.0 0.0 0.0 0.0 2.4 0 0
+ssd201 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0 0
+ssd202 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0 0
+ssd203 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0 0
+ssd296 0.0 0.0 0.0 0.0 0.0 0.0 0.1 0 0
+ssd333 0.0 0.0 0.0 0.0 0.0 0.0 0.1 0 0&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;4. Verify the SSD Devices on XSCF of respective domain of server.&lt;/p&gt;
+&lt;p&gt;Sample:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# showdevices -a -v 01 01 01-2 ssd201
+/dev/dsk/c4t500009740809C55Cd42s2Device being used by VxVM 01 01-2
+ssd202 /dev/dsk/c4t500009740809C55Cd41s2Device being used by VxVM&lt;/code&gt;&lt;/p&gt;</content><category term="Identify ssd devices"></category><category term="MX000"></category><category term="SSD devices"></category></entry><entry><title>Veritas Volume Manager (VxVM) - Disk Group DG Rename</title><link href="http://kairo.eti.br/veritas-volume-manager-vxvm-dg-disk-group-rename-2.html" rel="alternate"></link><published>2010-03-15T18:42:00+01:00</published><updated>2010-03-15T18:42:00+01:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2010-03-15:/veritas-volume-manager-vxvm-dg-disk-group-rename-2.html</id><summary type="html">&lt;p&gt;&lt;a href="http://kairo.files.wordpress.com/2010/03/solaris_logo.png"&gt;&lt;img alt="" src="http://kairo.files.wordpress.com/2010/03/solaris_logo.png?w=150" title="solaris_logo"&gt;&lt;/a&gt;Veritas
+Volume Manager (VxVM) - DG (Disk Group) Rename&lt;/p&gt;
+&lt;p&gt;1. Umount all filesystems used&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# umount /myfilesystem1 # umount /myfilesystem2&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;2. Stop all volumes of Disk Group (DG)&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# vxdg -g DG_APPS stopall&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;3. Deport the Disk Group (DG)&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# vxdg deport DG_APPS&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;4. Import Disk Group with new name&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# vxdg -n DG_DB import DG_APPs …&lt;/code&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;a href="http://kairo.files.wordpress.com/2010/03/solaris_logo.png"&gt;&lt;img alt="" src="http://kairo.files.wordpress.com/2010/03/solaris_logo.png?w=150" title="solaris_logo"&gt;&lt;/a&gt;Veritas
+Volume Manager (VxVM) - DG (Disk Group) Rename&lt;/p&gt;
+&lt;p&gt;1. Umount all filesystems used&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# umount /myfilesystem1 # umount /myfilesystem2&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;2. Stop all volumes of Disk Group (DG)&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# vxdg -g DG_APPS stopall&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;3. Deport the Disk Group (DG)&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# vxdg deport DG_APPS&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;4. Import Disk Group with new name&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# vxdg -n DG_DB import DG_APPs&lt;/code&gt;&lt;/p&gt;</content><category term="DG"></category><category term="DG rename"></category><category term="Disk Group"></category><category term="Disk Group Rename"></category><category term="import new name"></category><category term="rename"></category><category term="Veritas"></category><category term="Veritas Volume Manager"></category><category term="VxVM"></category></entry><entry><title>SUN T2000 Firmware update</title><link href="http://kairo.eti.br/sun-t2000-firmware-update.html" rel="alternate"></link><published>2010-03-13T20:59:00+01:00</published><updated>2010-03-13T20:59:00+01:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2010-03-13:/sun-t2000-firmware-update.html</id><summary type="html">&lt;p&gt;&lt;a href="http://kairo.files.wordpress.com/2010/03/sun-t2000.jpg"&gt;&lt;img alt="" src="http://kairo.files.wordpress.com/2010/03/sun-t2000.jpg?w=300" title="SUN-T2000"&gt;&lt;/a&gt;SUN
+T2000 firmware update&lt;/p&gt;
+&lt;p&gt;Pré-requesite: You need a SUN Solaris installed on the hardware.&lt;/p&gt;
+&lt;p&gt;1. Go to sunsolve.sun.com and make login&lt;/p&gt;
+&lt;p&gt;2. Access: SunSystem Handbook &gt; Select Category: Servers &gt; (Servers)
+Select a Product: Sun Fire T2000&lt;/p&gt;
+&lt;p&gt;Direct link:
+&lt;a href="http://sunsolve.sun.com/handbook_private/validateUser.do?target=Systems/SunFireT2000/SunFireT2000"&gt;http://sunsolve.sun.com/handbook_private/validateUser.do?target=Systems/SunFireT2000/SunFireT2000 …&lt;/a&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;a href="http://kairo.files.wordpress.com/2010/03/sun-t2000.jpg"&gt;&lt;img alt="" src="http://kairo.files.wordpress.com/2010/03/sun-t2000.jpg?w=300" title="SUN-T2000"&gt;&lt;/a&gt;SUN
+T2000 firmware update&lt;/p&gt;
+&lt;p&gt;Pré-requesite: You need a SUN Solaris installed on the hardware.&lt;/p&gt;
+&lt;p&gt;1. Go to sunsolve.sun.com and make login&lt;/p&gt;
+&lt;p&gt;2. Access: SunSystem Handbook &gt; Select Category: Servers &gt; (Servers)
+Select a Product: Sun Fire T2000&lt;/p&gt;
+&lt;p&gt;Direct link:
+&lt;a href="http://sunsolve.sun.com/handbook_private/validateUser.do?target=Systems/SunFireT2000/SunFireT2000"&gt;http://sunsolve.sun.com/handbook_private/validateUser.do?target=Systems/SunFireT2000/SunFireT2000&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;3. Download the latest Flash PROM Patch (Version used on this note at
+11/03/2010: 6.7.8)&lt;/p&gt;
+&lt;p&gt;4. Create dir /tmp/images&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;mkdir -p /tmp/images&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;5. Save the file 139434-05.zip on /tmp/images&lt;/p&gt;
+&lt;p&gt;6. Unzip the 139434-05.zip file&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# unzip 139434-05.zip Archive:  139434-05.zip creating: 139434-05/
+inflating: 139434-05/sysfw670_README_docs.css
+inflating: 139434-05/Sun_System_Firmware-6_7_6-SPARC_Enterprise_T2000.bin
+inflating: 139434-05/Sun_System_Firmware-6_7_6-Sun_Fire_T2000.bin
+inflating: 139434-05/sysfwdownload.README
+inflating: 139434-05/Sun_System_Firmware-6_7-download_SLA_and_Entitlement.txt
+inflating: 139434-05/sysfw670_README_docs.html
+inflating: 139434-05/sysfwdownload inflating: 139434-05/Install.info
+inflating: 139434-05/README.139434-05 inflating: 139434-05/copyright
+inflating: 139434-05/LEGAL_LICENSE.TXT&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;6. Use the sysfwdownload to download the firmware to the System
+Controller&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# ./sysfwdownload Sun_System_Firmware-6_7_6-Sun_Fire_T2000.bin
+.......... (9%).......... (18%).......... (27%)..........
+(37%).......... (46%).......... (55%).......... (64%)..........
+(74%).......... (83%).......... (92%)......... (100%)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Download completed successfully.&lt;/p&gt;
+&lt;p&gt;7. Shutdown the Solaris OS&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# shutdown -i0&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;8. Go to sc (use the #.)&lt;/p&gt;
+&lt;p&gt;9. Verify the actual version&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sc&amp;gt; showhost Sun-Fire-T2000 System Firmware 6.6.4  2008/07/01 01:59
+Host flash versions: OBP 4.28.9 2008/06/30 21:26
+Hypervisor 1.6.4 2008/06/06 04:57 POST 4.28.6 2008/05/23 12:30 sc&amp;gt;
+showsc -v version Advanced Lights Out Manager CMT v1.6.4 SC Firmware
+version: CMT 1.6.4 SC Bootmon version: CMT 1.6.4 VBSC 1.6.4.a VBSC
+firmware built Jun  6 2008, 05:01:03 SC Bootmon Build Release: 01 SC
+bootmon checksum: 4D3BA6C7 SC Bootmon built Jun  6 2008, 05:11:28 SC
+Build Release: 01 SC firmware checksum: 91C164C1 SC firmware built
+Jun  6 2008, 16:52:21 SC firmware flashupdate SAT AUG 30 01:53:14 2008
+SC System Memory Size: 32 MB SC NVRAM Version = 14 SC hardware type: 4
+FPGA Version: 4.1.10.7&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;10. Make the flash update&lt;br&gt;
+&lt;code&gt;sc&amp;gt; flashupdate -s 127.0.0.1 SC Alert: System poweron is disabled.
+......................................................................................................................................................................................
+Update complete. Reset device to use new software.&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;SC Alert: SC firmware was reloaded&lt;/p&gt;
+&lt;p&gt;11. Reboot the sc&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sc&amp;gt; resetsc Are you sure you want to reset the SC [y/n]?  s Are you
+sure you want to reset the SC [y/n]?  y User Requested SC Shutdown&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;12. Now, check the actual version&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sc&amp;gt; showsc ﻿Sun-Fire-T2000 System Firmware 6.7.6  2009/10/29 16:06 Host
+flash versions: OBP 4.30.4 2009/08/19 07:24
+Hypervisor 1.7.3.a 2009/10/29 15:50 POST 4.30.4 2009/08/19 07:47 sc&amp;gt;
+showsc -v version Advanced Lights Out Manager CMT v1.7.6 SC Firmware
+version: CMT 1.7.6 SC Bootmon version: CMT 1.7.6 VBSC 1.7.3.a VBSC
+firmware built Oct 29 2009, 15:55:58 SC Bootmon Build Release: 01 SC
+bootmon checksum: B262D0C1 SC Bootmon built Oct 29 2009, 16:05:00 SC
+Build Release: 01 SC firmware checksum: 8BCE9F20 SC firmware built
+Oct 29 2009, 16:05:12 SC firmware flashupdate FRI FEB 26 20:18:50 2010
+SC System Memory Size: 32 MB SC NVRAM Version = 14 SC hardware type: 4
+FPGA Version: 4.1.10.7&lt;/code&gt;&lt;/p&gt;</content><category term="Firewmware"></category><category term="Flash"></category><category term="PROM Patch"></category><category term="SUN"></category><category term="T2000"></category></entry></feed>

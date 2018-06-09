@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>SUN T2000 Firmware update</title>
+
+            <link href="http://kairo.eti.br/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Full Atom Feed" />
+            <link href="http://kairo.eti.br/feeds/solaris-unix-notes.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Categories Atom Feed" />
+        <!-- Bootstrap Core CSS -->
+        <link href="http://kairo.eti.br/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://kairo.eti.br/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://kairo.eti.br/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+        <meta name="description" content="SUN T2000 firmware update Pré-requesite: You need a SUN Solaris installed on the hardware. 1. Go to sunsolve.sun.com and make login 2....">
+
+        <meta name="author" content="kairo">
+
+        <meta name="tags" content="Firewmware">
+        <meta name="tags" content="Flash">
+        <meta name="tags" content="PROM Patch">
+        <meta name="tags" content="SUN">
+        <meta name="tags" content="T2000">
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Kairo Araujo">
+
+	<meta property="og:type" content="article">
+            <meta property="article:author" content="http://kairo.eti.br/author/kairo.html">
+	<meta property="og:url" content="http://kairo.eti.br/sun-t2000-firmware-update.html">
+	<meta property="og:title" content="SUN T2000 Firmware update">
+	<meta property="article:published_time" content="2010-03-13 20:59:00+01:00">
+            <meta property="og:description" content="SUN T2000 firmware update Pré-requesite: You need a SUN Solaris installed on the hardware. 1. Go to sunsolve.sun.com and make login 2....">
+
+            <meta property="og:image" content="http://kairo.eti.br/static/dc.jpg">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://kairo.eti.br/">Kairo Araujo</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+
+                            <li><a href="http://kairo.eti.br/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://kairo.eti.br/static/dc.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>SUN T2000 Firmware update</h1>
+                        <span class="meta">Posted by
+                                <a href="http://kairo.eti.br/author/kairo.html">kairo</a>
+                             on Sat 13 March 2010
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p><a href="http://kairo.files.wordpress.com/2010/03/sun-t2000.jpg"><img alt="" src="http://kairo.files.wordpress.com/2010/03/sun-t2000.jpg?w=300" title="SUN-T2000"></a>SUN
+T2000 firmware update</p>
+<p>Pré-requesite: You need a SUN Solaris installed on the hardware.</p>
+<p>1. Go to sunsolve.sun.com and make login</p>
+<p>2. Access: SunSystem Handbook > Select Category: Servers > (Servers)
+Select a Product: Sun Fire T2000</p>
+<p>Direct link:
+<a href="http://sunsolve.sun.com/handbook_private/validateUser.do?target=Systems/SunFireT2000/SunFireT2000">http://sunsolve.sun.com/handbook_private/validateUser.do?target=Systems/SunFireT2000/SunFireT2000</a></p>
+<p>3. Download the latest Flash PROM Patch (Version used on this note at
+11/03/2010: 6.7.8)</p>
+<p>4. Create dir /tmp/images</p>
+<p><code>mkdir -p /tmp/images</code></p>
+<p>5. Save the file 139434-05.zip on /tmp/images</p>
+<p>6. Unzip the 139434-05.zip file</p>
+<p><code># unzip 139434-05.zip Archive:  139434-05.zip creating: 139434-05/
+inflating: 139434-05/sysfw670_README_docs.css
+inflating: 139434-05/Sun_System_Firmware-6_7_6-SPARC_Enterprise_T2000.bin
+inflating: 139434-05/Sun_System_Firmware-6_7_6-Sun_Fire_T2000.bin
+inflating: 139434-05/sysfwdownload.README
+inflating: 139434-05/Sun_System_Firmware-6_7-download_SLA_and_Entitlement.txt
+inflating: 139434-05/sysfw670_README_docs.html
+inflating: 139434-05/sysfwdownload inflating: 139434-05/Install.info
+inflating: 139434-05/README.139434-05 inflating: 139434-05/copyright
+inflating: 139434-05/LEGAL_LICENSE.TXT</code></p>
+<p>6. Use the sysfwdownload to download the firmware to the System
+Controller</p>
+<p><code># ./sysfwdownload Sun_System_Firmware-6_7_6-Sun_Fire_T2000.bin
+.......... (9%).......... (18%).......... (27%)..........
+(37%).......... (46%).......... (55%).......... (64%)..........
+(74%).......... (83%).......... (92%)......... (100%)</code></p>
+<p>Download completed successfully.</p>
+<p>7. Shutdown the Solaris OS</p>
+<p><code># shutdown -i0</code></p>
+<p>8. Go to sc (use the #.)</p>
+<p>9. Verify the actual version</p>
+<p><code>sc&gt; showhost Sun-Fire-T2000 System Firmware 6.6.4  2008/07/01 01:59
+Host flash versions: OBP 4.28.9 2008/06/30 21:26
+Hypervisor 1.6.4 2008/06/06 04:57 POST 4.28.6 2008/05/23 12:30 sc&gt;
+showsc -v version Advanced Lights Out Manager CMT v1.6.4 SC Firmware
+version: CMT 1.6.4 SC Bootmon version: CMT 1.6.4 VBSC 1.6.4.a VBSC
+firmware built Jun  6 2008, 05:01:03 SC Bootmon Build Release: 01 SC
+bootmon checksum: 4D3BA6C7 SC Bootmon built Jun  6 2008, 05:11:28 SC
+Build Release: 01 SC firmware checksum: 91C164C1 SC firmware built
+Jun  6 2008, 16:52:21 SC firmware flashupdate SAT AUG 30 01:53:14 2008
+SC System Memory Size: 32 MB SC NVRAM Version = 14 SC hardware type: 4
+FPGA Version: 4.1.10.7</code></p>
+<p>10. Make the flash update<br>
+<code>sc&gt; flashupdate -s 127.0.0.1 SC Alert: System poweron is disabled.
+......................................................................................................................................................................................
+Update complete. Reset device to use new software.</code></p>
+<p>SC Alert: SC firmware was reloaded</p>
+<p>11. Reboot the sc</p>
+<p><code>sc&gt; resetsc Are you sure you want to reset the SC [y/n]?  s Are you
+sure you want to reset the SC [y/n]?  y User Requested SC Shutdown</code></p>
+<p>12. Now, check the actual version</p>
+<p><code>sc&gt; showsc ﻿Sun-Fire-T2000 System Firmware 6.7.6  2009/10/29 16:06 Host
+flash versions: OBP 4.30.4 2009/08/19 07:24
+Hypervisor 1.7.3.a 2009/10/29 15:50 POST 4.30.4 2009/08/19 07:47 sc&gt;
+showsc -v version Advanced Lights Out Manager CMT v1.7.6 SC Firmware
+version: CMT 1.7.6 SC Bootmon version: CMT 1.7.6 VBSC 1.7.3.a VBSC
+firmware built Oct 29 2009, 15:55:58 SC Bootmon Build Release: 01 SC
+bootmon checksum: B262D0C1 SC Bootmon built Oct 29 2009, 16:05:00 SC
+Build Release: 01 SC firmware checksum: 8BCE9F20 SC firmware built
+Oct 29 2009, 16:05:12 SC firmware flashupdate FRI FEB 26 20:18:50 2010
+SC System Memory Size: 32 MB SC NVRAM Version = 14 SC hardware type: 4
+FPGA Version: 4.1.10.7</code></p>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://kairo.eti.br/tag/firewmware.html">Firewmware</a>, <a href="http://kairo.eti.br/tag/flash.html">Flash</a>, <a href="http://kairo.eti.br/tag/prom-patch.html">PROM Patch</a>, <a href="http://kairo.eti.br/tag/sun.html">SUN</a>, <a href="http://kairo.eti.br/tag/t2000.html">T2000</a></p>
+        </div>
+
+    <hr>
+
+        <div class="comments">
+            <h2>Comments !</h2>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'kairoaraujo';
+                var disqus_identifier = 'sun-t2000-firmware-update.html';
+                var disqus_url = 'http://kairo.eti.br/sun-t2000-firmware-update.html';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//kairoaraujo.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://linkedin.com/in/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://github.com/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://twitter.com/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>. <br />        &copy;  Kairo Araujo 
+    <br />
+    These are my personal opinions
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://kairo.eti.br/theme/js/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://kairo.eti.br/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://kairo.eti.br/theme/js/clean-blog.min.js"></script>
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-108092336-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    var disqus_shortname = 'kairoaraujo';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+</body>
+
+</html>

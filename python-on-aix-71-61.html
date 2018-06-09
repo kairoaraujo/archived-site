@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>Python on AIX 7.1 / 6.1</title>
+
+            <link href="http://kairo.eti.br/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Full Atom Feed" />
+            <link href="http://kairo.eti.br/feeds/misc.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Categories Atom Feed" />
+        <!-- Bootstrap Core CSS -->
+        <link href="http://kairo.eti.br/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://kairo.eti.br/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://kairo.eti.br/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+        <meta name="description" content="First thanks Renato Gregio to give me all packages / dependecies. I created (by R. Gregio) a TAR with RPM files to install the Python...">
+
+        <meta name="author" content="Kairo Araujo">
+
+        <meta name="tags" content="comments">
+        <meta name="tags" content="recommend">
+        <meta name="tags" content="aix5l">
+        <meta name="tags" content="python">
+        <meta name="tags" content="5.3">
+        <meta name="tags" content="6.1">
+        <meta name="tags" content="python2">
+        <meta name="tags" content="aix">
+        <meta name="tags" content="poweradm">
+        <meta name="tags" content="aix5">
+        <meta name="tags" content="7.1">
+        <meta name="tags" content="2.6.8">
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Kairo Araujo">
+
+	<meta property="og:type" content="article">
+            <meta property="article:author" content="http://kairo.eti.br/author/kairo-araujo.html">
+	<meta property="og:url" content="http://kairo.eti.br/python-on-aix-71-61.html">
+	<meta property="og:title" content="Python on AIX 7.1 / 6.1">
+	<meta property="article:published_time" content="2015-03-20 17:09:00+01:00">
+            <meta property="og:description" content="First thanks Renato Gregio to give me all packages / dependecies. I created (by R. Gregio) a TAR with RPM files to install the Python...">
+
+            <meta property="og:image" content="http://kairo.eti.br/static/dc.jpg">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://kairo.eti.br/">Kairo Araujo</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+
+                            <li><a href="http://kairo.eti.br/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://kairo.eti.br/static/dc.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Python on AIX 7.1 / 6.1</h1>
+                        <span class="meta">Posted by
+                                <a href="http://kairo.eti.br/author/kairo-araujo.html">Kairo Araujo</a>
+                             on Fri 20 March 2015
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p>First thanks Renato Gregio to give me all packages / dependecies.</p>
+<p>I created (by R. Gregio) a TAR with RPM files to install the Python
+2.6.8. You can download here
+<a href="https://github.com/kairoaraujo/Python-AIX-RPM">https://github.com/kairoaraujo/Python-AIX-RPM</a></p>
+<p>The Python is necessary for my personal project
+<a href="http://poweradm.org">PowerAdm</a> and I'll try maintain this TAR updated.</p>
+<p>The original packages can be downloded on
+<a href="http://www.perzl.org/aix/index.php?n=main.python">http://www.perzl.org/aix/index.php?n=main.python</a></p>
+<p><strong>Package list:</strong></p>
+<p>bash-4.3-13.aix5.1.ppc.rpm  </p>
+<p>bzip2-1.0.6-1.aix5.1.ppc.rpm  </p>
+<p>db4-4.7.25-2.aix5.1.ppc.rpm  </p>
+<p>expat-2.1.0-1.aix5.1.ppc.rpm  </p>
+<p>fontconfig-2.10.2-1.aix5.1.ppc.rpm  </p>
+<p>freetype2-2.5.3-1.aix5.1.ppc.rpm  </p>
+<p>gdbm-1.11-1.aix5.1.ppc.rpm  </p>
+<p>gettext-0.10.40-8.aix5.2.ppc.rpm  </p>
+<p>gmp-6.0.0a-1.aix5.1.ppc.rpm  </p>
+<p>info-5.1-2.aix5.1.ppc.rpm  </p>
+<p>libdbi-0.8.4-1.aix5.1.ppc.rpm  </p>
+<p>libffi-3.2.1-1.aix5.1.ppc.rpm  </p>
+<p>libgcc-4.8.3-1.aix7.1.ppc.rpm  </p>
+<p>libiconv-1.14-2.aix5.1.ppc.rpm  </p>
+<p>libpng-1.6.16-1.aix5.1.ppc.rpm  </p>
+<p>libstdc++-4.8.3-1.aix7.1.ppc.rpm  </p>
+<p>libXft-2.3.1-1.aix5.1.ppc.rpm  </p>
+<p>libXrender-0.9.8-1.aix6.1.ppc.rpm  </p>
+<p>openssl-1.0.1l-1.aix5.1.ppc.rpm  </p>
+<p>python-2.6.8-1.aix6.1.ppc.rpm  </p>
+<p>python-libs-2.6.8-1.aix6.1.ppc.rpm  </p>
+<p>readline-6.3-5.aix5.1.ppc.rpm  </p>
+<p>sqlite-3.8.7.1-1.aix5.1.ppc.rpm  </p>
+<p>tcl-8.6.3-1.aix5.1.ppc.rpm  </p>
+<p>tk-8.6.3-1.aix5.1.ppc.rpm</p>
+<p><strong>Install</strong></p>
+<p>tar xvf python-2.6.8-AIX-RPM-pkgs-YYYYMMDD.tar  </p>
+<p>x python-2.6.8  </p>
+<p>x python-2.6.8/bash-4.3-13.aix5.1.ppc.rpm, 2098335 bytes, 4099 media
+blocks.  </p>
+<p>x python-2.6.8/bzip2-1.0.6-1.aix5.1.ppc.rpm, 122731 bytes, 240 media
+blocks.  </p>
+<p>x python-2.6.8/db4-4.7.25-2.aix5.1.ppc.rpm, 3054640 bytes, 5967 media
+blocks.  </p>
+<p>x python-2.6.8/expat-2.1.0-1.aix5.1.ppc.rpm, 389811 bytes, 762 media
+blocks.  </p>
+<p>x python-2.6.8/fontconfig-2.10.2-1.aix5.1.ppc.rpm, 1016700 bytes, 1986
+media blocks.  </p>
+<p>x python-2.6.8/freetype2-2.5.3-1.aix5.1.ppc.rpm, 763223 bytes, 1491
+media blocks.  </p>
+<p>x python-2.6.8/gdbm-1.11-1.aix5.1.ppc.rpm, 102301 bytes, 200 media
+blocks.  </p>
+<p>x python-2.6.8/gettext-0.10.40-8.aix5.2.ppc.rpm, 1074719 bytes, 2100
+media blocks.  </p>
+<p>x python-2.6.8/gmp-6.0.0a-1.aix5.1.ppc.rpm, 1529950 bytes, 2989 media
+blocks.  </p>
+<p>x python-2.6.8/info-5.1-2.aix5.1.ppc.rpm, 262713 bytes, 514 media
+blocks.  </p>
+<p>x python-2.6.8/libXft-2.3.1-1.aix5.1.ppc.rpm, 217394 bytes, 425 media
+blocks.  </p>
+<p>x python-2.6.8/libXrender-0.9.8-1.aix6.1.ppc.rpm, 139468 bytes, 273
+media blocks.  </p>
+<p>x python-2.6.8/libdbi-0.8.4-1.aix5.1.ppc.rpm, 123683 bytes, 242 media
+blocks.  </p>
+<p>x python-2.6.8/libffi-3.2.1-1.aix5.1.ppc.rpm, 131626 bytes, 258 media
+blocks.  </p>
+<p>x python-2.6.8/libgcc-4.8.3-1.aix7.1.ppc.rpm, 926039 bytes, 1809 media
+blocks.  </p>
+<p>x python-2.6.8/libiconv-1.14-2.aix5.1.ppc.rpm, 1582858 bytes, 3092 media
+blocks.  </p>
+<p>x python-2.6.8/libpng-1.6.16-1.aix5.1.ppc.rpm, 1290852 bytes, 2522 media
+blocks.  </p>
+<p>x python-2.6.8/libstdc++-4.8.3-1.aix7.1.ppc.rpm, 10119514 bytes, 19765
+media blocks.  </p>
+<p>x python-2.6.8/openssl-1.0.1l-1.aix5.1.ppc.rpm, 18204359 bytes, 35556
+media blocks.  </p>
+<p>x python-2.6.8/python-2.6.8-2.6.8-1.aix6.1.ppc.rpm, 14121725 bytes,
+27582 media blocks.  </p>
+<p>x python-2.6.8/python-2.6.8-libs-2.6.8-1.aix6.1.ppc.rpm, 1786610 bytes,
+3490 media blocks.  </p>
+<p>x python-2.6.8/readline-6.3-5.aix5.1.ppc.rpm, 840022 bytes, 1641 media
+blocks.  </p>
+<p>x python-2.6.8/sqlite-3.8.7.1-1.aix5.1.ppc.rpm, 734476 bytes, 1435 media
+blocks.  </p>
+<p>x python-2.6.8/tcl-8.6.3-1.aix5.1.ppc.rpm, 3169586 bytes, 6191 media
+blocks.  </p>
+<p>x python-2.6.8/tk-8.6.3-1.aix5.1.ppc.rpm, 2549937 bytes, 4981 media
+blocks.</p>
+<p>Install the packges</p>
+<p><span style="font-family:courier new,courier,monospace;"># cd
+python-2.6.8</span></p>
+<p><span style="font-family:courier new,courier,monospace;"># rpm -Uvh
+*</span></p>
+<p>bash                       
+##################################################  </p>
+<p>bzip2                      
+##################################################  </p>
+<p>db4                        
+##################################################  </p>
+<p>expat                      
+##################################################  </p>
+<p>fontconfig                 
+##################################################  </p>
+<p>freetype2                  
+##################################################  </p>
+<p>gdbm                       
+##################################################  </p>
+<p>gettext                    
+##################################################  </p>
+<p>gmp                        
+##################################################  </p>
+<p>warning: /opt/freeware/info/dir created as
+/opt/freeware/info/dir.rpmnew  </p>
+<p>info                       
+##################################################  </p>
+<p>Please check that /etc/info-dir does exist.  </p>
+<p>You might have to rename it from /etc/info-dir.rpmsave to
+/etc/info-dir.  </p>
+<p>libXft                     
+##################################################  </p>
+<p>libXrender                 
+##################################################  </p>
+<p>libdbi                     
+##################################################  </p>
+<p>libffi                     
+##################################################  </p>
+<p>libgcc                     
+##################################################  </p>
+<p>libiconv                   
+##################################################  </p>
+<p>libpng                     
+##################################################  </p>
+<p>cannot remove /usr/lib - directory not empty  </p>
+<p>cannot remove /usr/bin - directory not empty  </p>
+<p>libstdc++                  
+##################################################  </p>
+<p>warning: /var/ssl/openssl.cnf saved as /var/ssl/openssl.cnf.rpmorig  </p>
+<p>openssl                    
+##################################################  </p>
+<p>python                     
+##################################################  </p>
+<p>python-libs                
+##################################################  </p>
+<p>readline                   
+##################################################  </p>
+<p>sqlite                     
+##################################################  </p>
+<p>tcl                        
+##################################################  </p>
+<p>tk                         
+##################################################</p>
+<p>Test  the python</p>
+<p># python  </p>
+<p>Python 2.6.8 (unknown, Aug  3 2013, 00:54:53) [C] on aix6  </p>
+<p>Type "help", "copyright", "credits" or "license" for more information.  </p>
+<p>>>> import platform  </p>
+<p>>>> print platform.system()  </p>
+<p>AIX  </p>
+<p>>>> quit()</p>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://kairo.eti.br/tag/comments.html">comments</a>, <a href="http://kairo.eti.br/tag/recommend.html">recommend</a>, <a href="http://kairo.eti.br/tag/aix5l.html">aix5l</a>, <a href="http://kairo.eti.br/tag/python.html">python</a>, <a href="http://kairo.eti.br/tag/53.html">5.3</a>, <a href="http://kairo.eti.br/tag/61.html">6.1</a>, <a href="http://kairo.eti.br/tag/python2.html">python2</a>, <a href="http://kairo.eti.br/tag/aix.html">aix</a>, <a href="http://kairo.eti.br/tag/poweradm.html">poweradm</a>, <a href="http://kairo.eti.br/tag/aix5.html">aix5</a>, <a href="http://kairo.eti.br/tag/71.html">7.1</a>, <a href="http://kairo.eti.br/tag/268.html">2.6.8</a></p>
+        </div>
+
+    <hr>
+
+        <div class="comments">
+            <h2>Comments !</h2>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'kairoaraujo';
+                var disqus_identifier = 'python-on-aix-71-61.html';
+                var disqus_url = 'http://kairo.eti.br/python-on-aix-71-61.html';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//kairoaraujo.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://linkedin.com/in/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://github.com/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://twitter.com/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>. <br />        &copy;  Kairo Araujo 
+    <br />
+    These are my personal opinions
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://kairo.eti.br/theme/js/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://kairo.eti.br/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://kairo.eti.br/theme/js/clean-blog.min.js"></script>
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-108092336-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    var disqus_shortname = 'kairoaraujo';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+</body>
+
+</html>

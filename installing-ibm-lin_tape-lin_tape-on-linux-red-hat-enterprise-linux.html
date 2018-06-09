@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>Installing IBM lin_tape and lin_taped on Linux (Red Hat Enterprise Linux)</title>
+
+            <link href="http://kairo.eti.br/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Full Atom Feed" />
+            <link href="http://kairo.eti.br/feeds/linux-unix-notes.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Categories Atom Feed" />
+        <!-- Bootstrap Core CSS -->
+        <link href="http://kairo.eti.br/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://kairo.eti.br/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://kairo.eti.br/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+        <meta name="description" content="Installing IBM lin_tape on Linux (Red Hat Enterprise Linux) Steps for install lin_tape and lin_taped 1. Download the lin_tape source and...">
+
+        <meta name="author" content="kairo">
+
+        <meta name="tags" content="IBM">
+        <meta name="tags" content="lin_tape">
+        <meta name="tags" content="lin_taped">
+        <meta name="tags" content="Red Hat">
+        <meta name="tags" content="RHEL">
+        <meta name="tags" content="Tape">
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Kairo Araujo">
+
+	<meta property="og:type" content="article">
+            <meta property="article:author" content="http://kairo.eti.br/author/kairo.html">
+	<meta property="og:url" content="http://kairo.eti.br/installing-ibm-lin_tape-lin_tape-on-linux-red-hat-enterprise-linux.html">
+	<meta property="og:title" content="Installing IBM lin_tape and lin_taped on Linux (Red Hat Enterprise Linux)">
+	<meta property="article:published_time" content="2009-02-10 11:58:00+01:00">
+            <meta property="og:description" content="Installing IBM lin_tape on Linux (Red Hat Enterprise Linux) Steps for install lin_tape and lin_taped 1. Download the lin_tape source and...">
+
+            <meta property="og:image" content="http://kairo.eti.br/static/dc.jpg">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://kairo.eti.br/">Kairo Araujo</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+
+                            <li><a href="http://kairo.eti.br/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://kairo.eti.br/static/dc.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Installing IBM lin_tape and lin_taped on Linux (Red Hat Enterprise Linux)</h1>
+                        <span class="meta">Posted by
+                                <a href="http://kairo.eti.br/author/kairo.html">kairo</a>
+                             on Tue 10 February 2009
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p>Installing IBM lin_tape on Linux (Red Hat Enterprise Linux)</p>
+<p>Steps for install lin_tape and lin_taped</p>
+<p>1. Download the lin_tape source and lin_taped from
+<a href="ftp://ftp.software.ibm.com/storage/devdrvr/Linux/lin_tape_source-lin_taped/">ftp://ftp.software.ibm.com/storage/devdrvr/Linux/lin_tape_source-lin_taped/</a></p>
+<p>l<code>in_tape-X.YY.Z-W.src.rpm.bin lin_taped-X.YY.Z-rhel[V].arch.rpm.bin</code></p>
+<p>Samples for version 1.20.0-1</p>
+<p><code>lin_tape-1.20.0-1.src.rpm.bin lin_taped-1.20.0-rhel4.x86_64.rpm.bin</code></p>
+<p>2. Rebuild lin_tape rpm source</p>
+<p><code># rpmbuild --rebuild lin_tape-X.YY.Z-W.src.rpm.bin</code></p>
+<p>Sample for version 1.20.0-1</p>
+<p><code># rpmbuild --rebuild lin_tape-1.20.0-1.src.rpm.bin Installing
+lin_tape-1.20.0-1.src.rpm.bin Executing(%prep): /bin/sh -e
+/var/tmp/rpm-tmp.52502 + umask 022 + cd /usr/src/redhat/BUILD + LANG=C +
+export LANG + unset DISPLAY + cd /usr/src/redhat/BUILD + rm -rf
+lin_tape-1.20.0 + /bin/gzip -dc
+/usr/src/redhat/SOURCES/lin_tape-1.20.0.tgz + tar -xf - + STATUS=0 +
+'[' 0 -ne 0 ']' + cd lin_tape-1.20.0 ++ /usr/bin/id -u + '[' 0 = 0 ']' +
+/bin/chown -Rhf root . ++ /usr/bin/id -u + '[' 0 = 0 ']' + /bin/chgrp
+-Rhf root . + /bin/chmod -Rf a+rX,u+w,g-w,o-w . + exit 0
+Executing(%build): /bin/sh -e /var/tmp/rpm-tmp.52502 + umask 022 + cd
+/usr/src/redhat/BUILD + cd lin_tape-1.20.0 + LANG=C + export LANG +
+unset DISPLAY ++ echo x86_64-redhat-linux-gnu ++ cut -f 1 -d - +
+p=x86_64 + '[' x86_64 == i386 ']' + '[' x86_64 == i586 ']' + '[' x86_64
+== i686 ']' + '[' x86_64 == ppc64 ']' + '[' x86_64 == powerpc ']' + '['
+x86_64 == s390 ']' + '[' x86_64 == s390x ']' + '[' x86_64 == ia64 ']' +
+'[' x86_64 == x86_64 ']' + proc=AMD + cp -af lin_tape_359X_AMD.ReadMe
+lin_tape_359X.ReadMe + cp -af lin_tape_Ultrium_AMD.ReadMe
+lin_tape_Ultrium.ReadMe + make KERNEL=2.6.9-78.0.13.ELsmp PROC=x86_64
+driver grep: IBMtapeutil.c: No such file or directory make -C
+/lib/modules/2.6.9-78.0.13.ELsmp/build
+SUBDIRS=/usr/src/redhat/BUILD/lin_tape-1.20.0
+PWD=/usr/src/redhat/BUILD/lin_tape-1.20.0 clean make[1]: Entering
+directory `/usr/src/kernels/2.6.9-78.0.13.EL-smp-x86_64' grep:
+IBMtapeutil.c: No such file or directory make[1]: Leaving directory
+`/usr/src/kernels/2.6.9-78.0.13.EL-smp-x86_64' mkdir bldtmp make
+KERNEL=2.6.9-78.0.13.ELsmp compileclean lin_tape.ko grep: IBMtapeutil.c:
+No such file or directory make[1]: Entering directory
+`/usr/src/redhat/BUILD/lin_tape-1.20.0' export PWD make -C
+/lib/modules/2.6.9-78.0.13.ELsmp/build
+SUBDIRS=/usr/src/redhat/BUILD/lin_tape-1.20.0
+PWD=/usr/src/redhat/BUILD/lin_tape-1.20.0 modules make[2]: Entering
+directory `/usr/src/kernels/2.6.9-78.0.13.EL-smp-x86_64' grep:
+IBMtapeutil.c: No such file or directory CC [M]
+/usr/src/redhat/BUILD/lin_tape-1.20.0/lin_tape_scsi_config.o CC [M]
+/usr/src/redhat/BUILD/lin_tape-1.20.0/lin_tape_scsi_tape.o CC [M]
+/usr/src/redhat/BUILD/lin_tape-1.20.0/lin_tape_scsi_trace.o CC [M]
+/usr/src/redhat/BUILD/lin_tape-1.20.0/lin_tape_ioctl_tape.o CC [M]
+/usr/src/redhat/BUILD/lin_tape-1.20.0/lin_tape_ioctl_changer.o CC [M]
+/usr/src/redhat/BUILD/lin_tape-1.20.0/lin_tape_extra_ioctl.o LD [M]
+/usr/src/redhat/BUILD/lin_tape-1.20.0/lin_tape.o Building modules,
+stage 2. MODPOST CC /usr/src/redhat/BUILD/lin_tape-1.20.0/lin_tape.mod.o
+LD [M] /usr/src/redhat/BUILD/lin_tape-1.20.0/lin_tape.ko make[2]:
+Leaving directory `/usr/src/kernels/2.6.9-78.0.13.EL-smp-x86_64'
+make[1]: Leaving directory `/usr/src/redhat/BUILD/lin_tape-1.20.0' mv
+lin_tape.ko bldtmp/lin_tape-2.6.9-78.0.13.ELsmp.ko + exit 0
+Executing(%install): /bin/sh -e /var/tmp/rpm-tmp.33921 + umask 022 + cd
+/usr/src/redhat/BUILD + cd lin_tape-1.20.0 + LANG=C + export LANG +
+unset DISPLAY + rm -rf /var/tmp/lin_tape-1.20.0-1-root-root + install -D
+-m 644 bldtmp/lin_tape-2.6.9-78.0.13.ELsmp.ko
+/var/tmp/lin_tape-1.20.0-1-root-root/lib/modules/2.6.9-78.0.13.ELsmp/kernel/drivers/scsi/lin_tape.ko
++ install -D -m 644 98-lin_tape.rules
+/var/tmp/lin_tape-1.20.0-1-root-root/etc/udev/rules.d/98-lin_tape.rules
++ install -D -m 755 udev.get_lin_tape_id.sh
+/var/tmp/lin_tape-1.20.0-1-root-root/sbin/udev.get_lin_tape_id.sh ++
+uname -m + PROC=x86_64 + p=x86_64 + '[' x86_64 == i386 ']' + '[' x86_64
+== i586 ']' + '[' x86_64 == i686 ']' + install -D -m 700 lin_tape
+/var/tmp/lin_tape-1.20.0-1-root-root/etc/init.d/lin_tape + cd
+/var/tmp/lin_tape-1.20.0-1-root-root + ln -sf /etc/init.d/lin_tape
+/usr/sbin/rclin_tape + cd - /usr/src/redhat/BUILD/lin_tape-1.20.0 +
+/usr/lib/rpm/redhat/brp-compress + /usr/lib/rpm/redhat/brp-strip
+/usr/bin/strip + /usr/lib/rpm/redhat/brp-strip-static-archive
+/usr/bin/strip + /usr/lib/rpm/redhat/brp-strip-comment-note
+/usr/bin/strip /usr/bin/objdump Processing files: lin_tape-1.20.0-1
+Executing(%doc): /bin/sh -e /var/tmp/rpm-tmp.33921 + umask 022 + cd
+/usr/src/redhat/BUILD + cd lin_tape-1.20.0 +
+DOCDIR=/var/tmp/lin_tape-1.20.0-1-root-root/usr/share/doc/lin_tape-1.20.0
++ export DOCDIR + rm -rf
+/var/tmp/lin_tape-1.20.0-1-root-root/usr/share/doc/lin_tape-1.20.0 +
+/bin/mkdir -p
+/var/tmp/lin_tape-1.20.0-1-root-root/usr/share/doc/lin_tape-1.20.0 + cp
+-pr lin_tape_Ultrium.ReadMe lin_tape_359X.ReadMe COPYING COPYING.LIB
+/var/tmp/lin_tape-1.20.0-1-root-root/usr/share/doc/lin_tape-1.20.0 +
+exit 0 Checking for unpackaged file(s): /usr/lib/rpm/check-files
+/var/tmp/lin_tape-1.20.0-1-root-root warning: Could not canonicalize
+hostname: hotsm001ode Wrote:
+/usr/src/redhat/RPMS/x86_64/lin_tape-1.20.0-1.x86_64.rpm
+Executing(%clean): /bin/sh -e /var/tmp/rpm-tmp.70795 + umask 022 + cd
+/usr/src/redhat/BUILD + cd lin_tape-1.20.0 + rm -rf
+/var/tmp/lin_tape-1.20.0-1-root-root + exit 0 Executing(--clean):
+/bin/sh -e /var/tmp/rpm-tmp.70795 + umask 022 + cd /usr/src/redhat/BUILD
++ rm -rf lin_tape-1.20.0 + exit 0</code></p>
+<p>3. Install the rpm wroted in /usr/src/redhat/RPMS/[your_arch]/</p>
+<p><code># rpm -ivh /usr/src/redhat/RPMS/x86_64/lin_tape-1.20.0-1.x86_64.rpm</code></p>
+<p>4. Install the rpm lin_taped<br>
+<code>lin_taped-X.YY.Z-rhel[V].arch.rpm.bin</code></p>
+<p>Sample for version 1.20.0-1</p>
+<p><code># rpm -ivh lin_taped-1.20.0-rhel4.x86_64.rpm.bin</code></p>
+<p>5. Start lin_tape service</p>
+<p><code># /etc/init.d/lin_tape start</code></p>
+<p>6. Check your tapes on /proc/scsci/IBM*</p>
+<p><code># cat /proc/scsi/IBM* lin_tape version: 1.20.0 lin_tape major
+number: 252 Attached Tape Devices: Number model SN HBA FO
+Path 0 03584L32 00000782XXXXXXXE qla2xxx NA 1 03584L32 00000782XXXXXXXE
+qla2xxx NA lin_tape version: 1.20.0 lin_tape major number: 252 Attached
+Tape Devices: Number model SN HBA FO Path 0 ULT3580-TD4 00078XXXXX
+qla2xxx NA 1 ULT3580-TD4 00078XXXXX qla2xxx NA 2 ULT3580-TD4 00078XXXXX
+qla2xxx NA 3 ULT3580-TD4 00078XXXXX qla2xxx NA 4 ULT3580-TD4 00078XXXXX
+qla2xxx NA 5 ULT3580-TD4 00078XXXXX qla2xxx NA</code></p>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://kairo.eti.br/tag/ibm.html">IBM</a>, <a href="http://kairo.eti.br/tag/lin_tape.html">lin_tape</a>, <a href="http://kairo.eti.br/tag/lin_taped.html">lin_taped</a>, <a href="http://kairo.eti.br/tag/red-hat.html">Red Hat</a>, <a href="http://kairo.eti.br/tag/rhel.html">RHEL</a>, <a href="http://kairo.eti.br/tag/tape.html">Tape</a></p>
+        </div>
+
+    <hr>
+
+        <div class="comments">
+            <h2>Comments !</h2>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'kairoaraujo';
+                var disqus_identifier = 'installing-ibm-lin_tape-lin_tape-on-linux-red-hat-enterprise-linux.html';
+                var disqus_url = 'http://kairo.eti.br/installing-ibm-lin_tape-lin_tape-on-linux-red-hat-enterprise-linux.html';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//kairoaraujo.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://linkedin.com/in/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://github.com/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://twitter.com/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>. <br />        &copy;  Kairo Araujo 
+    <br />
+    These are my personal opinions
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://kairo.eti.br/theme/js/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://kairo.eti.br/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://kairo.eti.br/theme/js/clean-blog.min.js"></script>
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-108092336-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    var disqus_shortname = 'kairoaraujo';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+</body>
+
+</html>

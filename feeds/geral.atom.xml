@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Kairo Araujo - Geral</title><link href="http://kairo.eti.br/" rel="alternate"></link><link href="http://kairo.eti.br/feeds/geral.atom.xml" rel="self"></link><id>http://kairo.eti.br/</id><updated>2008-07-13T21:50:00+02:00</updated><entry><title>Cygwin ISO - Creating a customized Cygwin ISO</title><link href="http://kairo.eti.br/cygwin-iso.html" rel="alternate"></link><published>2008-07-13T21:50:00+02:00</published><updated>2008-07-13T21:50:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2008-07-13:/cygwin-iso.html</id><summary type="html">&lt;p&gt;Cygwin is a Linux-like environment for Windows.&lt;br&gt;
+Official website: &lt;a href="http://www.cygwin.com"&gt;http://www.cygwin.com&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Looking for Cygwin ISO I find this script (actually modified by me)&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://kairo.freeshell.org/cygwin/mkcygwiniso.sh"&gt;http://kairo.freeshell.org/cygwin/mkcygwiniso.sh&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Script functions:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1. Get setup.exe&lt;/p&gt;
+&lt;p&gt;2. Create a cygwinlist file with package list and you can customize …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Cygwin is a Linux-like environment for Windows.&lt;br&gt;
+Official website: &lt;a href="http://www.cygwin.com"&gt;http://www.cygwin.com&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Looking for Cygwin ISO I find this script (actually modified by me)&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://kairo.freeshell.org/cygwin/mkcygwiniso.sh"&gt;http://kairo.freeshell.org/cygwin/mkcygwiniso.sh&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Script functions:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1. Get setup.exe&lt;/p&gt;
+&lt;p&gt;2. Create a cygwinlist file with package list and you can customize
+removing packages from list&lt;/p&gt;
+&lt;p&gt;3. Get packages&lt;/p&gt;
+&lt;p&gt;4. Create a ISO file (Full packages: Size &gt; 800MB)&lt;/p&gt;
+&lt;p&gt;5. Clean files&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Utilization&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1. Run script&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# sh mkcygwiniso.sh&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;You can now edit cygwinlist, remove unwanted files (e.g XFree86) Press
+Enter when ready to start download&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;A. ENTER for full download -- size are &gt; 800MB&lt;br&gt;
+B. CTRL+C for edit cygwinlist and customize&lt;/p&gt;
+&lt;p&gt;2. Customize list in cywinlist file&lt;/p&gt;
+&lt;p&gt;3. Run script again&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# sh mkcygwiniso.sh&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;You can now edit cygwinlist, remove unwanted files (e.g XFree86) Press
+Enter when ready to start download&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Press ENTER&lt;/p&gt;
+&lt;p&gt;4. In the end your cygwin.iso can be generated&lt;/p&gt;
+&lt;p&gt;&lt;span style="text-decoration:underline;"&gt;Suggest&lt;/span&gt;:&lt;/p&gt;
+&lt;p&gt;Run script in the background&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# nohup sh mkcygwiniso.sh &amp;gt; mkcygwiniso.log &amp;amp;&lt;/code&gt;&lt;br&gt;
+For look the status you can use:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# tail -f mkcygwiniso.log&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Source&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The originally script are here:
+&lt;a href="http://linux.ensimag.fr/iso/cygwin/20041020/mkcygwiniso.sh"&gt;http://linux.ensimag.fr/iso/cygwin/20041020/mkcygwiniso.sh&lt;/a&gt;&lt;/p&gt;</content></entry><entry><title>Backup PuTTY</title><link href="http://kairo.eti.br/backup-putty.html" rel="alternate"></link><published>2007-07-21T14:22:00+02:00</published><updated>2007-07-21T14:22:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2007-07-21:/backup-putty.html</id><summary type="html">&lt;p&gt;Gerar no C:\ o arquivo de backup do registro com o nome putty-bkp.reg&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;``  ``&lt;/code&gt;&lt;br&gt;
+regedit /e C:\putty-bkp.reg HKEY_CURRENT_USER\Software\SimonTatham&lt;/p&gt;</summary><content type="html">&lt;p&gt;Gerar no C:\ o arquivo de backup do registro com o nome putty-bkp.reg&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;``  ``&lt;/code&gt;&lt;br&gt;
+regedit /e C:\putty-bkp.reg HKEY_CURRENT_USER\Software\SimonTatham&lt;/p&gt;</content></entry></feed>

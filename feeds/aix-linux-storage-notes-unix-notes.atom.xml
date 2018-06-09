@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Kairo Araujo - AIX, Linux, Storage Notes, Unix Notes</title><link href="http://kairo.eti.br/" rel="alternate"></link><link href="http://kairo.eti.br/feeds/aix-linux-storage-notes-unix-notes.atom.xml" rel="self"></link><id>http://kairo.eti.br/</id><updated>2008-04-28T22:21:00+02:00</updated><entry><title>Migrando de Discos Físicos no AIX e Linux (LVM)</title><link href="http://kairo.eti.br/migrando-de-discos-fisicos-no-aix-e-linux-lvm.html" rel="alternate"></link><published>2008-04-28T22:21:00+02:00</published><updated>2008-04-28T22:21:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2008-04-28:/migrando-de-discos-fisicos-no-aix-e-linux-lvm.html</id><summary type="html">&lt;p&gt;Visualize o seguinte senário:&lt;/p&gt;
+&lt;p&gt;Cenário 1: Você possuí servidor Unix (Linux e AIX) conectados a um
+Storage Disk. Todo seu ambiente está funcionando perfeitamente em cima
+de do LVM. O Storage Disk cresceu e será migrado para um novo
+equipamento. Você precisa migrar seus dados para os discos do novo …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Visualize o seguinte senário:&lt;/p&gt;
+&lt;p&gt;Cenário 1: Você possuí servidor Unix (Linux e AIX) conectados a um
+Storage Disk. Todo seu ambiente está funcionando perfeitamente em cima
+de do LVM. O Storage Disk cresceu e será migrado para um novo
+equipamento. Você precisa migrar seus dados para os discos do novo
+storage.&lt;/p&gt;
+&lt;p&gt;Cenário 2: Você tem um disco que está apresentando problemas no seu
+Volume Group (VG) do sistema operacional, porém seu ambiente ainda não
+foi afetado e necessita substituir este disco.&lt;/p&gt;
+&lt;p&gt;Para os dois cenários você tem duas soluções:&lt;/p&gt;
+&lt;p&gt;- Backup dos dados, substituição dos discos, restore do dados
+(trabalhaso e arriscado)&lt;br&gt;
+- Migração dos dados "on fly" (menos impacto e ainda conta com o backup
+em caso de problemas)&lt;/p&gt;
+&lt;p&gt;No artigo abaixo descrevo de forma rápida os passos para migrar no AIX e
+Linux&lt;/p&gt;
+&lt;p&gt;&lt;a href="#AIX"&gt;Migração de Discos Físicos no AIX&lt;/a&gt;&lt;br&gt;
+&lt;a href="#LINUX"&gt;Migração de Discos Físicos no Linux&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span id="AIX"&gt;&lt;strong&gt;Migração de Discos Físicos no AIX&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;O AIX possuí o comando &lt;em&gt;migratepv&lt;/em&gt; que faz isso de forma bem simples.&lt;/p&gt;
+&lt;p&gt;1. Adicione o Physical Volume ao Volume Group que deseja liberar o
+disco&lt;/p&gt;
+&lt;p&gt;2. Após adicionar o disco, verifique se ele encontra-se livre&lt;br&gt;
+&lt;code&gt;# lsvg -p rootvg rootvg: PV_NAME PV STATE TOTAL PPs FREE PPs FREE
+DISTRIBUTION hdisk0 active 515 116 57..00..00..00..59 hdisk1
+active 515 515 00..00..00..00..00&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;4. Utilizando o migratepv informe qual disco deseja migrar e qual o
+destino.&lt;br&gt;
+Importante: O numero de PPs deve ser suficiente para acomodar os
+dados.&lt;br&gt;
+&lt;code&gt;migratepv hdisk0 hdisk1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;5. Após o término verifique se a migração finalizou&lt;br&gt;
+&lt;code&gt;# lsvg -p rootvg rootvg: PV_NAME PV STATE TOTAL PPs FREE PPs FREE
+DISTRIBUTION hdisk0 active 515 515 00..00..00..00..00 hdisk1
+active 515 116 57..00..00..00..59&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;6. Finalizado pode ser removido do VG o disco hdisk0 e em seguida
+removido o hdisk0 do Sistema Operacional&lt;/p&gt;
+&lt;p&gt;&lt;a href="#LINUX"&gt;&lt;strong&gt;Migração de Discos Físicos no Linux&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;0. Carrege o módulo dm-mirror&lt;br&gt;
+&lt;code&gt;# modprobe dm-mirror&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;1. Adicione o Disco no servidor, prepare a partição em LVM;&lt;/p&gt;
+&lt;p&gt;2. Crie um PV na partição preparada&lt;br&gt;
+&lt;code&gt;# pvcreate /dev/sdi1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;3. Adicione o PV ao Volume Group (VG)&lt;br&gt;
+&lt;code&gt;# vgextend databasevg /dev/sdi1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;4. Realize o PV MOVE do PV que deseja liberar&lt;br&gt;
+&lt;code&gt;# pvmove -b -v /dev/sdj1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;5. Verifique o a liberação do PV&lt;br&gt;
+&lt;code&gt;# pvs PV VG Fmt Attr PSize PFree /dev/sda2 rootvg lvm2
+a- 134.59G 98.83G /dev/sdb1 bkpvg lvm2 a- 150.00G 9.99G /dev/sdc1 bkpvg
+lvm2 a- 150.00G 0 /dev/sdi1 vgpvmove00 lvm2 a- 1020.00M 20.00M /dev/sdj1
+vgpvmove00 lvm2 a- 1020.00M 1020.00M&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;6. Após o disco ser liberado remova o PV do VG com o vgreduce -a que
+retira os Discos Livres&lt;br&gt;
+&lt;code&gt;# vgreduce -a&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;7. O disco pode ser removido do servidor&lt;/p&gt;</content></entry></feed>

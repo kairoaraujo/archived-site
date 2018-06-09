@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Kairo Araujo - Cluster, Linux, Unix Notes</title><link href="http://kairo.eti.br/" rel="alternate"></link><link href="http://kairo.eti.br/feeds/cluster-linux-unix-notes.atom.xml" rel="self"></link><id>http://kairo.eti.br/</id><updated>2009-04-09T15:53:00+02:00</updated><entry><title>Linux: GFS / GFS2 Sharing filesystems multiple servers / nodes</title><link href="http://kairo.eti.br/gfs-gfs2-sharing-filesystems-multiple-servers-nodes.html" rel="alternate"></link><published>2009-04-09T15:53:00+02:00</published><updated>2009-04-09T15:53:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2009-04-09:/gfs-gfs2-sharing-filesystems-multiple-servers-nodes.html</id><summary type="html">&lt;p&gt;1 - Creating the Volume Group&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# pvs PV         VG     Fmt  Attr PSize  PFree /dev/sda3  rootvg lvm2
+a-   62.75G 38.97G /dev/dm-10        lvm2 --   70.00G 70.00G
+/dev/dm-13        lvm2 --   70.00G 70.00G /dev/dm-14        lvm2
+--   70.00G 70.00G /dev/dm-9         lvm2 --   70.00G 70.00G&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# vgcreate …&lt;/code&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;1 - Creating the Volume Group&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# pvs PV         VG     Fmt  Attr PSize  PFree /dev/sda3  rootvg lvm2
+a-   62.75G 38.97G /dev/dm-10        lvm2 --   70.00G 70.00G
+/dev/dm-13        lvm2 --   70.00G 70.00G /dev/dm-14        lvm2
+--   70.00G 70.00G /dev/dm-9         lvm2 --   70.00G 70.00G&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# vgcreate vg_cluster00 /dev/dm-10 /dev/dm-13  /dev/dm-14 /dev/dm-9
+Volume group "vg_cluster00" successfully created&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# pvs PV         VG          Fmt  Attr PSize  PFree /dev/dm-10
+vg_cluster00 lvm2 a-   70.00G 70.00G /dev/dm-13 vg_cluster00 lvm2
+a-   70.00G 70.00G /dev/dm-14 vg_cluster00 lvm2 a-   70.00G 70.00G
+/dev/dm-9  vg_cluster00 lvm2 a-   70.00G 70.00G /dev/sda3  rootvg     
+lvm2 a-   62.75G 38.97G&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# vgs VG          #PV #LV #SN Attr   VSize   VFree
+rootvg        1   9   0 wz--n-  62.75G  38.97G
+vg_cluster00   4   0   0 wz--n- 279.98G 279.98G&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;2 - Creating the Logical Volumes&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# vcreate -L180G vg_cluster00 -n lvuserapp&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;3 - Making the Cluster&lt;/p&gt;
+&lt;p&gt;Particulary I like system-config-cluster&lt;/p&gt;
+&lt;p&gt;This is my simple /etc/cluster/cluster.conf&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;?xml version="1.0"?&amp;gt; &amp;lt;cluster alias="CLUSTER00" config_version="23"
+name="CLUSTER00"&amp;gt; &amp;lt;fence_daemon post_fail_delay="0"
+post_join_delay="3"/&amp;gt; &amp;lt;clusternodes&amp;gt; &amp;lt;clusternode name="node001"
+nodeid="1" votes="1"&amp;gt; &amp;lt;fence&amp;gt; &amp;lt;method name="1"/&amp;gt; &amp;lt;/fence&amp;gt; &amp;lt;/clusternode&amp;gt;
+&amp;lt;clusternode name="node003" nodeid="3" votes="1"&amp;gt; &amp;lt;fence&amp;gt; &amp;lt;method
+name="1"/&amp;gt; &amp;lt;/fence&amp;gt; &amp;lt;/clusternode&amp;gt; &amp;lt;clusternode name="node004"
+nodeid="4" votes="1"&amp;gt; &amp;lt;fence&amp;gt; &amp;lt;method name="1"/&amp;gt; &amp;lt;/fence&amp;gt; &amp;lt;/clusternode&amp;gt;
+&amp;lt;clusternode name="node002" nodeid="2" votes="1"&amp;gt; &amp;lt;fence&amp;gt; &amp;lt;method
+name="1"/&amp;gt; &amp;lt;/fence&amp;gt; &amp;lt;/clusternode&amp;gt; &amp;lt;/clusternodes&amp;gt; &amp;lt;fencedevices/&amp;gt;
+&amp;lt;/cluster&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;4 - making gfs2 filesystems&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# mkfs -t gfs2 -p lock_dlm -t CLUSTER00:lvuserapp -j 8
+/dev/vg_cluster00/lvuserapp&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;5 - mounting GFS2 filesystems&lt;/p&gt;
+&lt;p&gt;Put on the /etc/fstab file&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;/dev/vg_cluster00/lvuserapp      /home/userapp           gfs2   
+defaults       0 0&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;6 - Start the cluster services&lt;/p&gt;
+&lt;p&gt;Note: For complete startup start the service on all nodes.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;service cman start service rgmanager start&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;7 - Check the nodes&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# cman_tool nodes Node  Sts   Inc   Joined               Name 1  
+M    196   2009-04-09 11:57:16  node001 2  
+M    216   2009-04-09 11:57:32  node002 3  
+M    212   2009-04-09 11:58:02  node003 4  
+M    214   2009-04-09 11:58:32  node004&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;8 - mounting the filesystems&lt;/p&gt;
+&lt;p&gt;Mount filesystems on all nodes&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# mount /home/userapp&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;9 - testing the read/write files on nodes&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# touch /home/userapp/teste.txt&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Check on all servers if this file
+    exist.&lt;/p&gt;
+&lt;p&gt;Sources:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://www.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/5/html/Cluster_Logical_Volume_Manager/index.html"&gt;http://www.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/5/html/Cluster_Logical_Volume_Manager/index.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/5/html/Cluster_Administration/index.html"&gt;http://www.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/5/html/Cluster_Administration/index.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/5/html/Global_File_System_2/index.html"&gt;http://www.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/5/html/Global_File_System_2/index.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content></entry></feed>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>procbench - Multiplatform information tool and CPU benchmark for x86 procs</title>
+
+            <link href="http://kairo.eti.br/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Full Atom Feed" />
+            <link href="http://kairo.eti.br/feeds/fedora-project-linux.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Categories Atom Feed" />
+        <!-- Bootstrap Core CSS -->
+        <link href="http://kairo.eti.br/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://kairo.eti.br/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://kairo.eti.br/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+        <meta name="description" content="I'm committing a new package for Fedora Project. procbench - Multiplatform information tool and CPU benchmark for x86 procs $ procbench...">
+
+        <meta name="author" content="kairo">
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Kairo Araujo">
+
+	<meta property="og:type" content="article">
+            <meta property="article:author" content="http://kairo.eti.br/author/kairo.html">
+	<meta property="og:url" content="http://kairo.eti.br/procbench-multiplatform-information-tool-and-cpu-benchmark-for-x86-procs.html">
+	<meta property="og:title" content="procbench - Multiplatform information tool and CPU benchmark for x86 procs">
+	<meta property="article:published_time" content="2008-08-03 22:33:00+02:00">
+            <meta property="og:description" content="I'm committing a new package for Fedora Project. procbench - Multiplatform information tool and CPU benchmark for x86 procs $ procbench...">
+
+            <meta property="og:image" content="http://kairo.eti.br/static/dc.jpg">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://kairo.eti.br/">Kairo Araujo</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+
+                            <li><a href="http://kairo.eti.br/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://kairo.eti.br/static/dc.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>procbench - Multiplatform information tool and CPU benchmark for x86 procs</h1>
+                        <span class="meta">Posted by
+                                <a href="http://kairo.eti.br/author/kairo.html">kairo</a>
+                             on Sun 03 August 2008
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p>I'm committing a new package for Fedora Project.<br>
+procbench - Multiplatform information tool and CPU benchmark for x86
+procs</p>
+<p><code>$ procbench -h Procbench v0.8.2a, Peter Kuscsik, 2008 Use -h flag to
+display help. Usage:  procbench [options] List information about
+(current) x86 processor Options are: -h      display this help and exit
+-c      show CPUID information -d      dump CPUID -i      instruction
+latency meter (experimental) -m      memory transfer speed test -f     
+display best optimisation flags for GCC</code></p>
+<p>More output examples:</p>
+<dl>
+<dt>`$ procbench -c Procbench v0.8.2a, Peter Kuscsik, 2008 Use -h flag to</dt>
+<dt>display help. 1 CPU installed, 1 online Running on CPU with APIC ID  : 0</dt>
+<dt>------=[Base Information]=--------------------------------------------</dt>
+<dt>Processor name       : Intel(R) Pentium(R) 4 CPU 3.00GHz Vendor id</dt>
+<dt>string     : GenuineIntel CPU Speed            : 3001.29Mhz Maximum</dt>
+<dt>level of CPUID : 5 Maximum level of Extended CPUID : 8</dt>
+<dt>Family               : 15          Extended Family      : 0</dt>
+<dt>Model                : 3           Extended Model       : 0</dt>
+<dt>Stepping             : 4           Processor type       : 0 Correct</dt>
+<dt>family       : 15          Correct Model        : 3</dt>
+<dt>------=[Features]=----------------------------------------------------</dt>
+<dt>Features             : FPU VME DE PSE TSC MSR PAE MCE CMPXCHG8B APIC</dt>
+<dt>SysEnterSysExit MTRR PGE MCA CMOV PAT PSE36 CLFSH DS ACPI MMX FXSR SSE</dt>
+<dt>SSE2 SS HTT TM PBE Extended Features    : SSE3 DTES64 MONITOR DS-CPL</dt>
+<dt>CNXT-ID xTPR Misc. features       : Intel64 Misc. ext. features  :</dt>
+<dt>Maximum virtual byte address size in bits : 32 Maximum physical byte</dt>
+<dt>address size in bits : 36 ------=[TLB</dt>
+<dt>information]=--------------------------------------------- Ins. TLB</dt>
+<dt>number of entries for 2/4 MB pages   : 64 Data TLB number of entries</dt>
+<dt>for 4 MB pages     : 64 Ins. TLB number of entries for 4 KB pages</dt>
+<dd>
+<dl>
+<dt>64 Data TLB number of entries for 4 KB pages     : 64 ------=[Cache</dt>
+<dt>information]=------------------------------------------- L1 data cache</dt>
+<dt>size in KB                      : 16 L1 data cache</dt>
+<dt>associativity                   : 8 L1 data cache line size in</dt>
+<dt>bytes              : 64 L2 cache size in KB</dt>
+<dd>1024 L2 cache associativity                        : 8 L2 lines per
+sector                           : 2 L2 cache line size in
+bytes                   : 64 Trace cache
+[K-mikroop]                       : 12 Trace cache
+associativity                     : 8`</dd>
+</dl>
+</dd>
+</dl>
+<p><code>$ procbench -m Procbench v0.8.2a, Peter Kuscsik, 2008 Use -h flag to
+display help. ------=[Memory transfer speed
+test]=---------------------------------- Write speed (by memset) : 1344
+Mb/s Repeated copy (by memcpy) of data blocks block size     speed:   
+block size:   speed: 2 Kb     3808 Mb/s      4 Kb     3072 Mb/s 8
+Kb     3136 Mb/s     16 Kb     2656 Mb/s 32 Kb     2752 Mb/s     64
+Kb     2592 Mb/s 128 Kb     3040 Mb/s    256 Kb     2880 Mb/s 512
+Kb      768 Mb/s      1 Mb      608 Mb/s 2 Mb      608 Mb/s      4
+Mb      640 Mb/s 8 Mb      576 Mb/s     16 Mb      608 Mb/s</code></p>
+    </article>
+
+
+    <hr>
+
+        <div class="comments">
+            <h2>Comments !</h2>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'kairoaraujo';
+                var disqus_identifier = 'procbench-multiplatform-information-tool-and-cpu-benchmark-for-x86-procs.html';
+                var disqus_url = 'http://kairo.eti.br/procbench-multiplatform-information-tool-and-cpu-benchmark-for-x86-procs.html';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//kairoaraujo.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://linkedin.com/in/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://github.com/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://twitter.com/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>. <br />        &copy;  Kairo Araujo 
+    <br />
+    These are my personal opinions
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://kairo.eti.br/theme/js/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://kairo.eti.br/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://kairo.eti.br/theme/js/clean-blog.min.js"></script>
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-108092336-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    var disqus_shortname = 'kairoaraujo';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+</body>
+
+</html>

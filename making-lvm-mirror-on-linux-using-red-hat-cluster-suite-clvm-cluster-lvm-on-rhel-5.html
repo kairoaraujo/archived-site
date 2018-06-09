@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>Making LVM Mirror on Linux using Red Hat CLuster Suite - CLVM (Cluster LVM) - on RHEL 5</title>
+
+            <link href="http://kairo.eti.br/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Full Atom Feed" />
+            <link href="http://kairo.eti.br/feeds/linux-unix-notes.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Categories Atom Feed" />
+        <!-- Bootstrap Core CSS -->
+        <link href="http://kairo.eti.br/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://kairo.eti.br/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://kairo.eti.br/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+        <meta name="description" content="1. The scenario On my box I've two disks from two differents Storage Disk. Using multipath I've this disks /dev/dm-15 from Storage Disk...">
+
+        <meta name="author" content="kairo">
+
+        <meta name="tags" content="Cluster LVM">
+        <meta name="tags" content="CLVM">
+        <meta name="tags" content="Linux LVM Mirror">
+        <meta name="tags" content="lvconvert -m1">
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Kairo Araujo">
+
+	<meta property="og:type" content="article">
+            <meta property="article:author" content="http://kairo.eti.br/author/kairo.html">
+	<meta property="og:url" content="http://kairo.eti.br/making-lvm-mirror-on-linux-using-red-hat-cluster-suite-clvm-cluster-lvm-on-rhel-5.html">
+	<meta property="og:title" content="Making LVM Mirror on Linux using Red Hat CLuster Suite - CLVM (Cluster LVM) - on RHEL 5">
+	<meta property="article:published_time" content="2009-05-06 15:35:00+02:00">
+            <meta property="og:description" content="1. The scenario On my box I've two disks from two differents Storage Disk. Using multipath I've this disks /dev/dm-15 from Storage Disk...">
+
+            <meta property="og:image" content="http://kairo.eti.br/static/dc.jpg">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://kairo.eti.br/">Kairo Araujo</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+
+                            <li><a href="http://kairo.eti.br/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://kairo.eti.br/static/dc.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Making LVM Mirror on Linux using Red Hat CLuster Suite - CLVM (Cluster LVM) - on RHEL 5</h1>
+                        <span class="meta">Posted by
+                                <a href="http://kairo.eti.br/author/kairo.html">kairo</a>
+                             on Wed 06 May 2009
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p><strong>1. The scenario</strong></p>
+<p>On my box I've two disks from two differents Storage Disk.</p>
+<p>Using multipath I've this disks<br>
+/dev/dm-15 from Storage Disk A (in use)<br>
+/dev/dm-28 from Storage Disk B (not in use yet.)</p>
+<p>I've the Volume Group with name vg_gfs00 on /dev/dm-15<br>
+I've the Logical Volume with name lv00 on the Volume Group VG_GFS</p>
+<p>Looking my outputs pvs, vgs and lvs</p>
+<p>PVS output<br>
+<code># pvs PV         VG          Fmt  Attr PSize   PFree /dev/dm-15
+vg_gfs00    lvm2 a-   278,98G 39,95G /dev/sda3  rootvg      lvm2
+a-   131,47G 86,19G</code></p>
+<p>VGS output<br>
+<code># vgs VG          #PV #LV #SN Attr   VSize   VFree
+rootvg        1  11   0 wz--n- 131,47G 86,19G
+vg_gfs00all   8   7   0 wz--n- 278,98G 39,95G</code></p>
+<p>LVS output<br>
+<code># lvs LV          VG          Attr   LSize homelv      rootvg     
+-wi-ao 512,00M optlv       rootvg      -wi-ao   1,00G rootlv     
+rootvg      -wi-ao   1,00G tmplv       rootvg      -wi-ao   2,00G
+usrlv       rootvg      -wi-ao   4,00G varloglv    rootvg     
+-wi-ao   8,00G varlv       rootvg      -wi-ao   4,00G lv00       
+vg_gfs00    -wi-ao 239,03G</code></p>
+<p><strong>2. Objective</strong></p>
+<p>Implement a mirror on filesystems for high availbility if my Storage
+Disk A or B crashs.</p>
+<p><strong>3. Implementing</strong><br>
+<strong><br>
+a. Make a PV on new disk (/dev/dm-28)</strong></p>
+<p><code># pvcreate /dev/dm-28</code></p>
+<p><strong>b. Add new volume on the vg_gfs00</strong></p>
+<p><code># vgextend vg_gfs00 /dev/dm-28</code></p>
+<p><strong>c. Make a mirror on Logical Volume</strong></p>
+<p><code># lvconvert -m1 vg_gfs00/lv00 /dev/dm-28 vg_gfs00/lv00:
+Converted: 17,1% vg_gfs00/lv00: Converted: 34,1% vg_gfs00/lv00:
+Converted: 51,0% vg_gfs00/lv00: Converted: 68,4% vg_gfs00/lv00:
+Converted: 85,5% vg_gfs00/lv00: Converted: 100,0%</code></p>
+<p><span style="text-decoration:underline;">Note:</span> If your LV are in
+more PVs you can specify all PVs<br>
+Sample:</p>
+<p><code># lvs -a -o +devices | grep lv00 lv00          vg_gfs00
+-wi-ao  10,00G     /dev/dm-15(0) lv00          vg_gfs00
+-wi-ao  10,00G     /dev/dm-16(123490)</code></p>
+<p>In this case dm-15 and dm-16 are on my Storage Disk A, I need two disks
+on the Storage Disk B, sample dm-28 and dm-29.<br>
+For convert I use this<br>
+<code># lvconvert -m1 vg_gfs00/lv00 /dev/dm-28 /dev/dm-29</code></p>
+<p><strong>d. Checking Mirror with lvs -a -o +devices</strong></p>
+<p><code># lvs -a -o +devices | grep vl00 lv00            vg_gfs00
+mwi-ao  10,00G       lv00_mlog 100,00        
+lv00_mimage_0(0),lv00_mimage_1(0) [lv00_mimage_0] vg_gfs00
+iwi-ao  10,00G                                /dev/dm-15(10242)
+[lv00_mimage_1] vg_gfs00 iwi-ao  10,00G                               
+/dev/dm-28(14086)</code></p>
+<p>Looking details:</p>
+<p>lv00 is a lv00_mlog and have a 100% of sync to lv00_mimage_0 and
+lv00_image1.<br>
+The lv00_mimage_0 is stored on /dev/dm-15<br>
+The lv00_mimage_1 is stored on /dev/dm-28</p>
+<p>Looking with a simple lvs</p>
+<p><code># lvs LV          VG          Attr   LSize  Origin Snap%  Move
+Log              Copy%  Convert homelv      rootvg     
+-wi-ao 512,00M optlv       rootvg      -wi-ao   1,00G rootlv     
+rootvg      -wi-ao   1,00G tmplv       rootvg      -wi-ao   2,00G
+usrlv       rootvg      -wi-ao   4,00G varloglv    rootvg     
+-wi-ao   8,00G varlv       rootvg      -wi-ao   4,00G lv00       
+vg_gfs00    -wi-ao 239,03G              lv00_mlog 100,00</code></p>
+<p>If the lv00_mlog is not 100% you have a problem with one of disks.</p>
+<p><strong>4. Documentation:</strong></p>
+<p>*
+<a href="http://www.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/5.2/html/Cluster_Logical_Volume_Manager/">http://www.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/5.2/html/Cluster_Logical_Volume_Manager/</a><br>
+- 2.3.3. Mirrored Logical Volumes<br>
+- 4.4.1.3. Creating Mirrored Volumes<br>
+- 6.3. Recovering from LVM Mirror Failure</p>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://kairo.eti.br/tag/cluster-lvm.html">Cluster LVM</a>, <a href="http://kairo.eti.br/tag/clvm.html">CLVM</a>, <a href="http://kairo.eti.br/tag/linux-lvm-mirror.html">Linux LVM Mirror</a>, <a href="http://kairo.eti.br/tag/lvconvert-m1.html">lvconvert -m1</a></p>
+        </div>
+
+    <hr>
+
+        <div class="comments">
+            <h2>Comments !</h2>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'kairoaraujo';
+                var disqus_identifier = 'making-lvm-mirror-on-linux-using-red-hat-cluster-suite-clvm-cluster-lvm-on-rhel-5.html';
+                var disqus_url = 'http://kairo.eti.br/making-lvm-mirror-on-linux-using-red-hat-cluster-suite-clvm-cluster-lvm-on-rhel-5.html';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//kairoaraujo.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://linkedin.com/in/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://github.com/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://twitter.com/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>. <br />        &copy;  Kairo Araujo 
+    <br />
+    These are my personal opinions
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://kairo.eti.br/theme/js/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://kairo.eti.br/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://kairo.eti.br/theme/js/clean-blog.min.js"></script>
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-108092336-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    var disqus_shortname = 'kairoaraujo';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+</body>
+
+</html>

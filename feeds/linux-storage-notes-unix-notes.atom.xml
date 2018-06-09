@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Kairo Araujo - Linux, Storage Notes, Unix Notes</title><link href="http://kairo.eti.br/" rel="alternate"></link><link href="http://kairo.eti.br/feeds/linux-storage-notes-unix-notes.atom.xml" rel="self"></link><id>http://kairo.eti.br/</id><updated>2007-08-17T03:48:00+02:00</updated><entry><title>SDD + LVM (Red Hat Enterprise Linux)</title><link href="http://kairo.eti.br/sdd-lvm-red-hat-enterprise-linux.html" rel="alternate"></link><published>2007-08-17T03:48:00+02:00</published><updated>2007-08-17T03:48:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2007-08-17:/sdd-lvm-red-hat-enterprise-linux.html</id><summary type="html">&lt;p&gt;Para evitar problemas de duplicate pv id no Linux no momento de criar
+Volume Group (VG) com os Phisical Volumes (PV) coloque no
+/etc/lvm/lvm.conf no filter a seguinte sequência.&lt;/p&gt;
+&lt;p&gt;Accept para os discos locais&lt;br&gt;
+Accept para todos os vpaths que venham surgir&lt;br&gt;
+Reject para os demais tipos …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Para evitar problemas de duplicate pv id no Linux no momento de criar
+Volume Group (VG) com os Phisical Volumes (PV) coloque no
+/etc/lvm/lvm.conf no filter a seguinte sequência.&lt;/p&gt;
+&lt;p&gt;Accept para os discos locais&lt;br&gt;
+Accept para todos os vpaths que venham surgir&lt;br&gt;
+Reject para os demais tipos de volume&lt;/p&gt;
+&lt;p&gt;Exemplo:&lt;code&gt;`` filter = [ "a/sda.*/", "a/vpath.*/", "r/.*/" ]&lt;/code&gt;Altere
+também  o parametro types, deixando assim:&lt;/p&gt;
+&lt;p&gt;Exemplo:&lt;code&gt;`` types = [ "vpath", 16 ]&lt;/code&gt;&lt;/p&gt;</content></entry></feed>

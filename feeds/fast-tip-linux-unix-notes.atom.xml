@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Kairo Araujo - Fast tip, Linux, Unix Notes</title><link href="http://kairo.eti.br/" rel="alternate"></link><link href="http://kairo.eti.br/feeds/fast-tip-linux-unix-notes.atom.xml" rel="self"></link><id>http://kairo.eti.br/</id><updated>2009-02-09T23:20:00+01:00</updated><entry><title>Extracting files from rpm</title><link href="http://kairo.eti.br/extracting-files-from-rpm.html" rel="alternate"></link><published>2009-02-09T23:20:00+01:00</published><updated>2009-02-09T23:20:00+01:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2009-02-09:/extracting-files-from-rpm.html</id><summary type="html">&lt;p&gt;First you need rpm2cpio&lt;/p&gt;
+&lt;p&gt;Use&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# mkdir /tmp/package # cp package.rpm /tmp/package # cd /tmp/package #
+rpm2cpio package.rpm | cpio -idv&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Posted by &lt;a href="http://wordmobi.googlecode.com"&gt;Wordmobi&lt;/a&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;First you need rpm2cpio&lt;/p&gt;
+&lt;p&gt;Use&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# mkdir /tmp/package # cp package.rpm /tmp/package # cd /tmp/package #
+rpm2cpio package.rpm | cpio -idv&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Posted by &lt;a href="http://wordmobi.googlecode.com"&gt;Wordmobi&lt;/a&gt;&lt;/p&gt;</content></entry><entry><title>AIX Tip: Volume Group (VG) data redistribution in the disks - Strip</title><link href="http://kairo.eti.br/aix-tip-volume-group-vg-data-redistribution-in-the-disks-strip.html" rel="alternate"></link><published>2009-01-13T09:21:00+01:00</published><updated>2009-01-13T09:21:00+01:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2009-01-13:/aix-tip-volume-group-vg-data-redistribution-in-the-disks-strip.html</id><summary type="html">&lt;p&gt;For Volume Group data redistribution in the disks (strip) uses reorgvg
+command.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# reorgvg myvg&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;This command need a few times. Rum in background.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# nohup reorgvg myvg &amp;amp;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Posted by&lt;a href="http://wordmobi.googlecode.com"&gt;Wordmobi&lt;/a&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;For Volume Group data redistribution in the disks (strip) uses reorgvg
+command.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# reorgvg myvg&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;This command need a few times. Rum in background.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# nohup reorgvg myvg &amp;amp;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Posted by&lt;a href="http://wordmobi.googlecode.com"&gt;Wordmobi&lt;/a&gt;&lt;/p&gt;</content></entry></feed>

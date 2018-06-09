@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Kairo Araujo - Fedora Project, Linux</title><link href="http://kairo.eti.br/" rel="alternate"></link><link href="http://kairo.eti.br/feeds/fedora-project-linux.atom.xml" rel="self"></link><id>http://kairo.eti.br/</id><updated>2008-08-03T22:33:00+02:00</updated><entry><title>procbench - Multiplatform information tool and CPU benchmark for x86 procs</title><link href="http://kairo.eti.br/procbench-multiplatform-information-tool-and-cpu-benchmark-for-x86-procs.html" rel="alternate"></link><published>2008-08-03T22:33:00+02:00</published><updated>2008-08-03T22:33:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2008-08-03:/procbench-multiplatform-information-tool-and-cpu-benchmark-for-x86-procs.html</id><summary type="html">&lt;p&gt;I'm committing a new package for Fedora Project.&lt;br&gt;
+procbench - Multiplatform information tool and CPU benchmark for x86
+procs&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ procbench -h Procbench v0.8.2a, Peter Kuscsik, 2008 Use -h flag to
+display help. Usage:  procbench [options] List information about
+(current) x86 processor Options are: -h      display this help and exit …&lt;/code&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;I'm committing a new package for Fedora Project.&lt;br&gt;
+procbench - Multiplatform information tool and CPU benchmark for x86
+procs&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ procbench -h Procbench v0.8.2a, Peter Kuscsik, 2008 Use -h flag to
+display help. Usage:  procbench [options] List information about
+(current) x86 processor Options are: -h      display this help and exit
+-c      show CPUID information -d      dump CPUID -i      instruction
+latency meter (experimental) -m      memory transfer speed test -f     
+display best optimisation flags for GCC&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;More output examples:&lt;/p&gt;
+&lt;dl&gt;
+&lt;dt&gt;`$ procbench -c Procbench v0.8.2a, Peter Kuscsik, 2008 Use -h flag to&lt;/dt&gt;
+&lt;dt&gt;display help. 1 CPU installed, 1 online Running on CPU with APIC ID  : 0&lt;/dt&gt;
+&lt;dt&gt;------=[Base Information]=--------------------------------------------&lt;/dt&gt;
+&lt;dt&gt;Processor name       : Intel(R) Pentium(R) 4 CPU 3.00GHz Vendor id&lt;/dt&gt;
+&lt;dt&gt;string     : GenuineIntel CPU Speed            : 3001.29Mhz Maximum&lt;/dt&gt;
+&lt;dt&gt;level of CPUID : 5 Maximum level of Extended CPUID : 8&lt;/dt&gt;
+&lt;dt&gt;Family               : 15          Extended Family      : 0&lt;/dt&gt;
+&lt;dt&gt;Model                : 3           Extended Model       : 0&lt;/dt&gt;
+&lt;dt&gt;Stepping             : 4           Processor type       : 0 Correct&lt;/dt&gt;
+&lt;dt&gt;family       : 15          Correct Model        : 3&lt;/dt&gt;
+&lt;dt&gt;------=[Features]=----------------------------------------------------&lt;/dt&gt;
+&lt;dt&gt;Features             : FPU VME DE PSE TSC MSR PAE MCE CMPXCHG8B APIC&lt;/dt&gt;
+&lt;dt&gt;SysEnterSysExit MTRR PGE MCA CMOV PAT PSE36 CLFSH DS ACPI MMX FXSR SSE&lt;/dt&gt;
+&lt;dt&gt;SSE2 SS HTT TM PBE Extended Features    : SSE3 DTES64 MONITOR DS-CPL&lt;/dt&gt;
+&lt;dt&gt;CNXT-ID xTPR Misc. features       : Intel64 Misc. ext. features  :&lt;/dt&gt;
+&lt;dt&gt;Maximum virtual byte address size in bits : 32 Maximum physical byte&lt;/dt&gt;
+&lt;dt&gt;address size in bits : 36 ------=[TLB&lt;/dt&gt;
+&lt;dt&gt;information]=--------------------------------------------- Ins. TLB&lt;/dt&gt;
+&lt;dt&gt;number of entries for 2/4 MB pages   : 64 Data TLB number of entries&lt;/dt&gt;
+&lt;dt&gt;for 4 MB pages     : 64 Ins. TLB number of entries for 4 KB pages&lt;/dt&gt;
+&lt;dd&gt;
+&lt;dl&gt;
+&lt;dt&gt;64 Data TLB number of entries for 4 KB pages     : 64 ------=[Cache&lt;/dt&gt;
+&lt;dt&gt;information]=------------------------------------------- L1 data cache&lt;/dt&gt;
+&lt;dt&gt;size in KB                      : 16 L1 data cache&lt;/dt&gt;
+&lt;dt&gt;associativity                   : 8 L1 data cache line size in&lt;/dt&gt;
+&lt;dt&gt;bytes              : 64 L2 cache size in KB&lt;/dt&gt;
+&lt;dd&gt;1024 L2 cache associativity                        : 8 L2 lines per
+sector                           : 2 L2 cache line size in
+bytes                   : 64 Trace cache
+[K-mikroop]                       : 12 Trace cache
+associativity                     : 8`&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;p&gt;&lt;code&gt;$ procbench -m Procbench v0.8.2a, Peter Kuscsik, 2008 Use -h flag to
+display help. ------=[Memory transfer speed
+test]=---------------------------------- Write speed (by memset) : 1344
+Mb/s Repeated copy (by memcpy) of data blocks block size     speed:   
+block size:   speed: 2 Kb     3808 Mb/s      4 Kb     3072 Mb/s 8
+Kb     3136 Mb/s     16 Kb     2656 Mb/s 32 Kb     2752 Mb/s     64
+Kb     2592 Mb/s 128 Kb     3040 Mb/s    256 Kb     2880 Mb/s 512
+Kb      768 Mb/s      1 Mb      608 Mb/s 2 Mb      608 Mb/s      4
+Mb      640 Mb/s 8 Mb      576 Mb/s     16 Mb      608 Mb/s&lt;/code&gt;&lt;/p&gt;</content></entry></feed>

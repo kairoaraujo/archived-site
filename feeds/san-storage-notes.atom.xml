@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Kairo Araujo - SAN, Storage Notes</title><link href="http://kairo.eti.br/" rel="alternate"></link><link href="http://kairo.eti.br/feeds/san-storage-notes.atom.xml" rel="self"></link><id>http://kairo.eti.br/</id><updated>2007-07-18T15:06:00+02:00</updated><entry><title>Atualização Switch SAN Brocade (2005-B16)</title><link href="http://kairo.eti.br/atualizacao-switch-san-brocade-2005-b16.html" rel="alternate"></link><published>2007-07-18T15:06:00+02:00</published><updated>2007-07-18T15:06:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2007-07-18:/atualizacao-switch-san-brocade-2005-b16.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Pré-requisitos:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Switch deve estar conectado à uma rede LAN e configurado;&lt;/li&gt;
+&lt;li&gt;Existência de um servidor FTP na mesma rede do Switch SAN;&lt;/li&gt;
+&lt;li&gt;Baixar a última versão disponível do firmware neste
+    &lt;a href="http://www-304.ibm.com/jct01004c/systems/support/supportsite.wss/supportresources?taskind=2&amp;amp;brandind=5000031&amp;amp;familyind=5329725"&gt;link&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;Disponibilizar o arquivo descompactado em um diretório acessível do
+    FTP.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Impactos:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Indisponiblidade do switch durante o reboot.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Procedimento:&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Realizar …&lt;/p&gt;&lt;/li&gt;&lt;/ol&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;Pré-requisitos:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Switch deve estar conectado à uma rede LAN e configurado;&lt;/li&gt;
+&lt;li&gt;Existência de um servidor FTP na mesma rede do Switch SAN;&lt;/li&gt;
+&lt;li&gt;Baixar a última versão disponível do firmware neste
+    &lt;a href="http://www-304.ibm.com/jct01004c/systems/support/supportsite.wss/supportresources?taskind=2&amp;amp;brandind=5000031&amp;amp;familyind=5329725"&gt;link&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;Disponibilizar o arquivo descompactado em um diretório acessível do
+    FTP.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Impactos:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Indisponiblidade do switch durante o reboot.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Procedimento:&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Realizar acesso ao SSH ou Telenet no switch SAN;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Executar o comando firmwareDownload&lt;br&gt;
+    É importante colocar o caminho completo e ao final o nome
+    release.plist.&lt;br&gt;
+&lt;code&gt;san001kairo:admin&amp;gt; firmwareDownload Server Name or IP
+    Address: 10.10.0.3 FTP User Name: kairo File Name:
+    /home/kairo/san/v5.1.1a/release.plist FTP Password: You can run
+    firmwaredownloadstatus to get the status of this command.This
+    command will cause the switch to reset and will require that
+    existing telnet, secure telnet or SSH sessions be restarted. Do you
+    want to continue [Y]: y Firmware is being downloaded to the switch.
+    This step may take up to 30 minutes. Checking system settings for
+    firmwaredownload... Start to install packages... Pode-se acompanhar
+    o status através do comando firmwareDownloadStatus&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;san001kairo:admin&gt; firmwareDownloadStatus&lt;br&gt;
+[1]: Wed Jul 18 07:42:41 2007&lt;br&gt;
+Firmware is being downloaded to the switch. This step may take up to
+30 minutes.&lt;br&gt;
+Após o update o switch será rebootado&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Verificando a versão do switch&lt;br&gt;
+&lt;code&gt;san001kairo:admin&amp;gt; version Kernel: 2.4.19 Fabric OS: v5.1.1a Made
+    on: Mon Nov 27 15:25:26 2006 Flash: Wed Jul 18 07:45:23 2007
+    BootProm: 4.5.3 san001kairo:admin&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</content></entry></feed>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Kairo Araujo - AIX, Storage, Storage Notes, Unix Notes</title><link href="http://kairo.eti.br/" rel="alternate"></link><link href="http://kairo.eti.br/feeds/aix-storage-storage-notes-unix-notes.atom.xml" rel="self"></link><id>http://kairo.eti.br/</id><updated>2008-12-17T15:52:00+01:00</updated><entry><title>Tip: Checking AIX disk reservations from storage</title><link href="http://kairo.eti.br/tip-checking-aix-disk-reservations-from-storage.html" rel="alternate"></link><published>2008-12-17T15:52:00+01:00</published><updated>2008-12-17T15:52:00+01:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2008-12-17:/tip-checking-aix-disk-reservations-from-storage.html</id><summary type="html">&lt;p&gt;For check disk reservation&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;lquerypr -Vvh /dev/diskNN&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Sample:&lt;/p&gt;
+&lt;p&gt;With reservation&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;lquerypr -Vvh /dev/vpath78 open device /dev/vpath78 setkey.compcode = 0
+setkey.returncode = 1 cd1dfb02 Reserved with different key cd1dfb02,
+current host key cd1dfb03&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Without reservation&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# lquerypr -Vvh /dev/vpath78 open device /dev/vpath78 setkey.compcode
+= 0 setkey.returncode …&lt;/code&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;For check disk reservation&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;lquerypr -Vvh /dev/diskNN&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Sample:&lt;/p&gt;
+&lt;p&gt;With reservation&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;lquerypr -Vvh /dev/vpath78 open device /dev/vpath78 setkey.compcode = 0
+setkey.returncode = 1 cd1dfb02 Reserved with different key cd1dfb02,
+current host key cd1dfb03&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Without reservation&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# lquerypr -Vvh /dev/vpath78 open device /dev/vpath78 setkey.compcode
+= 0 setkey.returncode = 0 Not reserved.&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;For clear disk reservation (&lt;span style="color:#ff0000;"&gt;CAUTION with
+command&lt;span style="color:#000000;"&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;lquerypr -ch /dev/diskNN&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Sample:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;lquerypr -ch /dev/disk31&lt;/code&gt;&lt;/p&gt;</content></entry></feed>

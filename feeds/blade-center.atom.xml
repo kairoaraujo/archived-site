@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Kairo Araujo - Blade Center</title><link href="http://kairo.eti.br/" rel="alternate"></link><link href="http://kairo.eti.br/feeds/blade-center.atom.xml" rel="self"></link><id>http://kairo.eti.br/</id><updated>2007-07-20T12:05:00+02:00</updated><entry><title>Abrir console de uma lâmina Blade Center via Telnet</title><link href="http://kairo.eti.br/abrir-console-de-uma-lamina-blade-center-via-telnet.html" rel="alternate"></link><published>2007-07-20T12:05:00+02:00</published><updated>2007-07-20T12:05:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2007-07-20:/abrir-console-de-uma-lamina-blade-center-via-telnet.html</id><summary type="html">&lt;p&gt;Conecte-se blade center manager via telnet&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;``  `` username: USERID password: ******** system&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Chamado console da lâmina 3, que é uma lâmina RISC com AIX.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;``  `` system&amp;gt; console -T system:blade[3]&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;AIX Version 5&lt;br&gt;
+(C) Copyrights by IBM and by others 1982, 2006.&lt;br&gt;
+Console login:&lt;/p&gt;</summary><content type="html">&lt;p&gt;Conecte-se blade center manager via telnet&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;``  `` username: USERID password: ******** system&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Chamado console da lâmina 3, que é uma lâmina RISC com AIX.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;``  `` system&amp;gt; console -T system:blade[3]&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;AIX Version 5&lt;br&gt;
+(C) Copyrights by IBM and by others 1982, 2006.&lt;br&gt;
+Console login:&lt;/p&gt;</content></entry></feed>

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>PowerAdm - Python Tool to Power</title>
+
+            <link href="http://kairo.eti.br/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Full Atom Feed" />
+            <link href="http://kairo.eti.br/feeds/misc.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Categories Atom Feed" />
+        <!-- Bootstrap Core CSS -->
+        <link href="http://kairo.eti.br/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://kairo.eti.br/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://kairo.eti.br/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+        <meta name="description" content="Hello everybody! (First, sorry for my bad english) We do not appear in my blog a long time. Over the last few weeks I have played a...">
+
+        <meta name="author" content="Kairo Araujo">
+
+        <meta name="tags" content="comments">
+        <meta name="tags" content="recommend">
+        <meta name="tags" content="hmc">
+        <meta name="tags" content="deploy">
+        <meta name="tags" content="powervm">
+        <meta name="tags" content="nim">
+        <meta name="tags" content="vios">
+        <meta name="tags" content="python">
+        <meta name="tags" content="lpar">
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Kairo Araujo">
+
+	<meta property="og:type" content="article">
+            <meta property="article:author" content="http://kairo.eti.br/author/kairo-araujo.html">
+	<meta property="og:url" content="http://kairo.eti.br/poweradm-python-tool-to-power.html">
+	<meta property="og:title" content="PowerAdm - Python Tool to Power">
+	<meta property="article:published_time" content="2014-12-15 12:35:00+01:00">
+            <meta property="og:description" content="Hello everybody! (First, sorry for my bad english) We do not appear in my blog a long time. Over the last few weeks I have played a...">
+
+            <meta property="og:image" content="http://kairo.eti.br/static/dc.jpg">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://kairo.eti.br/">Kairo Araujo</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+
+                            <li><a href="http://kairo.eti.br/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://kairo.eti.br/static/dc.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>PowerAdm - Python Tool to Power</h1>
+                        <span class="meta">Posted by
+                                <a href="http://kairo.eti.br/author/kairo-araujo.html">Kairo Araujo</a>
+                             on Mon 15 December 2014
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p><strong><span class="hps">Hello everybody</span><span>!</span></strong>  </p>
+<p><span class="hps atn">(</span><span>First,</span>
+<span class="hps">sorry</span> <span class="hps">for my</span>
+<span class="hps">bad</span>
+<span class="hps">english</span><span>)</span></p>
+<p><span class="hps">We do not appear</span> <span class="hps">in my
+blog</span> <span class="hps">a long time</span><span>.</span>  </p>
+<p>Over the last few weeks I <span class="hps">have</span>
+<span class="hps">played</span> <span class="hps">a little</span>
+<span class="hps">with</span> <span class="hps">Python</span>
+<span class="hps">and</span> <span class="hps">Power</span>
+<span class="hps">to facilitate</span> <span class="hps">my work with my
+colleagues.</span>  </p>
+<p><span class="hps">Some nights</span> <span class="hps">I've been</span>
+<span class="hps">working on</span> <span class="hps">what I call</span>
+<span class="hps atn">'</span><span>PowerAdm</span><span>'</span><span>.</span></p>
+<p>If someone wants to contribute will be very welcome.  </p>
+<p><span class="hps">Page:</span>
+<span class="hps"><a href="https://github.com/kairoaraujo/PowerAdm/wiki">https://github.com/kairoaraujo/PowerAdm/wiki</a></span>  </p>
+<p><span class="hps">Screenshots:</span>
+<span class="hps"><a href="https://github.com/kairoaraujo/PowerAdm/wiki/screenshots">https://github.com/kairoaraujo/PowerAdm/wiki/screenshots</a></span></p>
+<p>code: <a href="https://github.com/kairoaraujo/PowerAdm">https://github.com/kairoaraujo/PowerAdm</a></p>
+<p>Power Adm is a free (BSD License) and simple tool developed in Python to
+easily and quickly create an LPAR with their standards and also it will
+be able to deploy AIX Operating System in the
+future.</p>
+<p><a href="https://www.ibm.com/developerworks/community/blogs/kairoaraujo/resource/BLOGS_UPLOADED_IMAGES/poweradm.png">https://www.ibm.com/developerworks/community/blogs/kairoaraujo/resource/BLOGS_UPLOADED_IMAGES/poweradm.png</a></p>
+<ul>
+<li>
+<p><a href="https://github.com/kairoaraujo/PowerAdm/wiki/screenshots">Screenshots</a></p>
+</li>
+<li>
+<p><a href="https://github.com/kairoaraujo/PowerAdm/wiki/requirements">Requirements</a></p>
+</li>
+<li>
+<p><a href="https://github.com/kairoaraujo/PowerAdm/blob/master/INSTALL">Install</a></p>
+</li>
+<li>
+<p><a href="https://github.com/kairoaraujo/PowerAdm/blob/master/LICENSE">License</a></p>
+</li>
+</ul>
+<p>Principal features</p>
+<ul>
+<li>
+<p>Create LPAR profile on HMC</p>
+</li>
+<li>
+<p>Supports multiple frames</p>
+</li>
+<li>
+<p>Add virtual Ethernet (maximum 3 ethernets)</p>
+<ul>
+<li>
+<p>Select the Virtual Switch</p>
+</li>
+<li>
+<p>VLAN</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Add vSCSI on two VIOs</p>
+<ul>
+<li>Create Virtual SCSI server on VIO automatically</li>
+</ul>
+</li>
+<li>
+<p>Add NPIV on two VIOs</p>
+<ul>
+<li>Make vfcmap automatically</li>
+</ul>
+</li>
+<li>
+<p>Add disk on vSCSI (only if you have Shared Storage Pool)</p>
+</li>
+<li>
+<p>Centralized config (poweradm/config.py)</p>
+</li>
+<li>
+<p>Deploy SO from the NIM Server</p>
+</li>
+<li>
+<p><strong>Organize your IDs!!!</strong> Don't you know what is it? Keep
+    reading...</p>
+</li>
+</ul>
+<p>In the future:</p>
+<ul>
+<li>Web Interface</li>
+</ul>
+<p>Whoever manages an IBM Power environment through the Hardware Management
+Console (HMC) knows that it is an easy management interface to create
+LPARs but we can not say the same when talking about managing the
+devices IDs, such as virtual network, virtual fiber channel, virtual
+scsi, etc or managing information about the maximum and minimum memory
+and CPUs, physical devices, capped, uncapped, and so on.</p>
+<p>The objective of this tool is to adopt a standard for IDs based on the
+LPAR ID and also to facilitate the LPAR creation with no need of expert
+knowledge, making it easier even for analysts without experienced skills
+in Power or operators.</p>
+<p>Power Adm is a free and simple tool developed in Python to create LPARs
+easily, quickly and with their standards.</p>
+<p>Something that we really consider the differential in this tool is the
+IDs organization.</p>
+<p>IDs Structure / Organize your IDs</p>
+<p>These IDs are well organized, assisting in the identification of
+devices, particularly in times of troubleshooting on environments with a
+large number of LPARs These IDs also help managing the Live Partition
+Mobility. Therefore, if well organized, will always remain the same
+independent of the box.</p>
+<p>For this, the following rules were established:</p>
+<p>Every LPAR has a maximum number of virtual devices 40 and the following
+structure: Virtual Network IDs will be between 10 and 19 Virtual SCSI
+IDs will be between 20 and 29 (default 21 primary VIO, 22 secondary VIO)
+Virtual Fibre Channel IDs will be between 30 and 39 (default 33 primary
+VIO, 34 secondary VIO)</p>
+<p>"VIOS" settings have the following default: Maximum number of virtual
+devices in the Primary VIO is 3500 and in the Secondary VIO 4500
+allowing a total of 500 LPARs on this set of VIOS</p>
+<p>Virtual SCSI IDs: the Primary VIO 1 + 'LPAR ID' and on Secondary VIO 2 +
+'LPAR ID' Fiber Channel IDs: the Primary VIO 3 + 'LPAR ID' and on
+Secondary VIO 4 + 'LPAR ID'</p>
+<p>Example:</p>
+<p>VIOS1 - ID: 1 Maximum number of virtual IDs: 3500 VIOS2 - ID: 2 Maximum
+number of virtual IDs: 4500</p>
+<p>LPAR AIX1 ID: 11 Virtual devices:</p>
+<ul>
+<li>
+<p>10: Network adapter data</p>
+</li>
+<li>
+<p>11: Network adapter backup</p>
+</li>
+<li>
+<p>21: Virtual SCSI (Server: 111 VIOS1)</p>
+</li>
+<li>
+<p>22: Virtual SCSI (Server: 211 VIOS2)</p>
+</li>
+<li>
+<p>33: Fiber Channel (Server: 311 VIOS1)</p>
+</li>
+<li>
+<p>34: Fiber Channel (Server: 411 VIOS2)</p>
+</li>
+</ul>
+<p>LPAR AIX1 ID: 12 Virtual devices:</p>
+<ul>
+<li>
+<p>10: Network adapter data</p>
+</li>
+<li>
+<p>11: Network adapter backup</p>
+</li>
+<li>
+<p>21: Virtual SCSI (Server: 112 VIOS1)</p>
+</li>
+<li>
+<p>22: Virtual SCSI (Server: 212 VIOS2)</p>
+</li>
+<li>
+<p>33: Fiber Channel (Server: 312 VIOS1)</p>
+</li>
+<li>
+<p>34: Fiber Channel (Server: 412 VIOS2)</p>
+</li>
+</ul>
+<p>VIOS1 ID: 1 Virtual devices:</p>
+<ul>
+<li>
+<p>111 Virtual SCSI (Client ID: 11 / Virtual Client: 21)</p>
+</li>
+<li>
+<p>112 Virtual SCSI (Client ID: 12 / Virtual Client: 21)</p>
+</li>
+<li>
+<p>311 Fiber Channel (Client ID: 11 / Virtual Client: 33)</p>
+</li>
+<li>
+<p>312 Fiber Channel (Client ID: 12 / Virtual Client: 33)</p>
+</li>
+</ul>
+<p>VIOS2 ID: 2 Virtual devices:</p>
+<ul>
+<li>
+<p>211 Virtual SCSI (Client: 11 / Virtual Client: 22)</p>
+</li>
+<li>
+<p>212 Virtual SCSI (Client: 12 / Virtual Client: 22)</p>
+</li>
+<li>
+<p>411 Fiber Channel (Client: 11 / Virtual Client: 34)</p>
+</li>
+<li>
+<p>412 Fiber Channel (Client: 12 / Virtual Client: 34)</p>
+</li>
+</ul>
+<p>In this example we can easily identify which VIO serves the virtual
+devices, by only looking the partition ID.</p>
+<p>Sample: Identifying AIX1 on
+    VIOs</p>
+<div class="highlight"><pre><span></span>padmin@VIOS1:[/home/padmin]lsmap -all | grep C111vhost6          U9119.FHB.8297FCR-V3-C111                    0x0000000bpadmin@VIOS1:[/home/padmin]lsmap -vadapter vhost6SVSA            Physloc                                      Client Partition ID--------------- -------------------------------------------- ------------------vhost6          U9119.FHB.8297FCR-V3-C111                    0x0000000bVTD                   NO VIRTUAL TARGET DEVICE FOUNDpadmin@VIOS1:[/home/padmin]lsmap -all -npiv | grep C311vfchost3      U9119.FHB.8297FCR-V3-C311              11 AIX1 AIXpadmin@VIOS1:[/home/padmin]lsmap -npiv -vadapter vfchost3Name          Physloc                            ClntID ClntName       ClntOS------------- ---------------------------------- ------ -------------- -------vfchost3      U9119.FHB.8297FCR-V3-C311              11 AIX1           AIXStatus:LOGGED_INFC name:fcs0                    FC loc code:U5873.001.992014K-P1-C6-T1Ports logged in:2Flags:a&lt;LOGGED_IN,STRIP_MERGE&gt;VFC client name:fcs0            VFC client DRC:U9119.FHB.8297FCR-V11-C33
+</pre></div>
+
+
+<p>How is it developed?</p>
+<p>It's developed using Python and uses some Shell Scripting. I'm a
+sysadmin not a developer so sorry if it is not looking great. Your help
+is important and kindly accept to improve the tool.</p>
+<p>If you don't have an HMC and a Power to run tests, don't worry. I've an
+some code with simulation on createlparconf.py, newid.py. Directory
+simulation is available upon request.</p>
+<p>License</p>
+<p>This software is BSD License. Please more details in LICENSE file.
+IMPORTANT: IBM, PowerVM (a.k.a. vios) are registered trademarks of IBM
+Corporation in the United States, other countries, or both.</p>
+<p>Download</p>
+<p><a href="https://github.com/kairoaraujo/PowerAdm/releases">https://github.com/kairoaraujo/PowerAdm/releases</a></p>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://kairo.eti.br/tag/comments.html">comments</a>, <a href="http://kairo.eti.br/tag/recommend.html">recommend</a>, <a href="http://kairo.eti.br/tag/hmc.html">hmc</a>, <a href="http://kairo.eti.br/tag/deploy.html">deploy</a>, <a href="http://kairo.eti.br/tag/powervm.html">powervm</a>, <a href="http://kairo.eti.br/tag/nim.html">nim</a>, <a href="http://kairo.eti.br/tag/vios.html">vios</a>, <a href="http://kairo.eti.br/tag/python.html">python</a>, <a href="http://kairo.eti.br/tag/lpar.html">lpar</a></p>
+        </div>
+
+    <hr>
+
+        <div class="comments">
+            <h2>Comments !</h2>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'kairoaraujo';
+                var disqus_identifier = 'poweradm-python-tool-to-power.html';
+                var disqus_url = 'http://kairo.eti.br/poweradm-python-tool-to-power.html';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//kairoaraujo.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://linkedin.com/in/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://github.com/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://twitter.com/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>. <br />        &copy;  Kairo Araujo 
+    <br />
+    These are my personal opinions
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://kairo.eti.br/theme/js/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://kairo.eti.br/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://kairo.eti.br/theme/js/clean-blog.min.js"></script>
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-108092336-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    var disqus_shortname = 'kairoaraujo';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+</body>
+
+</html>

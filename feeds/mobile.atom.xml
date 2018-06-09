@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Kairo Araujo - mobile</title><link href="http://kairo.eti.br/" rel="alternate"></link><link href="http://kairo.eti.br/feeds/mobile.atom.xml" rel="self"></link><id>http://kairo.eti.br/</id><updated>2009-03-25T04:42:00+01:00</updated><entry><title>Resolução parcial da incompatibilidade / problema entre Motorola Q11 e Roteadores D-Link DI-524.</title><link href="http://kairo.eti.br/resolucao-parcial-da-incompatibilidade-problema-entre-motorola-q11-e-roteadores-d-link-di-524.html" rel="alternate"></link><published>2009-03-25T04:42:00+01:00</published><updated>2009-03-25T04:42:00+01:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2009-03-25:/resolucao-parcial-da-incompatibilidade-problema-entre-motorola-q11-e-roteadores-d-link-di-524.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;O problema&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Após adquirir um smartphone Motorola modelo Q11 tive problemas de
+conectividade com meu roteador wireless do fabricante D-Link modelo
+DI-524.&lt;/p&gt;
+&lt;p&gt;Pesquisando na Internet encontrei mais relatos sobre o mesmo problema.&lt;/p&gt;
+&lt;p&gt;1. É preciso ler os 3 primeiros posts&lt;br&gt;
+&lt;a href="http://www.plusgsm.com.br/forums/showthread.php?t=104926"&gt;http://www.plusgsm.com.br/forums/showthread.php?t=104926 …&lt;/a&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;O problema&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Após adquirir um smartphone Motorola modelo Q11 tive problemas de
+conectividade com meu roteador wireless do fabricante D-Link modelo
+DI-524.&lt;/p&gt;
+&lt;p&gt;Pesquisando na Internet encontrei mais relatos sobre o mesmo problema.&lt;/p&gt;
+&lt;p&gt;1. É preciso ler os 3 primeiros posts&lt;br&gt;
+&lt;a href="http://www.plusgsm.com.br/forums/showthread.php?t=104926"&gt;http://www.plusgsm.com.br/forums/showthread.php?t=104926&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;2. Veja o comentário numero #9 deste
+preview&lt;br&gt;
+&lt;a href="http://zumo.uol.com.br/2008/10/18/preview-motorola-moto-q11/"&gt;http://zumo.uol.com.br/2008/10/18/preview-&lt;span class="il"&gt;motorola&lt;/span&gt;-moto-q11/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;3. Veja o comentário numero #1 deste
+review&lt;br&gt;
+&lt;a href="http://seidimobile.com.br/2009/02/27/review-motorola-moto-q11/"&gt;http://seidimobile.com.br/2009/02/27/review-&lt;span class="il"&gt;motorola&lt;/span&gt;-moto-q11/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;As respostas de ambos os fabricantes&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Após obviamente falar com ambos os fabricantes, D-Link e Motorola,
+recebo a seguinte resposta (obviamente a mais fácil)&lt;/p&gt;
+&lt;p&gt;Motorola: "Informamos que o aparelho não possui restrição para
+roteadores. Ressaltamos que é necessário inserir os dados da
+configuração de rede para que possa ter o acesso."&lt;/p&gt;
+&lt;p&gt;D-Link: "É necessário contactar o fabricante do aparelho celular"&lt;/p&gt;
+&lt;p&gt;Tudo bem, não sei de quem é o problema mas deveriam se esforçar o mínimo
+possível.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Solução parcial do problema&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Por que parcial? Porque a velocidade ainda continua uma porcaria.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="text-decoration:underline;"&gt;Dica&lt;/span&gt;: &lt;em&gt;&lt;em&gt; Abra um chamado
+telefonico na Motorola e na D-Link para o problema&lt;/em&gt;, isso ajuda a
+resolvermos o problema.&lt;br&gt;
+&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Fazendo uma análise do problema identifiquei que o roteador D-Link não
+consegue entregar o endereço IP ao celular, ou obviamente, o celular não
+consegue receber o endereço IP. Cheguei a verificar que nos logs do
+roteador o mesmo realizava a tentativa de conexão.&lt;/p&gt;
+&lt;p&gt;Sendo assim, entrei novamente em contato com a Motorola afim de saber se
+é possível colocar um IP estático na configuração de rede do Wi-Fi,
+novamente recebo uma resposta evasiva.&lt;/p&gt;
+&lt;p&gt;Pesquisando na Internet por uma forma de colocar IP estático no Windows
+Mobile 6.1 encontrei este software
+&lt;a href="http://www.freewarepocketpc.net/ppc-download-wifi-profiles-v0-0-2.html"&gt;http://www.freewarepocketpc.net/ppc-download-wifi-profiles-v0-0-2.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Também instalei um software que pudesse realizar testes como ping. Para
+isso instalei este aqui &lt;a href="http://tools.enterprisemobile.com/iputil/"&gt;http://tools.enterprisemobile.com/iputil/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Crie dois profiles com o WifiProfiles.&lt;br&gt;
+Um deixando o endereço IP estático e outro deixando o uso do DHCP.&lt;br&gt;
+Quando for utilizar o roteador wireless DI-524 aplique o profile IP
+estático, quando for usar demais roteadores aplique o profile DHCP&lt;/p&gt;
+&lt;p&gt;Você pode fazer testes de ping com o EN IP Utility&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;br&gt;
+UPDATE 06/08/2008&lt;br&gt;
+&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Abaixo segue o atendimento online da Motorola. Veja que eles não tem
+interesse nenhum em resolver nosso problema:&lt;br&gt;
+PS: Substitui o nome da atendente por ATENDENTE.&lt;/p&gt;
+&lt;p&gt;ATENDENTE: Oi, meu nome é ATENDENTE. Em que posso ajudá-lo?&lt;br&gt;
+Kairo Araujo: Olá Rita, bom dia.&lt;br&gt;
+Kairo Araujo: Eu tenho um Motorola Q11 a cerca de 8 meses e tenho
+problemas com a conexão com Wireless especificamente com o equipamento
+do fabricante DLink modelo DI-524.&lt;br&gt;
+Kairo Araujo: Não só eu como várias pessoas vem ao meu site relatar o
+mesmo problema.&lt;br&gt;
+ATENDENTE: Bom dia Kairo.&lt;br&gt;
+Kairo Araujo: Isso pode ver aqui no meu site 
+http://kairo.wordpress.com/2009/03/25/resolucao-parcial-da-incompatibilidade-problema-entre-motorola-q11-e-roteadores-d-link-di-524&lt;br&gt;
+ATENDENTE: Nesse caso você tem que entrar em contato com a Dlink e
+verificar se eles disponibilizam uma atualização de firmware para o
+roteador.&lt;br&gt;
+Kairo Araujo: Eles não tem nenhum firmware para o problema especifico e
+meu roteador encontra-se no último nivel de firmware.&lt;br&gt;
+Kairo Araujo: Ocorre que qualquer outro equipamento, exceto o Motorola
+Q11.&lt;br&gt;
+Kairo Araujo: Gostaria de saber se já simularam este problema em seus
+laboratórios.&lt;br&gt;
+Kairo Araujo: A resposta deles é a mesma de vocês, solicitando que eu
+veja com a Motorola.&lt;br&gt;
+Kairo Araujo: É simples simularem isto. Vocês poderiam simular e
+contactar a DLink.&lt;br&gt;
+ATENDENTE: Não há nenhuma incompatibilidade por parte do aparelho, deve
+verificar diretamente com a Dlink.&lt;br&gt;
+Kairo Araujo: Como você tem certeza disso?&lt;br&gt;
+Kairo Araujo: Baseado em quê?&lt;br&gt;
+ATENDENTE: Sim Kairo, pois não há incompatibilidade com nenhum outro!&lt;br&gt;
+ATENDENTE: Deseja mais alguma informação?&lt;br&gt;
+Kairo Araujo: Sim desejo.&lt;br&gt;
+Kairo Araujo: Eu tenho um D-link, celular Nokia que funciona com o meu
+roteador, 3 notebooks que funcionam com o roteador, um video game WII
+que funciona com o roteador. Apenas o Motorola Q11 não funciona.&lt;br&gt;
+Kairo Araujo: Como pode ser o roteador?!&lt;br&gt;
+Kairo Araujo: Além disso no meu site tem 40 comentários de pessoas
+diferentes com o mesmo problema.&lt;br&gt;
+Kairo Araujo: Gostaria de saber porque vocês não contactam o Fabricante
+D-Link para realizar testes em conjunto e definirem de quem é o
+problema.&lt;br&gt;
+ATENDENTE: Nesse caso, para verificar se é alguma irregularidade no
+aparelho, encaminhe ele para analise na assistência.&lt;br&gt;
+ATENDENTE: A Motorola não possui esse procedimento!&lt;br&gt;
+Kairo Araujo: Não é um aparelho como eu disse, são varias pessoas que
+tem o mesmo problema.&lt;br&gt;
+Kairo Araujo: OK, já vi que não vai ajudar. Vou divulgar o suporte que
+ofereceram para estas pessoas. Não vou especificar seu nome por
+privacidade.&lt;br&gt;
+Kairo Araujo: Motorola nunca mais!&lt;br&gt;
+ATENDENTE: Deseja mais alguma informação?&lt;br&gt;
+Kairo Araujo: Não, obrigado. Tenha um bom dia.&lt;br&gt;
+ATENDENTE: Se precisar de mais alguma informação entre em contato. A
+Motorola agradece, até logo! tenha um bom dia!&lt;/p&gt;</content><category term="D-Link"></category><category term="DI-524"></category><category term="DI524"></category><category term="dlink"></category><category term="Moto"></category><category term="Moto Q11"></category><category term="Motorola"></category><category term="Motorola Q11"></category><category term="problema motorola"></category><category term="Q11"></category></entry></feed>

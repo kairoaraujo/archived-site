@@ -1,0 +1,729 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Kairo Araujo - Linux, Unix Notes</title><link href="http://kairo.eti.br/" rel="alternate"></link><link href="http://kairo.eti.br/feeds/linux-unix-notes.atom.xml" rel="self"></link><id>http://kairo.eti.br/</id><updated>2009-05-06T15:35:00+02:00</updated><entry><title>Making LVM Mirror on Linux using Red Hat CLuster Suite - CLVM (Cluster LVM) - on RHEL 5</title><link href="http://kairo.eti.br/making-lvm-mirror-on-linux-using-red-hat-cluster-suite-clvm-cluster-lvm-on-rhel-5.html" rel="alternate"></link><published>2009-05-06T15:35:00+02:00</published><updated>2009-05-06T15:35:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2009-05-06:/making-lvm-mirror-on-linux-using-red-hat-cluster-suite-clvm-cluster-lvm-on-rhel-5.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;1. The scenario&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;On my box I've two disks from two differents Storage Disk.&lt;/p&gt;
+&lt;p&gt;Using multipath I've this disks&lt;br&gt;
+/dev/dm-15 from Storage Disk A (in use)&lt;br&gt;
+/dev/dm-28 from Storage Disk B (not in use yet.)&lt;/p&gt;
+&lt;p&gt;I've the Volume Group with name vg_gfs00 on /dev/dm-15&lt;br&gt;
+I've the Logical …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;1. The scenario&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;On my box I've two disks from two differents Storage Disk.&lt;/p&gt;
+&lt;p&gt;Using multipath I've this disks&lt;br&gt;
+/dev/dm-15 from Storage Disk A (in use)&lt;br&gt;
+/dev/dm-28 from Storage Disk B (not in use yet.)&lt;/p&gt;
+&lt;p&gt;I've the Volume Group with name vg_gfs00 on /dev/dm-15&lt;br&gt;
+I've the Logical Volume with name lv00 on the Volume Group VG_GFS&lt;/p&gt;
+&lt;p&gt;Looking my outputs pvs, vgs and lvs&lt;/p&gt;
+&lt;p&gt;PVS output&lt;br&gt;
+&lt;code&gt;# pvs PV         VG          Fmt  Attr PSize   PFree /dev/dm-15
+vg_gfs00    lvm2 a-   278,98G 39,95G /dev/sda3  rootvg      lvm2
+a-   131,47G 86,19G&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;VGS output&lt;br&gt;
+&lt;code&gt;# vgs VG          #PV #LV #SN Attr   VSize   VFree
+rootvg        1  11   0 wz--n- 131,47G 86,19G
+vg_gfs00all   8   7   0 wz--n- 278,98G 39,95G&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;LVS output&lt;br&gt;
+&lt;code&gt;# lvs LV          VG          Attr   LSize homelv      rootvg     
+-wi-ao 512,00M optlv       rootvg      -wi-ao   1,00G rootlv     
+rootvg      -wi-ao   1,00G tmplv       rootvg      -wi-ao   2,00G
+usrlv       rootvg      -wi-ao   4,00G varloglv    rootvg     
+-wi-ao   8,00G varlv       rootvg      -wi-ao   4,00G lv00       
+vg_gfs00    -wi-ao 239,03G&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2. Objective&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Implement a mirror on filesystems for high availbility if my Storage
+Disk A or B crashs.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3. Implementing&lt;/strong&gt;&lt;br&gt;
+&lt;strong&gt;&lt;br&gt;
+a. Make a PV on new disk (/dev/dm-28)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# pvcreate /dev/dm-28&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;b. Add new volume on the vg_gfs00&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# vgextend vg_gfs00 /dev/dm-28&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;c. Make a mirror on Logical Volume&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# lvconvert -m1 vg_gfs00/lv00 /dev/dm-28 vg_gfs00/lv00:
+Converted: 17,1% vg_gfs00/lv00: Converted: 34,1% vg_gfs00/lv00:
+Converted: 51,0% vg_gfs00/lv00: Converted: 68,4% vg_gfs00/lv00:
+Converted: 85,5% vg_gfs00/lv00: Converted: 100,0%&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="text-decoration:underline;"&gt;Note:&lt;/span&gt; If your LV are in
+more PVs you can specify all PVs&lt;br&gt;
+Sample:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# lvs -a -o +devices | grep lv00 lv00          vg_gfs00
+-wi-ao  10,00G     /dev/dm-15(0) lv00          vg_gfs00
+-wi-ao  10,00G     /dev/dm-16(123490)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;In this case dm-15 and dm-16 are on my Storage Disk A, I need two disks
+on the Storage Disk B, sample dm-28 and dm-29.&lt;br&gt;
+For convert I use this&lt;br&gt;
+&lt;code&gt;# lvconvert -m1 vg_gfs00/lv00 /dev/dm-28 /dev/dm-29&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;d. Checking Mirror with lvs -a -o +devices&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# lvs -a -o +devices | grep vl00 lv00            vg_gfs00
+mwi-ao  10,00G       lv00_mlog 100,00        
+lv00_mimage_0(0),lv00_mimage_1(0) [lv00_mimage_0] vg_gfs00
+iwi-ao  10,00G                                /dev/dm-15(10242)
+[lv00_mimage_1] vg_gfs00 iwi-ao  10,00G                               
+/dev/dm-28(14086)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Looking details:&lt;/p&gt;
+&lt;p&gt;lv00 is a lv00_mlog and have a 100% of sync to lv00_mimage_0 and
+lv00_image1.&lt;br&gt;
+The lv00_mimage_0 is stored on /dev/dm-15&lt;br&gt;
+The lv00_mimage_1 is stored on /dev/dm-28&lt;/p&gt;
+&lt;p&gt;Looking with a simple lvs&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# lvs LV          VG          Attr   LSize  Origin Snap%  Move
+Log              Copy%  Convert homelv      rootvg     
+-wi-ao 512,00M optlv       rootvg      -wi-ao   1,00G rootlv     
+rootvg      -wi-ao   1,00G tmplv       rootvg      -wi-ao   2,00G
+usrlv       rootvg      -wi-ao   4,00G varloglv    rootvg     
+-wi-ao   8,00G varlv       rootvg      -wi-ao   4,00G lv00       
+vg_gfs00    -wi-ao 239,03G              lv00_mlog 100,00&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;If the lv00_mlog is not 100% you have a problem with one of disks.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;4. Documentation:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;*
+&lt;a href="http://www.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/5.2/html/Cluster_Logical_Volume_Manager/"&gt;http://www.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/5.2/html/Cluster_Logical_Volume_Manager/&lt;/a&gt;&lt;br&gt;
+- 2.3.3. Mirrored Logical Volumes&lt;br&gt;
+- 4.4.1.3. Creating Mirrored Volumes&lt;br&gt;
+- 6.3. Recovering from LVM Mirror Failure&lt;/p&gt;</content><category term="Cluster LVM"></category><category term="CLVM"></category><category term="Linux LVM Mirror"></category><category term="lvconvert -m1"></category></entry><entry><title>Recovering VGDA on LVM1 (restore metadata to disk) Linux</title><link href="http://kairo.eti.br/recovering-vgda-on-lvm1-restore-metadata-to-disk-linux.html" rel="alternate"></link><published>2009-03-04T16:27:00+01:00</published><updated>2009-03-04T16:27:00+01:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2009-03-04:/recovering-vgda-on-lvm1-restore-metadata-to-disk-linux.html</id><summary type="html">&lt;p&gt;vgscan output this error&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ERROR "vg_read_with_pv_and_lv(): current PV" can't get data of volume
+group "vgappl01" from physicalvolume(s)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;1) Check the backups on /etc/lvmconf/&lt;/p&gt;
+&lt;p&gt;NOTE: I recommend make backup of this dir to tape or external media&lt;/p&gt;
+&lt;p&gt;2) Check PVS&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# pvdisplay /dev/sdxn&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;If some PV output no informations …&lt;/p&gt;</summary><content type="html">&lt;p&gt;vgscan output this error&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ERROR "vg_read_with_pv_and_lv(): current PV" can't get data of volume
+group "vgappl01" from physicalvolume(s)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;1) Check the backups on /etc/lvmconf/&lt;/p&gt;
+&lt;p&gt;NOTE: I recommend make backup of this dir to tape or external media&lt;/p&gt;
+&lt;p&gt;2) Check PVS&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# pvdisplay /dev/sdxn&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;If some PV output no informations use that.&lt;/p&gt;
+&lt;p&gt;3) Recreate PV on partition or disk&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# pvcreate /dev/sdb1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;4) Make restore of VG on disk&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# vgcfgrestore -n vgappl01 /dev/sdb1 vgcfgrestore -- INFO: using backup
+file "/etc/lvmconf/vgappl01.conf" vgcfgrestore -- VGDA for "vgappl01"
+successfully restored to physical volume "/dev/sdb1"&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;5) Run pvscan&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# pvscan pvscan -- reading all physical volumes (this may take a
+while...) pvscan -- inactive PV "/dev/vpatha1"  is associated to unknown
+VG "vgappl01" (run vgscan) pvscan -- inactive PV "/dev/vpathb1"  is
+associated to unknown VG "vgappl01" (run vgscan) pvscan -- ACTIVE   PV
+"/dev/sda3"    of VG "rootvg"   [52.49 GB / 37.31 GB free] pvscan --
+inactive PV "/dev/sdb1"     is associated to unknown VG "vgappl01" (run
+vgscan) pvscan -- inactive PV "/dev/sdc1"     is associated to unknown
+VG "vgappl01" (run vgscan) pvscan -- inactive PV "/dev/sdd1"     is
+associated to unknown VG "vgappl01" (run vgscan) pvscan -- inactive PV
+"/dev/sde1"     is associated to unknown VG "vgappl01" (run vgscan)
+pvscan -- inactive PV "/dev/sdf1"     is associated to unknown VG
+"vgappl01" (run vgscan) pvscan -- inactive PV "/dev/sdg1"     is
+associated to unknown VG "vgappl01" (run vgscan) pvscan -- inactive PV
+"/dev/sdh1"     is associated to unknown VG "vgappl01" (run vgscan)
+pvscan -- inactive PV "/dev/sdi1"     is associated to unknown VG
+"vgappl01" (run vgscan) pvscan -- total: 11 [402.42 GB] / in use: 11
+[402.42 GB] / in no VG: 0 [0]&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;6) run vgscan&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# vgscan vgscan -- reading all physical volumes (this may take a
+while...) vgscan -- found active volume group "vgappl01" vgscan -- found
+active volume group "rootvg" vgscan -- "/etc/lvmtab" and "/etc/lvmtab.d"
+successfully created vgscan -- WARNING: This program does not do a VGDA
+backup of your volume groups&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;7) For your security, make new backup&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# vgcfgbackup vgcfgbackup -- volume groups found: rootvg vgappl01
+vgcfgbackup -- successful VGDA backup of volume group "rootvg" to
+"/etc/lvmconf/rootvg.conf" vgcfgbackup -- successful VGDA backup of
+volume group "vgappl01" to "/etc/lvmconf/vgappl01.conf"&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Reference: http://kbase.redhat.com/faq/docs/DOC-5537&lt;/p&gt;</content><category term="LVM1"></category><category term="metadata restore"></category><category term="vgcfgbackup"></category><category term="vgcfgrestore"></category><category term="VGDA"></category></entry><entry><title>Installing IBM lin_tape and lin_taped on Linux (Red Hat Enterprise Linux)</title><link href="http://kairo.eti.br/installing-ibm-lin_tape-lin_tape-on-linux-red-hat-enterprise-linux.html" rel="alternate"></link><published>2009-02-10T11:58:00+01:00</published><updated>2009-02-10T11:58:00+01:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2009-02-10:/installing-ibm-lin_tape-lin_tape-on-linux-red-hat-enterprise-linux.html</id><summary type="html">&lt;p&gt;Installing IBM lin_tape on Linux (Red Hat Enterprise Linux)&lt;/p&gt;
+&lt;p&gt;Steps for install lin_tape and lin_taped&lt;/p&gt;
+&lt;p&gt;1. Download the lin_tape source and lin_taped from
+&lt;a href="ftp://ftp.software.ibm.com/storage/devdrvr/Linux/lin_tape_source-lin_taped/"&gt;ftp://ftp.software.ibm.com/storage/devdrvr/Linux/lin_tape_source-lin_taped/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;l&lt;code&gt;in_tape-X.YY.Z-W.src.rpm.bin lin_taped-X.YY.Z-rhel[V].arch.rpm.bin&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Samples for version 1 …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Installing IBM lin_tape on Linux (Red Hat Enterprise Linux)&lt;/p&gt;
+&lt;p&gt;Steps for install lin_tape and lin_taped&lt;/p&gt;
+&lt;p&gt;1. Download the lin_tape source and lin_taped from
+&lt;a href="ftp://ftp.software.ibm.com/storage/devdrvr/Linux/lin_tape_source-lin_taped/"&gt;ftp://ftp.software.ibm.com/storage/devdrvr/Linux/lin_tape_source-lin_taped/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;l&lt;code&gt;in_tape-X.YY.Z-W.src.rpm.bin lin_taped-X.YY.Z-rhel[V].arch.rpm.bin&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Samples for version 1.20.0-1&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;lin_tape-1.20.0-1.src.rpm.bin lin_taped-1.20.0-rhel4.x86_64.rpm.bin&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;2. Rebuild lin_tape rpm source&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# rpmbuild --rebuild lin_tape-X.YY.Z-W.src.rpm.bin&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Sample for version 1.20.0-1&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# rpmbuild --rebuild lin_tape-1.20.0-1.src.rpm.bin Installing
+lin_tape-1.20.0-1.src.rpm.bin Executing(%prep): /bin/sh -e
+/var/tmp/rpm-tmp.52502 + umask 022 + cd /usr/src/redhat/BUILD + LANG=C +
+export LANG + unset DISPLAY + cd /usr/src/redhat/BUILD + rm -rf
+lin_tape-1.20.0 + /bin/gzip -dc
+/usr/src/redhat/SOURCES/lin_tape-1.20.0.tgz + tar -xf - + STATUS=0 +
+'[' 0 -ne 0 ']' + cd lin_tape-1.20.0 ++ /usr/bin/id -u + '[' 0 = 0 ']' +
+/bin/chown -Rhf root . ++ /usr/bin/id -u + '[' 0 = 0 ']' + /bin/chgrp
+-Rhf root . + /bin/chmod -Rf a+rX,u+w,g-w,o-w . + exit 0
+Executing(%build): /bin/sh -e /var/tmp/rpm-tmp.52502 + umask 022 + cd
+/usr/src/redhat/BUILD + cd lin_tape-1.20.0 + LANG=C + export LANG +
+unset DISPLAY ++ echo x86_64-redhat-linux-gnu ++ cut -f 1 -d - +
+p=x86_64 + '[' x86_64 == i386 ']' + '[' x86_64 == i586 ']' + '[' x86_64
+== i686 ']' + '[' x86_64 == ppc64 ']' + '[' x86_64 == powerpc ']' + '['
+x86_64 == s390 ']' + '[' x86_64 == s390x ']' + '[' x86_64 == ia64 ']' +
+'[' x86_64 == x86_64 ']' + proc=AMD + cp -af lin_tape_359X_AMD.ReadMe
+lin_tape_359X.ReadMe + cp -af lin_tape_Ultrium_AMD.ReadMe
+lin_tape_Ultrium.ReadMe + make KERNEL=2.6.9-78.0.13.ELsmp PROC=x86_64
+driver grep: IBMtapeutil.c: No such file or directory make -C
+/lib/modules/2.6.9-78.0.13.ELsmp/build
+SUBDIRS=/usr/src/redhat/BUILD/lin_tape-1.20.0
+PWD=/usr/src/redhat/BUILD/lin_tape-1.20.0 clean make[1]: Entering
+directory `/usr/src/kernels/2.6.9-78.0.13.EL-smp-x86_64' grep:
+IBMtapeutil.c: No such file or directory make[1]: Leaving directory
+`/usr/src/kernels/2.6.9-78.0.13.EL-smp-x86_64' mkdir bldtmp make
+KERNEL=2.6.9-78.0.13.ELsmp compileclean lin_tape.ko grep: IBMtapeutil.c:
+No such file or directory make[1]: Entering directory
+`/usr/src/redhat/BUILD/lin_tape-1.20.0' export PWD make -C
+/lib/modules/2.6.9-78.0.13.ELsmp/build
+SUBDIRS=/usr/src/redhat/BUILD/lin_tape-1.20.0
+PWD=/usr/src/redhat/BUILD/lin_tape-1.20.0 modules make[2]: Entering
+directory `/usr/src/kernels/2.6.9-78.0.13.EL-smp-x86_64' grep:
+IBMtapeutil.c: No such file or directory CC [M]
+/usr/src/redhat/BUILD/lin_tape-1.20.0/lin_tape_scsi_config.o CC [M]
+/usr/src/redhat/BUILD/lin_tape-1.20.0/lin_tape_scsi_tape.o CC [M]
+/usr/src/redhat/BUILD/lin_tape-1.20.0/lin_tape_scsi_trace.o CC [M]
+/usr/src/redhat/BUILD/lin_tape-1.20.0/lin_tape_ioctl_tape.o CC [M]
+/usr/src/redhat/BUILD/lin_tape-1.20.0/lin_tape_ioctl_changer.o CC [M]
+/usr/src/redhat/BUILD/lin_tape-1.20.0/lin_tape_extra_ioctl.o LD [M]
+/usr/src/redhat/BUILD/lin_tape-1.20.0/lin_tape.o Building modules,
+stage 2. MODPOST CC /usr/src/redhat/BUILD/lin_tape-1.20.0/lin_tape.mod.o
+LD [M] /usr/src/redhat/BUILD/lin_tape-1.20.0/lin_tape.ko make[2]:
+Leaving directory `/usr/src/kernels/2.6.9-78.0.13.EL-smp-x86_64'
+make[1]: Leaving directory `/usr/src/redhat/BUILD/lin_tape-1.20.0' mv
+lin_tape.ko bldtmp/lin_tape-2.6.9-78.0.13.ELsmp.ko + exit 0
+Executing(%install): /bin/sh -e /var/tmp/rpm-tmp.33921 + umask 022 + cd
+/usr/src/redhat/BUILD + cd lin_tape-1.20.0 + LANG=C + export LANG +
+unset DISPLAY + rm -rf /var/tmp/lin_tape-1.20.0-1-root-root + install -D
+-m 644 bldtmp/lin_tape-2.6.9-78.0.13.ELsmp.ko
+/var/tmp/lin_tape-1.20.0-1-root-root/lib/modules/2.6.9-78.0.13.ELsmp/kernel/drivers/scsi/lin_tape.ko
++ install -D -m 644 98-lin_tape.rules
+/var/tmp/lin_tape-1.20.0-1-root-root/etc/udev/rules.d/98-lin_tape.rules
++ install -D -m 755 udev.get_lin_tape_id.sh
+/var/tmp/lin_tape-1.20.0-1-root-root/sbin/udev.get_lin_tape_id.sh ++
+uname -m + PROC=x86_64 + p=x86_64 + '[' x86_64 == i386 ']' + '[' x86_64
+== i586 ']' + '[' x86_64 == i686 ']' + install -D -m 700 lin_tape
+/var/tmp/lin_tape-1.20.0-1-root-root/etc/init.d/lin_tape + cd
+/var/tmp/lin_tape-1.20.0-1-root-root + ln -sf /etc/init.d/lin_tape
+/usr/sbin/rclin_tape + cd - /usr/src/redhat/BUILD/lin_tape-1.20.0 +
+/usr/lib/rpm/redhat/brp-compress + /usr/lib/rpm/redhat/brp-strip
+/usr/bin/strip + /usr/lib/rpm/redhat/brp-strip-static-archive
+/usr/bin/strip + /usr/lib/rpm/redhat/brp-strip-comment-note
+/usr/bin/strip /usr/bin/objdump Processing files: lin_tape-1.20.0-1
+Executing(%doc): /bin/sh -e /var/tmp/rpm-tmp.33921 + umask 022 + cd
+/usr/src/redhat/BUILD + cd lin_tape-1.20.0 +
+DOCDIR=/var/tmp/lin_tape-1.20.0-1-root-root/usr/share/doc/lin_tape-1.20.0
++ export DOCDIR + rm -rf
+/var/tmp/lin_tape-1.20.0-1-root-root/usr/share/doc/lin_tape-1.20.0 +
+/bin/mkdir -p
+/var/tmp/lin_tape-1.20.0-1-root-root/usr/share/doc/lin_tape-1.20.0 + cp
+-pr lin_tape_Ultrium.ReadMe lin_tape_359X.ReadMe COPYING COPYING.LIB
+/var/tmp/lin_tape-1.20.0-1-root-root/usr/share/doc/lin_tape-1.20.0 +
+exit 0 Checking for unpackaged file(s): /usr/lib/rpm/check-files
+/var/tmp/lin_tape-1.20.0-1-root-root warning: Could not canonicalize
+hostname: hotsm001ode Wrote:
+/usr/src/redhat/RPMS/x86_64/lin_tape-1.20.0-1.x86_64.rpm
+Executing(%clean): /bin/sh -e /var/tmp/rpm-tmp.70795 + umask 022 + cd
+/usr/src/redhat/BUILD + cd lin_tape-1.20.0 + rm -rf
+/var/tmp/lin_tape-1.20.0-1-root-root + exit 0 Executing(--clean):
+/bin/sh -e /var/tmp/rpm-tmp.70795 + umask 022 + cd /usr/src/redhat/BUILD
++ rm -rf lin_tape-1.20.0 + exit 0&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;3. Install the rpm wroted in /usr/src/redhat/RPMS/[your_arch]/&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# rpm -ivh /usr/src/redhat/RPMS/x86_64/lin_tape-1.20.0-1.x86_64.rpm&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;4. Install the rpm lin_taped&lt;br&gt;
+&lt;code&gt;lin_taped-X.YY.Z-rhel[V].arch.rpm.bin&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Sample for version 1.20.0-1&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# rpm -ivh lin_taped-1.20.0-rhel4.x86_64.rpm.bin&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;5. Start lin_tape service&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# /etc/init.d/lin_tape start&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;6. Check your tapes on /proc/scsci/IBM*&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# cat /proc/scsi/IBM* lin_tape version: 1.20.0 lin_tape major
+number: 252 Attached Tape Devices: Number model SN HBA FO
+Path 0 03584L32 00000782XXXXXXXE qla2xxx NA 1 03584L32 00000782XXXXXXXE
+qla2xxx NA lin_tape version: 1.20.0 lin_tape major number: 252 Attached
+Tape Devices: Number model SN HBA FO Path 0 ULT3580-TD4 00078XXXXX
+qla2xxx NA 1 ULT3580-TD4 00078XXXXX qla2xxx NA 2 ULT3580-TD4 00078XXXXX
+qla2xxx NA 3 ULT3580-TD4 00078XXXXX qla2xxx NA 4 ULT3580-TD4 00078XXXXX
+qla2xxx NA 5 ULT3580-TD4 00078XXXXX qla2xxx NA&lt;/code&gt;&lt;/p&gt;</content><category term="IBM"></category><category term="lin_tape"></category><category term="lin_taped"></category><category term="Red Hat"></category><category term="RHEL"></category><category term="Tape"></category></entry><entry><title>Checking the install date of Linux Operation System (Red Hat) - Not official, but usefull</title><link href="http://kairo.eti.br/checking-the-install-dat-of-linux-operation-system-red-hat-not-official-but-usefull.html" rel="alternate"></link><published>2009-02-04T18:53:00+01:00</published><updated>2009-02-04T18:53:00+01:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2009-02-04:/checking-the-install-dat-of-linux-operation-system-red-hat-not-official-but-usefull.html</id><summary type="html">&lt;p&gt;&lt;span style="color:#000080;"&gt;&lt;strong&gt;English (português mais abaixo)&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The package basesystem contains no files&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# rpm -ql basesystem (contains no files)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;But your discription is very clean:&lt;br&gt;
+Basesystem defines the components of a basic Red Hat Linux system (for&lt;br&gt;
+example, the package installation order to use during bootstrapping).&lt;br&gt;
+Basesystem should be the first package installed …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;span style="color:#000080;"&gt;&lt;strong&gt;English (português mais abaixo)&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The package basesystem contains no files&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# rpm -ql basesystem (contains no files)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;But your discription is very clean:&lt;br&gt;
+Basesystem defines the components of a basic Red Hat Linux system (for&lt;br&gt;
+example, the package installation order to use during bootstrapping).&lt;br&gt;
+Basesystem should be the first package installed on a system and it&lt;br&gt;
+should never be removed.&lt;/p&gt;
+&lt;p&gt;You can check Install Date from this package&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# rpm -qi basesystem Name : basesystem Relocations: (not relocatable)
+Version : 8.0 Vendor: Red Hat, Inc. Release : 4 Build Date: Wed 22
+Sep 2004 07:01:44 PM BRT Install Date: Sat 17 Jan 2009 05:28:37 PM BRST
+Build Host: tweety.build.redhat.com Group : System Environment/Base
+Source RPM: basesystem-8.0-4.src.rpm Size : 0 License: public domain
+Signature : DSA/SHA1, Wed 05 Jan 2005 09:03:37 PM BRST, Key
+ID 219180cddb42a60e Packager : Red Hat, Inc. Summary : The skeleton
+package which defines a simple Red Hat Linux system. Description :
+Basesystem defines the components of a basic Red Hat Linux system (for
+example, the package installation order to use during bootstrapping).
+Basesystem should be the first package installed on a system and it
+should never be removed.&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="color:#000080;"&gt;&lt;strong&gt;Português&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Checando a data de instalação do Sistema Operacional Linux (Red Hat) -
+Não oficial, mas utilizavel&lt;/p&gt;
+&lt;p&gt;O pacote basesystem não contem arquivos&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# rpm -ql basesystem (contains no files)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Mas usa descrição é muito simples:&lt;br&gt;
+Basesystem defines the components of a basic Red Hat Linux system (for&lt;br&gt;
+example, the package installation order to use during bootstrapping).&lt;br&gt;
+Basesystem should be the first package installed on a system and it&lt;br&gt;
+should never be removed.&lt;/p&gt;
+&lt;p&gt;Você pode checar a data de instalação a partir deste pacote&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# rpm -qi basesystem Name : basesystem Relocations: (not relocatable)
+Version : 8.0 Vendor: Red Hat, Inc. Release : 4 Build Date: Wed 22
+Sep 2004 07:01:44 PM BRT Install Date: Sat 17 Jan 2009 05:28:37 PM BRST
+Build Host: tweety.build.redhat.com Group : System Environment/Base
+Source RPM: basesystem-8.0-4.src.rpm Size : 0 License: public domain
+Signature : DSA/SHA1, Wed 05 Jan 2005 09:03:37 PM BRST, Key
+ID 219180cddb42a60e Packager : Red Hat, Inc. Summary : The skeleton
+package which defines a simple Red Hat Linux system. Description :
+Basesystem defines the components of a basic Red Hat Linux system (for
+example, the package installation order to use during bootstrapping).
+Basesystem should be the first package installed on a system and it
+should never be removed.&lt;/code&gt;&lt;/p&gt;</content></entry><entry><title>ServeRAID MR 10 k SAS/SATA Controller - Linux Installation Client and Basic Commands</title><link href="http://kairo.eti.br/serveraid-mr-10-k-sassata-controller-linux-installation-client-and-basic-commands.html" rel="alternate"></link><published>2009-01-12T11:55:00+01:00</published><updated>2009-01-12T11:55:00+01:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2009-01-12:/serveraid-mr-10-k-sassata-controller-linux-installation-client-and-basic-commands.html</id><summary type="html">&lt;p&gt;This post show installation of MegaCli (ServeRAID MR 10 k SAS/SATA
+Controller client) and two basic commands&lt;br&gt;
+&lt;span style="text-decoration:underline;"&gt;&lt;strong&gt;&lt;br&gt;
+1. Installation&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Get ServeRAID CD and extract the file MegaCli-X.XX.XX-Y.i386.rpm.&lt;/p&gt;
+&lt;p&gt;Install using the rpm command&lt;/p&gt;
+&lt;p&gt;` # rpm -ivh rpms/MegaCli-3.00.07-1.i386.rpm Preparing...               &lt;/p&gt;
+&lt;h6&gt;&lt;/h6&gt;
+&lt;p&gt;[100%] 1:MegaCli               &lt;/p&gt;
+&lt;h6&gt;##################################### [100 …&lt;/h6&gt;</summary><content type="html">&lt;p&gt;This post show installation of MegaCli (ServeRAID MR 10 k SAS/SATA
+Controller client) and two basic commands&lt;br&gt;
+&lt;span style="text-decoration:underline;"&gt;&lt;strong&gt;&lt;br&gt;
+1. Installation&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Get ServeRAID CD and extract the file MegaCli-X.XX.XX-Y.i386.rpm.&lt;/p&gt;
+&lt;p&gt;Install using the rpm command&lt;/p&gt;
+&lt;p&gt;` # rpm -ivh rpms/MegaCli-3.00.07-1.i386.rpm Preparing...               &lt;/p&gt;
+&lt;h6&gt;&lt;/h6&gt;
+&lt;p&gt;[100%] 1:MegaCli               &lt;/p&gt;
+&lt;h6&gt;##################################### [100%]`&lt;/h6&gt;
+&lt;p&gt;Listing the installed files with rpm command&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# rpm -ql MegaCli /opt/MegaRAID/MegaCli/MegaCli
+/opt/MegaRAID/MegaCli/MegaCli64&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="text-decoration:underline;"&gt;&lt;strong&gt;2. Basic commands&lt;/strong&gt; &lt;/span&gt;&lt;br&gt;
+&lt;strong&gt;a. Listing All informations&lt;/strong&gt;&lt;/p&gt;
+&lt;h1&gt;` # /opt/MegaRAID/MegaCli/MegaCli-AdpAllInfo -aALL Adapter #0&lt;/h1&gt;
+&lt;dl&gt;
+&lt;dt&gt;Versions ================ Product Name    : IBM ServeRAID-MR10k SAS/SATA&lt;/dt&gt;
+&lt;dt&gt;Controller Serial No       : KNNNNNNNNN FW Package Build: 8.0.1-0036&lt;/dt&gt;
+&lt;dt&gt;Mfg. Data ================ Mfg. Date       : 07/06/04 Rework Date&lt;/dt&gt;
+&lt;dd&gt;
+&lt;dl&gt;
+&lt;dt&gt;00/00/00 Revision No     : Battery FRU     : N/A Image Versions In&lt;/dt&gt;
+&lt;dt&gt;Flash: ================ FW Version         : 1.12.152-0440 BIOS&lt;/dt&gt;
+&lt;dt&gt;Version       : NT16 WebBIOS Version    : 1.1-33e-e_11-Rel Ctrl-R&lt;/dt&gt;
+&lt;dt&gt;Version     : 1.01-010B Preboot CLI Version: 01.00-011:#%00001 Boot&lt;/dt&gt;
+&lt;dt&gt;Block Version : 1.00.00.01-0011 Pending Images In Flash ================&lt;/dt&gt;
+&lt;dt&gt;None PCI Info ================ Vendor Id       : 1000 Device Id&lt;/dt&gt;
+&lt;dd&gt;
+&lt;dl&gt;
+&lt;dt&gt;0060 SubVendorId     : 1014 SubDeviceId     : 0363 Host Interface  :&lt;/dt&gt;
+&lt;dt&gt;PCIE Number of Frontend Port: 0 Device Interface  : PCIE Number of&lt;/dt&gt;
+&lt;dt&gt;Backend Port: 8 Port  :&lt;/dt&gt;
+&lt;dt&gt;Address 0        5000c5000c627be9 1        5000c5000ca68091 2        5000c5000c60f9a1 3        5000c5000123bce1 4        0000000000000000 5        0000000000000000 6        0000000000000000 7        0000000000000000&lt;/dt&gt;
+&lt;dt&gt;HW Configuration ================ SAS Address     : 5005076b08028540&lt;/dt&gt;
+&lt;dt&gt;BBU             : Present Alarm           : Present NVRAM           :&lt;/dt&gt;
+&lt;dt&gt;Present Serial Debugger : Present Memory          : Present&lt;/dt&gt;
+&lt;dt&gt;Flash           : Present Memory Size     : 256MB&lt;/dt&gt;
+&lt;dt&gt;TPM             : Absent Settings ================ Current&lt;/dt&gt;
+&lt;dt&gt;Time                     : 14:56:28 1/9, 2009 Predictive Fail Poll&lt;/dt&gt;
+&lt;dt&gt;Interval    : 300sec Interrupt Throttle Active Count  : 16 Interrupt&lt;/dt&gt;
+&lt;dt&gt;Throttle Completion    : 50us Rebuild Rate                     : 30% PR&lt;/dt&gt;
+&lt;dt&gt;Rate                          : 30% Resynch Rate&lt;/dt&gt;
+&lt;dd&gt;
+&lt;dl&gt;
+&lt;dt&gt;30% Check Consistency Rate           : 30% Reconstruction&lt;/dt&gt;
+&lt;dt&gt;Rate              : 30% Cache Flush Interval             : 4s&lt;/dt&gt;
+&lt;dt&gt;Max Drives to Spinup at One Time : 2 Delay Among Spinup Groups&lt;/dt&gt;
+&lt;dd&gt;
+&lt;dl&gt;
+&lt;dt&gt;12s Physical Drive Coercion Mode     : 1GB Cluster&lt;/dt&gt;
+&lt;dt&gt;Mode                     : Disabled&lt;/dt&gt;
+&lt;dt&gt;Alarm                            : Enabled Auto&lt;/dt&gt;
+&lt;dt&gt;Rebuild                     : Enabled Battery Warning&lt;/dt&gt;
+&lt;dd&gt;
+&lt;dl&gt;
+&lt;dt&gt;Enabled Ecc Bucket Size                  : 15 Ecc Bucket Leak&lt;/dt&gt;
+&lt;dt&gt;Rate             : 1440 Minutes Restore HotSpare on Insertion    :&lt;/dt&gt;
+&lt;dt&gt;Disabled Expose Enclosure Devices         : Enabled Maintain PD Fail&lt;/dt&gt;
+&lt;dt&gt;History         : Enabled Host Request Reordering          : Enabled&lt;/dt&gt;
+&lt;dt&gt;Auto Detect BackPlane Enabled    : SGPIO/i2c SEP Load Balance&lt;/dt&gt;
+&lt;dt&gt;Mode                : Auto Use FDE Only                     : No&lt;/dt&gt;
+&lt;dt&gt;Security Key Assigned            : No Security Key Failed              :&lt;/dt&gt;
+&lt;dt&gt;No Security Key Not Backedup        : No Any Offline VD Cache&lt;/dt&gt;
+&lt;dt&gt;Preserved   : No Capabilities ================ RAID Level&lt;/dt&gt;
+&lt;dt&gt;Supported             : RAID0, RAID1, RAID5, RAID6, RAID10, RAID50,&lt;/dt&gt;
+&lt;dt&gt;RAID60 Supported Drives                 : SAS, SATA Allowed Mixing: Mix&lt;/dt&gt;
+&lt;dt&gt;In Enclosure Allowed Status ================ ECC Bucket&lt;/dt&gt;
+&lt;dt&gt;Count                 : 0 Limitations ================ Max&lt;/dt&gt;
+&lt;dt&gt;Arms Per VD         : 32 Max Spans Per VD        : 8 Max&lt;/dt&gt;
+&lt;dt&gt;Arrays              : 128 Max Number of VDs       : 64 Max&lt;/dt&gt;
+&lt;dt&gt;Parallel Commands   : 1008 Max SGE Count           : 80 Max Data&lt;/dt&gt;
+&lt;dt&gt;Transfer Size  : 8192 sectors Max Strips PerIO        : 42 Min Stripe&lt;/dt&gt;
+&lt;dt&gt;Size         : 8kB Max Stripe Size         : 1024kB Device Present&lt;/dt&gt;
+&lt;dt&gt;================ Virtual Drives    : 1 Degraded        : 0&lt;/dt&gt;
+&lt;dt&gt;Offline         : 0 Physical Devices  : 5 Disks           : 4&lt;/dt&gt;
+&lt;dt&gt;Critical Disks  : 0 Failed Disks    : 0 Supported Adapter Operations&lt;/dt&gt;
+&lt;dt&gt;================ Rebuild Rate                    : Yes CC&lt;/dt&gt;
+&lt;dt&gt;Rate                         : Yes BGI&lt;/dt&gt;
+&lt;dt&gt;Rate                        : Yes Reconstruct&lt;/dt&gt;
+&lt;dt&gt;Rate                : Yes Patrol Read Rate                : Yes&lt;/dt&gt;
+&lt;dt&gt;Alarm Control                   : Yes Cluster Support                 :&lt;/dt&gt;
+&lt;dt&gt;No BBU                             : Yes Spanning&lt;/dt&gt;
+&lt;dd&gt;
+&lt;dl&gt;
+&lt;dt&gt;Yes Dedicated Hot Spare             : Yes Revertible Hot&lt;/dt&gt;
+&lt;dt&gt;Spares           : No Foreign Config Import           : Yes Self&lt;/dt&gt;
+&lt;dt&gt;Diagnostic                 : Yes Allow Mixed Redundancy on Array : No&lt;/dt&gt;
+&lt;dt&gt;Global Hot Spares               : Yes Deny SCSI Passthrough           :&lt;/dt&gt;
+&lt;dt&gt;No Deny SMP Passthrough            : No Deny STP Passthrough&lt;/dt&gt;
+&lt;dd&gt;
+&lt;dl&gt;
+&lt;dt&gt;No Support Security                : No Supported VD Operations&lt;/dt&gt;
+&lt;dt&gt;================ Read Policy          : Yes Write Policy         : Yes&lt;/dt&gt;
+&lt;dt&gt;IO Policy            : Yes Access Policy        : Yes Disk Cache&lt;/dt&gt;
+&lt;dt&gt;Policy    : Yes Reconstruction       : Yes Deny Locate          : No&lt;/dt&gt;
+&lt;dt&gt;Deny CC              : No Allow Ctrl Encryption: No Supported PD&lt;/dt&gt;
+&lt;dt&gt;Operations ================ Force Online                            :&lt;/dt&gt;
+&lt;dt&gt;Yes Force Offline                           : Yes Force&lt;/dt&gt;
+&lt;dt&gt;Rebuild                           : Yes Deny Force&lt;/dt&gt;
+&lt;dt&gt;Failed                       : No Deny Force&lt;/dt&gt;
+&lt;dt&gt;Good/Bad                     : No Deny Missing&lt;/dt&gt;
+&lt;dt&gt;Replace                    : No Deny&lt;/dt&gt;
+&lt;dt&gt;Clear                              : No Deny&lt;/dt&gt;
+&lt;dt&gt;Locate                             : No Disable&lt;/dt&gt;
+&lt;dt&gt;Copyback                        : No Enable Copyback on&lt;/dt&gt;
+&lt;dt&gt;SMART                : No Enable Copyback to SSD on SMART error   : No&lt;/dt&gt;
+&lt;dt&gt;Error Counters ================ Memory Correctable Errors   : 0 Memory&lt;/dt&gt;
+&lt;dt&gt;Uncorrectable Errors : 0 Cluster Information ================ Cluster&lt;/dt&gt;
+&lt;dt&gt;Permitted     : No Cluster Active        : No Default Settings&lt;/dt&gt;
+&lt;dt&gt;================ Phy Polarity                     : 0 Phy&lt;/dt&gt;
+&lt;dt&gt;PolaritySplit                : 0 Background Rate                  : 30&lt;/dt&gt;
+&lt;dt&gt;Stripe Size                      : 128kB Flush&lt;/dt&gt;
+&lt;dt&gt;Time                       : 4 seconds Write&lt;/dt&gt;
+&lt;dt&gt;Policy                     : WB Read Policy                      : None&lt;/dt&gt;
+&lt;dt&gt;Cache When BBU Bad               : Disabled Cached&lt;/dt&gt;
+&lt;dt&gt;IO                        : No SMART&lt;/dt&gt;
+&lt;dt&gt;Mode                       : Mode 6 Alarm&lt;/dt&gt;
+&lt;dt&gt;Disable                    : Yes Coercion&lt;/dt&gt;
+&lt;dt&gt;Mode                    : 1GB ZCR&lt;/dt&gt;
+&lt;dt&gt;Config                       : Unknown Dirty LED Shows&lt;/dt&gt;
+&lt;dt&gt;Drive Activity   : No BIOS Continue on Error           : No Spin Down&lt;/dt&gt;
+&lt;dt&gt;Mode                   : None Allowed Device Type              :&lt;/dt&gt;
+&lt;dt&gt;SAS/SATA Mix Allow Mix In Enclosure           : Yes Allow HDD SAS/SATA&lt;/dt&gt;
+&lt;dt&gt;Mix In VD     : No Allow SSD SAS/SATA Mix In VD     : No Allow HDD/SAS&lt;/dt&gt;
+&lt;dt&gt;Mix In VD          : No Allow SATA In Cluster            : No Max&lt;/dt&gt;
+&lt;dt&gt;Chained Enclosures           : 16 Disable Ctrl-R                   : Yes&lt;/dt&gt;
+&lt;dt&gt;Enable Web BIOS                  : Yes Direct PD Mapping&lt;/dt&gt;
+&lt;dd&gt;No BIOS Enumerate VDs               : Yes Restore Hot Spare on
+Insertion   : No Expose Enclosure Devices         : Yes Maintain PD Fail
+History         : Yes Disable Puncturing               : Yes Zero Based
+Enclosure Enumeration : No PreBoot CLI Enabled              : Yes LED
+Show Drive Activity          : No Cluster Disable                  : Yes
+SAS Disable                      : No Auto Detect BackPlane Enable     :
+SGPIO/i2c SEP Use FDE Only                     : No Delay during
+POST                : 0 Exit Code: 0x00`&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;p&gt;&lt;strong&gt;b. Show rebuild details from disks&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# /opt/MegaRAID/MegaCli/MegaCli -PDRbld -ShowProg -PhysDrv [0:0] -aALL
+Device(Encl-0 Slot-0) is not in rebuild process Exit Code: 0x00&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# /opt/MegaRAID/MegaCli/MegaCli -PDRbld -ShowProg -PhysDrv [0:1] -aALL
+Device(Encl-0 Slot-1) is not in rebuild process Exit Code: 0x00&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# /opt/MegaRAID/MegaCli/MegaCli -PDRbld -ShowProg -PhysDrv [0:2] -aALL
+Device(Encl-0 Slot-2) is not in rebuild process Exit Code: 0x00&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# /opt/MegaRAID/MegaCli/MegaCli -PDRbld -ShowProg -PhysDrv [0:3] -aALL
+Device(Encl-0 Slot-3) is not in rebuild process Exit Code: 0x00&lt;/code&gt;&lt;/p&gt;</content></entry><entry><title>Dica sobre pvmove no Linux - Insufficient suitable contiguous allocatable extents for logical volume pvmove0</title><link href="http://kairo.eti.br/dica-sobre-pvmove-no-linux.html" rel="alternate"></link><published>2008-12-17T14:18:00+01:00</published><updated>2008-12-17T14:18:00+01:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2008-12-17:/dica-sobre-pvmove-no-linux.html</id><summary type="html">&lt;p&gt;A algum tempo atrás fiz um &lt;a href="http://kairo.wordpress.com/2008/04/28/migrando-de-discos-fisicos-no-aix-e-linux-lvm/#LINUX"&gt;post aqui sobre como realizar o
+pvmove&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Existe uma dúvida comum que ocorre quando tenta-se fazer o pvmove de um
+disco maior para discos menores conforme o exemplo abaixo:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# pvs PV         VG       Fmt  Attr PSize   PFree /dev/sda2  rootvg  
+lvm2 a-    68.12G  46 …&lt;/code&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;A algum tempo atrás fiz um &lt;a href="http://kairo.wordpress.com/2008/04/28/migrando-de-discos-fisicos-no-aix-e-linux-lvm/#LINUX"&gt;post aqui sobre como realizar o
+pvmove&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Existe uma dúvida comum que ocorre quando tenta-se fazer o pvmove de um
+disco maior para discos menores conforme o exemplo abaixo:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# pvs PV         VG       Fmt  Attr PSize   PFree /dev/sda2  rootvg  
+lvm2 a-    68.12G  46.09G /dev/sdh1  datavg lvm2 a-   100.00G   5.36G
+/dev/sdj1  datavg lvm2 a-   200.00G  49.16G /dev/sdk1  datavg lvm2
+a-   200.00G  49.37G /dev/sdl1  datavg lvm2 a-   200.00G  26.00G
+/dev/sdm1  datavg lvm2 a-   200.00G  24.94G /dev/sdn1  datavg lvm2
+a-   200.00G  51.54G /dev/sdo1  datavg lvm2 a-   200.00G   60.00G&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;No exemplo abaixo estou tentando movimentar o PV /dev/sdh1 para os
+demais PVs (/dev/sdj1, /dev/sdk1, /dev/sdl1, /dev/sdm1, /dev/sdn1 e
+/dev/sdo1), porém quando executo o comando abaixo ele retorna:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# pvmove /dev/sdh1 /dev/sdj1 /dev/sdk1 /dev/sdl1 /dev/sdm1 /dev/sdn1
+/dev/sdo1 Insufficient suitable contiguous allocatable extents for
+logical volume pvmove0: 17920 more required Unable to allocate temporary
+LV for pvmove.&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Isso ocorre porque ele não tem blocos continuos que suportem todo o
+tamanho do volume.&lt;br&gt;
+Para isto o comando pvmove suporta mover por partes, desta forma faremos
+assim:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;pvmove /dev/sdh1:1-17920 /dev/sdj1 /dev/sdk1 /dev/sdl1 /dev/sdm1
+/dev/sdn1 /dev/sdo1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Desta forma movimentaremos até o tamanho informado que é suportado. E
+continuaremos a movimentar por partes.&lt;/p&gt;
+&lt;p&gt;Dica: Você pode tentar movimentar totalmente o restante, comigo na
+maioria das vezes ele ja atinge o tamanho disponível.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;pvmove /dev/sdh1 /dev/sdj1 /dev/sdk1 /dev/sdl1 /dev/sdm1 /dev/sdn1
+/dev/sdo1&lt;/code&gt;&lt;/p&gt;</content></entry><entry><title>PS - Ordenar consumo de CPU</title><link href="http://kairo.eti.br/ps-ordenar-consumo-de-cpu.html" rel="alternate"></link><published>2007-10-01T00:46:00+02:00</published><updated>2007-10-01T00:46:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2007-10-01:/ps-ordenar-consumo-de-cpu.html</id><summary type="html">&lt;p&gt;Uma forma de obter o consumo de CPU e informações sobre os processos.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# ps -eo pid,user,%cpu,args --sort %cpu&lt;/code&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;Uma forma de obter o consumo de CPU e informações sobre os processos.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# ps -eo pid,user,%cpu,args --sort %cpu&lt;/code&gt;&lt;/p&gt;</content></entry><entry><title>Guia Rápido de LVM para Linux</title><link href="http://kairo.eti.br/guia-rapido-de-lvm-para-linux.html" rel="alternate"></link><published>2007-08-12T06:27:00+02:00</published><updated>2007-08-12T06:27:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2007-08-12:/guia-rapido-de-lvm-para-linux.html</id><summary type="html">&lt;p&gt;&lt;span class="underline"&gt;&lt;a href="http://www.eriberto.pro.br/wiki/index.php?title=Linux_Volume_Manager_(LVM"&gt;http://www.eriberto.pro.br/wiki/index.php?title=Linux_Volume_Manager_(LVM&lt;/a&gt;)&lt;/span&gt;&lt;a href="http://www.eriberto.pro.br/wiki/index.php?title=Linux_Volume_Manager_(LVM)#Cria.C3.A7.C3.A3o_dos_agrupamentos_de_volumes_.28VG.29"&gt;&lt;/a&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;span class="underline"&gt;&lt;a href="http://www.eriberto.pro.br/wiki/index.php?title=Linux_Volume_Manager_(LVM"&gt;http://www.eriberto.pro.br/wiki/index.php?title=Linux_Volume_Manager_(LVM&lt;/a&gt;)&lt;/span&gt;&lt;a href="http://www.eriberto.pro.br/wiki/index.php?title=Linux_Volume_Manager_(LVM)#Cria.C3.A7.C3.A3o_dos_agrupamentos_de_volumes_.28VG.29"&gt;&lt;/a&gt;&lt;/p&gt;</content></entry><entry><title>Relação de Hardware Intel IBM (xSeries) e Red Hat Enterprise Linux suportado</title><link href="http://kairo.eti.br/relacao-de-hardware-intel-ibm-xseries-e-red-hat-enterprise-linux-suportado.html" rel="alternate"></link><published>2007-08-12T01:10:00+02:00</published><updated>2007-08-12T01:10:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2007-08-12:/relacao-de-hardware-intel-ibm-xseries-e-red-hat-enterprise-linux-suportado.html</id><summary type="html">&lt;p&gt;&lt;a href="http://www-03.ibm.com/servers/eserver/serverproven/compat/us/nos/redchat.html"&gt;http://www-03.ibm.com/servers/eserver/serverproven/compat/us/nos/redchat.html&lt;/a&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;a href="http://www-03.ibm.com/servers/eserver/serverproven/compat/us/nos/redchat.html"&gt;http://www-03.ibm.com/servers/eserver/serverproven/compat/us/nos/redchat.html&lt;/a&gt;&lt;/p&gt;</content></entry><entry><title>Atualizando Kernel no Red Hat Enterprise 3/4 AS/ES com VMWare GSX (documento antigo)</title><link href="http://kairo.eti.br/atualizando-kernel-no-red-hat-enterprise-34-ases-com-vmware-gsx-documento-antigo.html" rel="alternate"></link><published>2007-08-05T06:10:00+02:00</published><updated>2007-08-05T06:10:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2007-08-05:/atualizando-kernel-no-red-hat-enterprise-34-ases-com-vmware-gsx-documento-antigo.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Contexto&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Ambiente possuí VMWare GSX rodando sobre Red Hat&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Pré-requesitos&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1. Instalar Kernel novo;&lt;br&gt;
+2. Instalar kernel-devel (RHEL 4) ou kernel-source (RHEL 3);&lt;br&gt;
+3. Backup do /etc/vmware que contem license code;&lt;br&gt;
+4. Guardar o serial para utilização.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Procedimento&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1. Rodar reconfigure do vmware (vmware-config.pl)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;span class="underline"&gt;Na prática&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Pré-requesitos&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1 …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;Contexto&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Ambiente possuí VMWare GSX rodando sobre Red Hat&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Pré-requesitos&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1. Instalar Kernel novo;&lt;br&gt;
+2. Instalar kernel-devel (RHEL 4) ou kernel-source (RHEL 3);&lt;br&gt;
+3. Backup do /etc/vmware que contem license code;&lt;br&gt;
+4. Guardar o serial para utilização.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Procedimento&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1. Rodar reconfigure do vmware (vmware-config.pl)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;span class="underline"&gt;Na prática&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Pré-requesitos&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1. Instalar Kernel novo:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[kairo@kairoserver /tmp]# rpm -ivh kernel-smp-2.4.21-50.EL.i686.rpm
+Preparing... ###########################################
+[100%] 1:kernel-smp ########################################### [100%]
+[kairo@kairoserver /tmp]#&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;2. Instalar kernel-devel (RHEL 4) ou kernel-source (RHEL 3):&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[kairo@kairoserver /tmp]# rpm -ivh kernel-source-2.4.21-50.EL.i386.rpm
+warning: kernel-source-2.4.21-50.EL.i386.rpm: V3 DSA signature: NOKEY,
+key ID db42a60e Preparing... ###########################################
+[100%] 1:kernel-source ###########################################
+[100%] [kairo@kairoserver /tmp]#&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;3. Backup do /etc/vmware que contem license code.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[kairo@kairoserver /tmp]# cp -r /etc/vmware ~kairoa [kairo@kairoserver
+/tmp]#&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;4. Guardar o serial para utilização.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[kairo@kairoserver /tmp]# grep Serial ~kairoa/vmware/license.gsx.3.0-20
+Serial = "YYYYY-YYYYY-YYYYY-YYYYY"&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Procedimento&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1. Rodar reconfigure do vmware (vmware-config.pl)&lt;/p&gt;
+&lt;p&gt;Com excessão da pergunta sobre o Serial Number, todas as respostas são
+default.&lt;br&gt;
+Quando ele questionar se deseja inserir o Serial, coloque Yes e entre
+com o Serial que pegou no pré-requesito.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[kairo@kairoserver /tmp]# vmware-config.pl Making sure services for
+VMware GSX Server are stopped.``Stopping VMware services: Virtual
+machine monitor [ OK ] Bridged networking on /dev/vmnet0 [ OK ] DHCP
+server on /dev/vmnet8 [ OK ] NAT service on /dev/vmnet8 [ OK ] Host-only
+networking on /dev/vmnet8 [ OK ] Virtual ethernet [ OK ]``Trying to find
+a suitable vmmon module for your running kernel.``None of the pre-built
+vmmon modules for VMware GSX Server is suitable for your running kernel.
+Do you want this program to try to build the vmmon module for your
+system (you need to have a C compiler installed on your system)? [yes]
+yes`` ``  ``Using compiler "/usr/bin/gcc". Use environment variable CC
+to override.``What is the location of the directory of C header files
+that match your running kernel?
+[/usr/src/linux-2.4.21-47.EL/include]``Extracting the sources of the
+vmmon module.&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Building the vmmon module.&lt;/p&gt;
+&lt;p&gt;Using standalone build system.&lt;br&gt;
+make: Entering directory `/tmp/vmware-config0/vmmon-only'&lt;br&gt;
+make[1]: Entering directory `/tmp/vmware-config0/vmmon-only'&lt;br&gt;
+make[2]: Entering directory
+`/tmp/vmware-config0/vmmon-only/driver-2.4.21-47.ELsmp'&lt;br&gt;
+make[2]: Leaving directory
+`/tmp/vmware-config0/vmmon-only/driver-2.4.21-47.ELsmp'&lt;br&gt;
+make[2]: Entering directory
+`/tmp/vmware-config0/vmmon-only/driver-2.4.21-47.ELsmp'&lt;br&gt;
+make[2]: Leaving directory
+`/tmp/vmware-config0/vmmon-only/driver-2.4.21-47.ELsmp'&lt;br&gt;
+make[1]: Leaving directory `/tmp/vmware-config0/vmmon-only'&lt;br&gt;
+make: Leaving directory `/tmp/vmware-config0/vmmon-only'&lt;br&gt;
+The module loads perfectly in the running kernel.&lt;/p&gt;
+&lt;p&gt;Extracting the sources of the vmnet module.&lt;/p&gt;
+&lt;p&gt;Building the vmnet module.&lt;/p&gt;
+&lt;p&gt;Using standalone build system.&lt;br&gt;
+make: Entering directory `/tmp/vmware-config0/vmnet-only'&lt;br&gt;
+make: Leaving directory `/tmp/vmware-config0/vmnet-only'&lt;br&gt;
+The module loads perfectly in the running kernel.&lt;/p&gt;
+&lt;p&gt;You have already setup networking.&lt;/p&gt;
+&lt;p&gt;Would you like to skip networking setup and keep your old settings as
+they are?&lt;br&gt;
+(yes/no) [yes]&lt;/p&gt;
+&lt;p&gt;Please specify a port for remote console connections to use [902]&lt;/p&gt;
+&lt;p&gt;Stopping xinetd: [ OK ]&lt;br&gt;
+Starting xinetd: [ OK ]&lt;br&gt;
+Configuring the VMware VmPerl Scripting API.&lt;/p&gt;
+&lt;p&gt;Building the VMware VmPerl Scripting API.&lt;/p&gt;
+&lt;p&gt;Using compiler "/usr/bin/gcc". Use environment variable CC to override.&lt;/p&gt;
+&lt;p&gt;Installing the VMware VmPerl Scripting API.&lt;/p&gt;
+&lt;p&gt;The installation of the VMware VmPerl Scripting API succeeded.&lt;/p&gt;
+&lt;p&gt;Do you want this program to set up permissions for your registered
+virtual&lt;br&gt;
+machines? This will be done by setting new permissions on all files
+found in&lt;br&gt;
+the "/etc/vmware/vm-list" file. [no]&lt;/p&gt;
+&lt;p&gt;Generating SSL Server Certificate&lt;/p&gt;
+&lt;p&gt;In which directory do you want to keep your virtual machine files?&lt;br&gt;
+[/vmware/VMs]&lt;/p&gt;
+&lt;p&gt;Do you want to enter a serial number now? (yes/no/help) [no] yes&lt;/p&gt;
+&lt;p&gt;Please enter your 20-character serial number.&lt;/p&gt;
+&lt;p&gt;Type XXXXX-XXXXX-XXXXX-XXXXX or 'Enter' to cancel:
+YYYYY-YYYYY-YYYYY-YYYYY&lt;/p&gt;
+&lt;p&gt;VMware GSX Server Information:&lt;br&gt;
+Register your version of VMware GSX Server!&lt;br&gt;
+Registering will provide you with:&lt;br&gt;
+. Latest information and announcements about&lt;br&gt;
+VMware, Inc. products and services&lt;br&gt;
+. Activation of support and subscription services you have purchased&lt;br&gt;
+. New VMware GSX Server release notifications and security updates&lt;br&gt;
+To register your version of VMware GSX Server,&lt;br&gt;
+start it, go to the Help menu and choose&lt;br&gt;
+the "VMware on the Web" &gt; "Register Now!" option.&lt;br&gt;
+Alternatively, you can visit our Web site at:&lt;br&gt;
+"&lt;a href="http://www.vmware.com/info?id=5"&gt;http://www.vmware.com/info?id=5&lt;/a&gt;".&lt;/p&gt;
+&lt;p&gt;Press "Enter" to continue...&lt;/p&gt;
+&lt;p&gt;Starting VMware services:&lt;br&gt;
+Virtual machine monitor [ OK ]&lt;br&gt;
+Virtual ethernet [ OK ]&lt;br&gt;
+Bridged networking on /dev/vmnet0 [ OK ]&lt;br&gt;
+Host-only networking on /dev/vmnet8 (background) [ OK ]&lt;br&gt;
+NAT service on /dev/vmnet8 [ OK ]&lt;br&gt;
+Starting VMware virtual machines... [ OK ]&lt;/p&gt;
+&lt;p&gt;The configuration of VMware GSX Server 3.2.1 build-19281 for Linux for
+this&lt;br&gt;
+running kernel completed successfully.&lt;/p&gt;</content></entry><entry><title>Mantendo modulos externos na atualização do Kernel do RHEL 4 (ES/AS)</title><link href="http://kairo.eti.br/mantendo-modulos-externos-na-atualizacao-do-kernel-do-rhel-4-esas.html" rel="alternate"></link><published>2007-07-28T11:18:00+02:00</published><updated>2007-07-28T11:18:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2007-07-28:/mantendo-modulos-externos-na-atualizacao-do-kernel-do-rhel-4-esas.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Contexto&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Servidor contém por exemplo o módulo de uma controladora RAID (a320raid
+no exemplo prático). Este módulo não tem suporte no Kernel padrão do Red
+Hat Enterprise Linux (RHEL), desta forma ele não está incluso no initrd
+gerado pós instalação.&lt;/p&gt;
+&lt;p&gt;Essa documentação mostra uma forma simples de incluir este modulo …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;Contexto&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Servidor contém por exemplo o módulo de uma controladora RAID (a320raid
+no exemplo prático). Este módulo não tem suporte no Kernel padrão do Red
+Hat Enterprise Linux (RHEL), desta forma ele não está incluso no initrd
+gerado pós instalação.&lt;/p&gt;
+&lt;p&gt;Essa documentação mostra uma forma simples de incluir este modulo no
+initrd.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Pré-requesistos&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1. Instalar Kernel novo;&lt;br&gt;
+2. Instalar pacote devel do Kernel novo;&lt;br&gt;
+3. Fazer backup do initrd atual existente no /boot/.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Procedimento&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1. Copiar o modulo do kernel atual (rodando) para o novo kernel
+(instalado);&lt;br&gt;
+2. Gerar novo initrd com o módulo;&lt;br&gt;
+3. Certificar que o modulo está no novo initrd.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Na prática:&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Pré-requesistos&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1. Instalar Kernel novo:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[root@kfaserver kairo]# rpm -ivh kernel-smp-2.6.9-55.0.2.EL.i686.rpm
+–test Preparing… ########################################### [100%]
+[root@kfaserver kairo]# rpm -ivh kernel-smp-2.6.9-55.0.2.EL.i686.rpm
+Preparing… ###########################################
+[100%] 1:kernel-smp ########################################### [100%]
+WARNING: No module a320raid found for kernel 2.6.9-55.0.2.ELsmp,
+continuing anyway [root@kfaserver kairo]#&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Veja que no WARNING acima o Sistema Operacional já informa que um modulo
+não foi encontrado.&lt;br&gt;
+Justamente este que estaremos incluindo.&lt;/p&gt;
+&lt;p&gt;2. Instalar pacote devel do Kernel novo:&lt;/p&gt;
+&lt;p&gt;Este pacote contem os sources necessários.&lt;br&gt;
+`[root@kfaserver kairo]# rpm -ivh
+kernel-smp-devel-2.6.9-55.0.2.EL.i686.rpm –test Preparing…&lt;/p&gt;
+&lt;h6&gt;##################################### [100%] [root@kfaserver&lt;/h6&gt;
+&lt;p&gt;kairo]# rpm -ivh kernel-smp-devel-2.6.9-55.0.2.EL.i686.rpm Preparing…&lt;/p&gt;
+&lt;h6&gt;##################################### [100%] 1:kernel-smp-devel&lt;/h6&gt;
+&lt;h6&gt;##################################### [100%] [root@kfaserver&lt;/h6&gt;
+&lt;p&gt;kairo]#`&lt;/p&gt;
+&lt;p&gt;Fazer backup do initrd atual existente no /boot/: Este backup nos
+garante um fallback.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[root@kfaserver kairo]# cp initrd-2.6.9-55.0.2.ELsmp.img
+initrd-2.6.9-55.0.2.ELsmp.img_bkp&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Procedimento&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1. Copiar o modulo do kernel atual (rodando) para o novo kernel
+(instalado):&lt;/p&gt;
+&lt;p&gt;Verificando a versão original, nesse caso 2.6.9-11.ELsmp&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[root@kfaserver kairo]# uname -a Linux
+kfaserver.kairo.eti.br 2.6.9-11.ELsmp #1 SMP Fri May 20 18:26:27
+EDT 2005 i686 i686 i386 GNU/Linux&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Acessando o diretório do novo Kernel instalado&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[root@kfaserver kairo]# cd /lib/modules/2.6.9-55.0.2.ELsmp/&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Localizando na versão original a localização default do módulo&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[root@kfaserver 2.6.9-55.0.2.ELsmp]# find /lib/modules/2.6.9-11.ELsmp
+-name a320raid* /lib/modules/2.6.9-11.ELsmp/updates/a320raid.ko&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Criando os diretórios existentes e o módulo. O importante é deixar o
+mesmo path.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[root@kfaserver 2.6.9-55.0.2.ELsmp]# mkdir updates
+[root@kfaserver 2.6.9-55.0.2.ELsmp]# cd updates [root@kfaserver
+updates]# cp /lib/modules/2.6.9-11.ELsmp/updates/a320raid.ko&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;2. Gerar novo initrd com o módulo:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[root@kfaserver kairo]# mkinitrd -fv –with=a320raid
+/boot/initrd-2.6.9-55.0.2.ELsmp.img 2.6.9-55.0.2.ELsmp [root@kfaserver
+kairo]# mkinitrd -v -f –with=a320raid
+/boot/initrd-2.6.9-55.0.2.ELsmp.img 2.6.9-55.0.2.ELsmp Creating
+initramfs Looking for deps of module scsi_mod Looking for deps of module
+sd_mod scsi_mod Looking for deps of module scsi_mod Looking for deps of
+module unknown Looking for deps of module a320raid Looking for deps of
+module aic79xx scsi_mod Looking for deps of module scsi_mod Looking for
+deps of module ide-disk Looking for deps of module ext3 jbd Looking for
+deps of module jbd Looking for deps of module a320raid Using modules:
+./kernel/drivers/scsi/scsi_mod.ko ./kernel/drivers/scsi/sd_mod.ko
+./a320raid.ko ./kernel/drivers/scsi/aic7xxx/aic79xx.ko
+./kernel/fs/jbd/jbd.ko ./kernel/fs/ext3/ext3.ko /sbin/nash -&amp;gt;
+/tmp/initrd.EV1881/bin/nash /sbin/insmod.static -&amp;gt;
+/tmp/initrd.EV1881/bin/insmod /sbin/udev.static -&amp;gt;
+/tmp/initrd.EV1881/sbin/udev /etc/udev/udev.conf -&amp;gt;
+/tmp/initrd.EV1881/etc/udev/udev.conf copy from
+/lib/modules/2.6.9-55.0.2.ELsmp/./kernel/drivers/scsi/scsi_mod.ko(elf32-i386)
+to /tmp/initrd.EV1881/lib/scsi_mod.ko(elf32-i386) copy from
+/lib/modules/2.6.9-55.0.2.ELsmp/./kernel/drivers/scsi/sd_mod.ko(elf32-i386)
+to /tmp/initrd.EV1881/lib/sd_mod.ko(elf32-i386) copy from
+/lib/modules/2.6.9-55.0.2.ELsmp/./a320raid.ko(elf32-i386) to
+/tmp/initrd.EV1881/lib/a320raid.ko(elf32-i386) copy from
+/lib/modules/2.6.9-55.0.2.ELsmp/./kernel/drivers/scsi/aic7xxx/aic79xx.ko(elf32-i386)
+to /tmp/initrd.EV1881/lib/aic79xx.ko(elf32-i386) copy from
+/lib/modules/2.6.9-55.0.2.ELsmp/./kernel/fs/jbd/jbd.ko(elf32-i386) to
+/tmp/initrd.EV1881/lib/jbd.ko(elf32-i386) copy from
+/lib/modules/2.6.9-55.0.2.ELsmp/./kernel/fs/ext3/ext3.ko(elf32-i386) to
+/tmp/initrd.EV1881/lib/ext3.ko(elf32-i386) Loading module scsi_mod
+Loading module sd_mod Loading module a320raid Loading module aic79xx
+Loading module jbd Loading module ext3&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;3. Certificar que o modulo está no novo initrd:&lt;/p&gt;
+&lt;p&gt;Descompactar o novo initrd e verificar o conteúdo garantindo que o
+modulo esta interno&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[root@kfaserver kairo]# cd /tmp [root@kfaserver tmp]# mkdir initrd
+[root@kfaserver tmp]# cd initrd [root@kfaserver initrd]# mkdir src
+[root@kfaserver initrd]# cp /boot/initrd-2.6.9-55.0.2.ELsmp.img .
+[root@kfaserver initrd]# cd src [root@kfaserver src]# gzip -dc
+../initrd-2.6.9-55.0.2.ELsmp.img | cpio -idv . etc etc/udev
+etc/udev/udev.conf init dev dev/console dev/tty2 dev/tty4 dev/null
+dev/ram dev/systty dev/tty1 dev/tty3 lib lib/a320raid.ko lib/jbd.ko
+lib/scsi_mod.ko lib/sd_mod.ko lib/ext3.ko lib/aic79xx.ko sys proc bin
+bin/nash bin/modprobe bin/udevstart bin/udev bin/hotplug bin/insmod
+loopfs sysroot sbin 3078 blocks&lt;/code&gt;&lt;/p&gt;</content></entry></feed>

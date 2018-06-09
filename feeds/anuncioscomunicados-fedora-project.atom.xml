@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Kairo Araujo - Anuncios/Comunicados, Fedora Project</title><link href="http://kairo.eti.br/" rel="alternate"></link><link href="http://kairo.eti.br/feeds/anuncioscomunicados-fedora-project.atom.xml" rel="self"></link><id>http://kairo.eti.br/</id><updated>2008-03-30T14:10:00+02:00</updated><entry><title>Fedora Project - Package Maintainer</title><link href="http://kairo.eti.br/fedora-project-package-maintainer.html" rel="alternate"></link><published>2008-03-30T14:10:00+02:00</published><updated>2008-03-30T14:10:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2008-03-30:/fedora-project-package-maintainer.html</id><summary type="html">&lt;p&gt;Fui aceito no &lt;a href="http://www.fedoraproject.org"&gt;Projeto Fedora&lt;/a&gt; para manter
+alguns pacotes, e estou sendo 'apadrinhado' (Sponsored) pelo &lt;a href="http://fedoraproject.org/wiki/ManuelWolfshant"&gt;Manuel
+Wolfshant&lt;/a&gt; (a quem
+agradeço tamanha paciência).&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://admin.fedoraproject.org/pkgdb/users/packages/kairo"&gt;Meus
+    pacotes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Meus Pacotes em review&lt;br&gt;
+    - atop (&lt;a href="https://bugzilla.redhat.com/show_bug.cgi?id=430377"&gt;review
+    process&lt;/a&gt;) : An
+    advanced interactive monitor to view the load on system and process
+    level&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Agradecimentos:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Arlei Pizarro que cedeu uma …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;Fui aceito no &lt;a href="http://www.fedoraproject.org"&gt;Projeto Fedora&lt;/a&gt; para manter
+alguns pacotes, e estou sendo 'apadrinhado' (Sponsored) pelo &lt;a href="http://fedoraproject.org/wiki/ManuelWolfshant"&gt;Manuel
+Wolfshant&lt;/a&gt; (a quem
+agradeço tamanha paciência).&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://admin.fedoraproject.org/pkgdb/users/packages/kairo"&gt;Meus
+    pacotes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Meus Pacotes em review&lt;br&gt;
+    - atop (&lt;a href="https://bugzilla.redhat.com/show_bug.cgi?id=430377"&gt;review
+    process&lt;/a&gt;) : An
+    advanced interactive monitor to view the load on system and process
+    level&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Agradecimentos:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Arlei Pizarro que cedeu uma VMware para o desenvolvimento na
+    &lt;a href="http://www.estanciaarvoredavida.com.br/"&gt;Estância Arvore da Vida&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- end list --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://fedoraproject.org/wiki/AllissonAzevedo"&gt;Alisson Azevedo&lt;/a&gt; que
+    me passou os primeiros caminhos para o Fedora Packaging.&lt;/li&gt;
+&lt;/ul&gt;</content></entry></feed>

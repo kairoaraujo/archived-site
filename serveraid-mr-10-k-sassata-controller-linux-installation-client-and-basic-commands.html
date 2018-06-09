@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>ServeRAID MR 10 k SAS/SATA Controller - Linux Installation Client and Basic Commands</title>
+
+            <link href="http://kairo.eti.br/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Full Atom Feed" />
+            <link href="http://kairo.eti.br/feeds/linux-unix-notes.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Categories Atom Feed" />
+        <!-- Bootstrap Core CSS -->
+        <link href="http://kairo.eti.br/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://kairo.eti.br/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://kairo.eti.br/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+        <meta name="description" content="This post show installation of MegaCli (ServeRAID MR 10 k SAS/SATA Controller client) and two basic commands 1. Installation Get...">
+
+        <meta name="author" content="kairo">
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Kairo Araujo">
+
+	<meta property="og:type" content="article">
+            <meta property="article:author" content="http://kairo.eti.br/author/kairo.html">
+	<meta property="og:url" content="http://kairo.eti.br/serveraid-mr-10-k-sassata-controller-linux-installation-client-and-basic-commands.html">
+	<meta property="og:title" content="ServeRAID MR 10 k SAS/SATA Controller - Linux Installation Client and Basic Commands">
+	<meta property="article:published_time" content="2009-01-12 11:55:00+01:00">
+            <meta property="og:description" content="This post show installation of MegaCli (ServeRAID MR 10 k SAS/SATA Controller client) and two basic commands 1. Installation Get...">
+
+            <meta property="og:image" content="http://kairo.eti.br/static/dc.jpg">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://kairo.eti.br/">Kairo Araujo</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+
+                            <li><a href="http://kairo.eti.br/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://kairo.eti.br/static/dc.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>ServeRAID MR 10 k SAS/SATA Controller - Linux Installation Client and Basic Commands</h1>
+                        <span class="meta">Posted by
+                                <a href="http://kairo.eti.br/author/kairo.html">kairo</a>
+                             on Mon 12 January 2009
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p>This post show installation of MegaCli (ServeRAID MR 10 k SAS/SATA
+Controller client) and two basic commands<br>
+<span style="text-decoration:underline;"><strong><br>
+1. Installation</strong></span></p>
+<p>Get ServeRAID CD and extract the file MegaCli-X.XX.XX-Y.i386.rpm.</p>
+<p>Install using the rpm command</p>
+<p>` # rpm -ivh rpms/MegaCli-3.00.07-1.i386.rpm Preparing...               </p>
+<h6></h6>
+<p>[100%] 1:MegaCli               </p>
+<h6>##################################### [100%]`</h6>
+<p>Listing the installed files with rpm command</p>
+<p><code># rpm -ql MegaCli /opt/MegaRAID/MegaCli/MegaCli
+/opt/MegaRAID/MegaCli/MegaCli64</code></p>
+<p><span style="text-decoration:underline;"><strong>2. Basic commands</strong> </span><br>
+<strong>a. Listing All informations</strong></p>
+<h1>` # /opt/MegaRAID/MegaCli/MegaCli-AdpAllInfo -aALL Adapter #0</h1>
+<dl>
+<dt>Versions ================ Product Name    : IBM ServeRAID-MR10k SAS/SATA</dt>
+<dt>Controller Serial No       : KNNNNNNNNN FW Package Build: 8.0.1-0036</dt>
+<dt>Mfg. Data ================ Mfg. Date       : 07/06/04 Rework Date</dt>
+<dd>
+<dl>
+<dt>00/00/00 Revision No     : Battery FRU     : N/A Image Versions In</dt>
+<dt>Flash: ================ FW Version         : 1.12.152-0440 BIOS</dt>
+<dt>Version       : NT16 WebBIOS Version    : 1.1-33e-e_11-Rel Ctrl-R</dt>
+<dt>Version     : 1.01-010B Preboot CLI Version: 01.00-011:#%00001 Boot</dt>
+<dt>Block Version : 1.00.00.01-0011 Pending Images In Flash ================</dt>
+<dt>None PCI Info ================ Vendor Id       : 1000 Device Id</dt>
+<dd>
+<dl>
+<dt>0060 SubVendorId     : 1014 SubDeviceId     : 0363 Host Interface  :</dt>
+<dt>PCIE Number of Frontend Port: 0 Device Interface  : PCIE Number of</dt>
+<dt>Backend Port: 8 Port  :</dt>
+<dt>Address 0        5000c5000c627be9 1        5000c5000ca68091 2        5000c5000c60f9a1 3        5000c5000123bce1 4        0000000000000000 5        0000000000000000 6        0000000000000000 7        0000000000000000</dt>
+<dt>HW Configuration ================ SAS Address     : 5005076b08028540</dt>
+<dt>BBU             : Present Alarm           : Present NVRAM           :</dt>
+<dt>Present Serial Debugger : Present Memory          : Present</dt>
+<dt>Flash           : Present Memory Size     : 256MB</dt>
+<dt>TPM             : Absent Settings ================ Current</dt>
+<dt>Time                     : 14:56:28 1/9, 2009 Predictive Fail Poll</dt>
+<dt>Interval    : 300sec Interrupt Throttle Active Count  : 16 Interrupt</dt>
+<dt>Throttle Completion    : 50us Rebuild Rate                     : 30% PR</dt>
+<dt>Rate                          : 30% Resynch Rate</dt>
+<dd>
+<dl>
+<dt>30% Check Consistency Rate           : 30% Reconstruction</dt>
+<dt>Rate              : 30% Cache Flush Interval             : 4s</dt>
+<dt>Max Drives to Spinup at One Time : 2 Delay Among Spinup Groups</dt>
+<dd>
+<dl>
+<dt>12s Physical Drive Coercion Mode     : 1GB Cluster</dt>
+<dt>Mode                     : Disabled</dt>
+<dt>Alarm                            : Enabled Auto</dt>
+<dt>Rebuild                     : Enabled Battery Warning</dt>
+<dd>
+<dl>
+<dt>Enabled Ecc Bucket Size                  : 15 Ecc Bucket Leak</dt>
+<dt>Rate             : 1440 Minutes Restore HotSpare on Insertion    :</dt>
+<dt>Disabled Expose Enclosure Devices         : Enabled Maintain PD Fail</dt>
+<dt>History         : Enabled Host Request Reordering          : Enabled</dt>
+<dt>Auto Detect BackPlane Enabled    : SGPIO/i2c SEP Load Balance</dt>
+<dt>Mode                : Auto Use FDE Only                     : No</dt>
+<dt>Security Key Assigned            : No Security Key Failed              :</dt>
+<dt>No Security Key Not Backedup        : No Any Offline VD Cache</dt>
+<dt>Preserved   : No Capabilities ================ RAID Level</dt>
+<dt>Supported             : RAID0, RAID1, RAID5, RAID6, RAID10, RAID50,</dt>
+<dt>RAID60 Supported Drives                 : SAS, SATA Allowed Mixing: Mix</dt>
+<dt>In Enclosure Allowed Status ================ ECC Bucket</dt>
+<dt>Count                 : 0 Limitations ================ Max</dt>
+<dt>Arms Per VD         : 32 Max Spans Per VD        : 8 Max</dt>
+<dt>Arrays              : 128 Max Number of VDs       : 64 Max</dt>
+<dt>Parallel Commands   : 1008 Max SGE Count           : 80 Max Data</dt>
+<dt>Transfer Size  : 8192 sectors Max Strips PerIO        : 42 Min Stripe</dt>
+<dt>Size         : 8kB Max Stripe Size         : 1024kB Device Present</dt>
+<dt>================ Virtual Drives    : 1 Degraded        : 0</dt>
+<dt>Offline         : 0 Physical Devices  : 5 Disks           : 4</dt>
+<dt>Critical Disks  : 0 Failed Disks    : 0 Supported Adapter Operations</dt>
+<dt>================ Rebuild Rate                    : Yes CC</dt>
+<dt>Rate                         : Yes BGI</dt>
+<dt>Rate                        : Yes Reconstruct</dt>
+<dt>Rate                : Yes Patrol Read Rate                : Yes</dt>
+<dt>Alarm Control                   : Yes Cluster Support                 :</dt>
+<dt>No BBU                             : Yes Spanning</dt>
+<dd>
+<dl>
+<dt>Yes Dedicated Hot Spare             : Yes Revertible Hot</dt>
+<dt>Spares           : No Foreign Config Import           : Yes Self</dt>
+<dt>Diagnostic                 : Yes Allow Mixed Redundancy on Array : No</dt>
+<dt>Global Hot Spares               : Yes Deny SCSI Passthrough           :</dt>
+<dt>No Deny SMP Passthrough            : No Deny STP Passthrough</dt>
+<dd>
+<dl>
+<dt>No Support Security                : No Supported VD Operations</dt>
+<dt>================ Read Policy          : Yes Write Policy         : Yes</dt>
+<dt>IO Policy            : Yes Access Policy        : Yes Disk Cache</dt>
+<dt>Policy    : Yes Reconstruction       : Yes Deny Locate          : No</dt>
+<dt>Deny CC              : No Allow Ctrl Encryption: No Supported PD</dt>
+<dt>Operations ================ Force Online                            :</dt>
+<dt>Yes Force Offline                           : Yes Force</dt>
+<dt>Rebuild                           : Yes Deny Force</dt>
+<dt>Failed                       : No Deny Force</dt>
+<dt>Good/Bad                     : No Deny Missing</dt>
+<dt>Replace                    : No Deny</dt>
+<dt>Clear                              : No Deny</dt>
+<dt>Locate                             : No Disable</dt>
+<dt>Copyback                        : No Enable Copyback on</dt>
+<dt>SMART                : No Enable Copyback to SSD on SMART error   : No</dt>
+<dt>Error Counters ================ Memory Correctable Errors   : 0 Memory</dt>
+<dt>Uncorrectable Errors : 0 Cluster Information ================ Cluster</dt>
+<dt>Permitted     : No Cluster Active        : No Default Settings</dt>
+<dt>================ Phy Polarity                     : 0 Phy</dt>
+<dt>PolaritySplit                : 0 Background Rate                  : 30</dt>
+<dt>Stripe Size                      : 128kB Flush</dt>
+<dt>Time                       : 4 seconds Write</dt>
+<dt>Policy                     : WB Read Policy                      : None</dt>
+<dt>Cache When BBU Bad               : Disabled Cached</dt>
+<dt>IO                        : No SMART</dt>
+<dt>Mode                       : Mode 6 Alarm</dt>
+<dt>Disable                    : Yes Coercion</dt>
+<dt>Mode                    : 1GB ZCR</dt>
+<dt>Config                       : Unknown Dirty LED Shows</dt>
+<dt>Drive Activity   : No BIOS Continue on Error           : No Spin Down</dt>
+<dt>Mode                   : None Allowed Device Type              :</dt>
+<dt>SAS/SATA Mix Allow Mix In Enclosure           : Yes Allow HDD SAS/SATA</dt>
+<dt>Mix In VD     : No Allow SSD SAS/SATA Mix In VD     : No Allow HDD/SAS</dt>
+<dt>Mix In VD          : No Allow SATA In Cluster            : No Max</dt>
+<dt>Chained Enclosures           : 16 Disable Ctrl-R                   : Yes</dt>
+<dt>Enable Web BIOS                  : Yes Direct PD Mapping</dt>
+<dd>No BIOS Enumerate VDs               : Yes Restore Hot Spare on
+Insertion   : No Expose Enclosure Devices         : Yes Maintain PD Fail
+History         : Yes Disable Puncturing               : Yes Zero Based
+Enclosure Enumeration : No PreBoot CLI Enabled              : Yes LED
+Show Drive Activity          : No Cluster Disable                  : Yes
+SAS Disable                      : No Auto Detect BackPlane Enable     :
+SGPIO/i2c SEP Use FDE Only                     : No Delay during
+POST                : 0 Exit Code: 0x00`</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+<p><strong>b. Show rebuild details from disks</strong></p>
+<p><code># /opt/MegaRAID/MegaCli/MegaCli -PDRbld -ShowProg -PhysDrv [0:0] -aALL
+Device(Encl-0 Slot-0) is not in rebuild process Exit Code: 0x00</code></p>
+<p><code># /opt/MegaRAID/MegaCli/MegaCli -PDRbld -ShowProg -PhysDrv [0:1] -aALL
+Device(Encl-0 Slot-1) is not in rebuild process Exit Code: 0x00</code></p>
+<p><code># /opt/MegaRAID/MegaCli/MegaCli -PDRbld -ShowProg -PhysDrv [0:2] -aALL
+Device(Encl-0 Slot-2) is not in rebuild process Exit Code: 0x00</code></p>
+<p><code># /opt/MegaRAID/MegaCli/MegaCli -PDRbld -ShowProg -PhysDrv [0:3] -aALL
+Device(Encl-0 Slot-3) is not in rebuild process Exit Code: 0x00</code></p>
+    </article>
+
+
+    <hr>
+
+        <div class="comments">
+            <h2>Comments !</h2>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'kairoaraujo';
+                var disqus_identifier = 'serveraid-mr-10-k-sassata-controller-linux-installation-client-and-basic-commands.html';
+                var disqus_url = 'http://kairo.eti.br/serveraid-mr-10-k-sassata-controller-linux-installation-client-and-basic-commands.html';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//kairoaraujo.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://linkedin.com/in/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://github.com/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://twitter.com/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>. <br />        &copy;  Kairo Araujo 
+    <br />
+    These are my personal opinions
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://kairo.eti.br/theme/js/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://kairo.eti.br/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://kairo.eti.br/theme/js/clean-blog.min.js"></script>
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-108092336-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    var disqus_shortname = 'kairoaraujo';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+</body>
+
+</html>

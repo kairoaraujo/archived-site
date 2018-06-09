@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>Alternate Disk - AIX 5.2 / 5.3</title>
+
+            <link href="http://kairo.eti.br/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Full Atom Feed" />
+            <link href="http://kairo.eti.br/feeds/aix-unix-notes.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Categories Atom Feed" />
+        <!-- Bootstrap Core CSS -->
+        <link href="http://kairo.eti.br/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://kairo.eti.br/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://kairo.eti.br/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+        <meta name="description" content="Apresentação: O Alternate Disk é uma solução para clonar o sistema operacional AIX em um disco de stand by, que se for forçado o boot...">
+
+        <meta name="author" content="kairo">
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Kairo Araujo">
+
+	<meta property="og:type" content="article">
+            <meta property="article:author" content="http://kairo.eti.br/author/kairo.html">
+	<meta property="og:url" content="http://kairo.eti.br/alternate-disk-aix-52-53.html">
+	<meta property="og:title" content="Alternate Disk - AIX 5.2 / 5.3">
+	<meta property="article:published_time" content="2008-03-17 16:42:00+01:00">
+            <meta property="og:description" content="Apresentação: O Alternate Disk é uma solução para clonar o sistema operacional AIX em um disco de stand by, que se for forçado o boot...">
+
+            <meta property="og:image" content="http://kairo.eti.br/static/dc.jpg">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://kairo.eti.br/">Kairo Araujo</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+
+                            <li><a href="http://kairo.eti.br/pages/about.html">About</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://kairo.eti.br/static/dc.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Alternate Disk - AIX 5.2 / 5.3</h1>
+                        <span class="meta">Posted by
+                                <a href="http://kairo.eti.br/author/kairo.html">kairo</a>
+                             on Mon 17 March 2008
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p><strong>Apresentação:</strong></p>
+<hr>
+<p>O Alternate Disk é uma solução para clonar o sistema operacional AIX em
+um disco de stand by, que se for forçado o boot via SMS ou indicado como
+um boot válido no bootlist do AIX será restaurado.<br>
+Uma melhor explicação também seria chamá-lo: mksysb em disco.<br>
+Se seu rootvg esta em mirror em dois discos (normalmente hdisk0 e
+hdisk1) basta quebrar o mirror e realizar os procedimentos -- este
+artigo demonstra como fazer caso seus logical volumes (LV) não estejam
+espelhados.<br>
+Uma aplicação interessante para esta solução é uma contingência rápida
+para recuperação de ambiente em atividades críticas tais como aplicação
+de ML, migração/upgrade de versão.<br>
+Isto porque o backup image tem um restore a partir de uma mídia ou de um
+nimsrv (pretendo abordá-lo no futuro)</p>
+<p>Resumo:</p>
+<p><strong>1. Pré-requesitos<br>
+a. Instalação do pacote do alternate disc<br>
+b. Calcular espaço dos LVs não espelhados<br>
+3. Quebrar o espelhamento do rootvg<br>
+4. Remover área de boot do hdisk 1<br>
+5. Verificar conteúdo não espelhado e migrar para o hdisk0<br>
+6. Remover o hdisk1 do rootvg<br>
+7. Cria o boot image no hdisk0<br>
+8. Verifica a sequencia de boot<br>
+9. Realiza o alternate Disk<br>
+10. Valida o Alternate Disk em disco<br>
+11. Removendo o alternate disk<br>
+12. Adicionando o disco novamente ao rootvg<br>
+13. Recriando o mirror entre os discos<br>
+14. Recolocando os discos no boot list e recriando áreas de boot<br>
+15. Validação com boot</strong>  </p>
+<p><strong>1. Pré-requesitos</strong></p>
+<p>a. Instalação do pacote do alternate disc<br>
+O pacote bos.alt_disc_install pode ser obtido na mídia dois do AIX 5.2
+ou 5.3<br>
+Instale via</p>
+<p><code># smitty install</code></p>
+<p>Nota: Se seu ambiente já possuir MLs aplicadas e recomendado fazer o
+download dos fixes e aplicá-los.</p>
+<p>b. Calcular espaço dos LVs não espelhados<br>
+Caso tenha Logical Volume (LV) não espelhados é preciso identicar se o
+hdisk que será utilizado dispõe de espaço para receber estes LVs.<br>
+Exemplo:</p>
+<p><code>#lsvg –l rootvg rootvg: LV NAME TYPE LPs PPs PVs LV STATE MOUNT POINT
+hd5 boot 1 2 2 closed/syncd N/A hd6 paging 80 160 2 open/syncd N/A hd8
+jfs2log 1 2 2 open/syncd N/A hd4 jfs2 1 2 2 open/syncd / hd2
+jfs2 53 106 2 open/syncd /usr hd9var jfs2 1 2 2 open/syncd /var hd3
+jfs2 10 20 2 open/syncd /tmp hd1 jfs2 2 4 2 open/syncd /home hd10opt
+jfs2 1 2 2 open/syncd /opt lg_dumplv sysdump 16 16 2 open/syncd N/A
+paging00 paging 80 160 2 open/syncd N/A teste-lv jfs2 10 10 1 open/syncd
+/teste-lv lvML jfs2 24 24 2 open/syncd /ML</code></p>
+<p><code># lslv -l testelv teste-lv:/teste-lv PV COPIES IN BAND DISTRIBUTION
+Hdisk1 010:000:000 0% 010:000:000:000:000</code></p>
+<p>Os LVs teste-lv não ficará no disco após a quebra do mirror.<br>
+Desta formaerá necessário 10 PPs a mais no disco hdisk0</p>
+<p><code># lspv hdisk0 | grep FREE FREE PPs: 252 (32256 megabytes) HOT SPARE: no
+FREE DISTRIBUTION: 67..00..00..76..109</code></p>
+<p><strong>3. Quebrar o espelhamento do rootvg</strong></p>
+<p><code># unmirrorvg -c1 rootvg hdisk1</code></p>
+<p>Estou removendo o hdisk1, onde fazerei o alternate</p>
+<p><strong>4. Remover área de boot do hdisk 1</strong></p>
+<p><code># chpv -c hdisk1</code></p>
+<p><strong>5. Verificar conteúdo não espelhado e migrar para o hdisk0</strong></p>
+<p>Verifica LVs presentes no disco</p>
+<p><code># lspv -l hdisk1</code></p>
+<p>Migra todo o restante para o hdisk0, lembrand que não podem possuir o
+mesmo nome.</p>
+<p><code>#migratepv hdisk1 hdisk0</code></p>
+<p>Verifica se não sobrou nada, se está zerado</p>
+<p><code># lspv -l hdisk1</code></p>
+<p><strong>6. Remover o hdisk1 do rootvg</strong></p>
+<p>Retira o hdisk1 do rootvg</p>
+<p><code># reducevg rootvg hdisk1</code></p>
+<p>Verifica se está somente o hdisk0 no rootvg</p>
+<p><code># lsvg -p rootvg</code></p>
+<p><strong>7. Cria o boot image no hdisk0<br>
+</strong><br>
+<code># bosboot -a -d /dev/hdisk0</code></p>
+<p>Verifica o bootlist do hdisk0</p>
+<p><code># bootlist -m normal hdisk0</code></p>
+<p><strong>8. Verifica a sequencia de boot</strong></p>
+<p><code># bootlist -m normal –o</code></p>
+<p><strong>9. Realiza o alternate Disk</strong></p>
+<p><code># alt_disk_install -C -O hdisk1 Calling mkszfile to create new
+/image.data file. Checking disk sizes. Creating cloned rootvg volume
+group and associated logical volumes. Creating logical volume alt_hd5.
+Creating logical volume alt_hd6. Creating logical volume alt_hd8.
+Creating logical volume alt_hd4. Creating logical volume alt_hd2.
+Creating logical volume alt_hd9var. Creating logical volume alt_hd3.
+Creating logical volume alt_hd1. Creating logical volume alt_hd10opt.
+Creating /alt_inst/ file system. Creating /alt_inst/home file system.
+Creating /alt_inst/opt file system. Creating /alt_inst/tmp file system.
+Creating /alt_inst/usr file system. Creating /alt_inst/var file system.
+Generating a list of files for backup and restore into the alternate
+file system... Backing-up the rootvg files and restoring them to the
+alternate file system... Modifying ODM on cloned disk. Building boot
+image on cloned disk. forced unmount of /alt_inst/var forced unmount of
+/alt_inst/usr forced unmount of /alt_inst/tmp forced unmount of
+/alt_inst/opt forced unmount of /alt_inst/home forced unmount of
+/alt_inst forced unmount of /alt_inst Changing logical volume names in
+volume group descriptor area. Fixing LV control blocks... Fixing file
+system superblocks...</code></p>
+<p><strong>10. Valida o Alternate Disk em disco</strong></p>
+<p><code># lspv | grep root hdisk0 00531d9a33ff6ab5 rootvg active
+hdisk1 00531d9a47ed2df6 altinst_rootvg</code></p>
+<p><strong>11. Removendo o alternate disk</strong></p>
+<p><code># alt_disk_install -X altinst_rootvg</code></p>
+<p><strong>12. Adicionando o disco novamente ao rootvg</strong></p>
+<p><code># extendvg rootvg hdisk1</code></p>
+<p><strong>13. Recriando o mirror entre os discos</strong></p>
+<p><code># nohup mirrorvg rootvg hdisk1 &amp;</code></p>
+<p><strong>14. Recolocando os discos no boot list e recriando áreas de boot</strong></p>
+<p>Recoloca os discos no boot list normal</p>
+<p><code># bootlist -m normal hdisk0 hdisk1</code></p>
+<p>Recriar area de boot</p>
+<p><code># bosboot -a -d /dev/hdisk00 # bosboot -a -d /dev/hdisk01</code></p>
+<p><strong>15. Validação com boot<br>
+</strong><br>
+<code># shutdown -Fr</code></p>
+    </article>
+
+
+    <hr>
+
+        <div class="comments">
+            <h2>Comments !</h2>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'kairoaraujo';
+                var disqus_identifier = 'alternate-disk-aix-52-53.html';
+                var disqus_url = 'http://kairo.eti.br/alternate-disk-aix-52-53.html';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//kairoaraujo.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://linkedin.com/in/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://github.com/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://twitter.com/kairoaraujo">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>. <br />        &copy;  Kairo Araujo 
+    <br />
+    These are my personal opinions
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://kairo.eti.br/theme/js/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://kairo.eti.br/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://kairo.eti.br/theme/js/clean-blog.min.js"></script>
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-108092336-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script type="text/javascript">
+    var disqus_shortname = 'kairoaraujo';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+</body>
+
+</html>

@@ -1,0 +1,1151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Kairo Araujo - misc</title><link href="http://kairo.eti.br/" rel="alternate"></link><link href="http://kairo.eti.br/feeds/misc.atom.xml" rel="self"></link><id>http://kairo.eti.br/</id><updated>2017-02-01T18:16:00+01:00</updated><entry><title>Security APAR Assistant (SAAssist)</title><link href="http://kairo.eti.br/security-apar-assistant-saassist.html" rel="alternate"></link><published>2017-02-01T18:16:00+01:00</published><updated>2017-02-01T18:16:00+01:00</updated><author><name>Kairo Araujo</name></author><id>tag:kairo.eti.br,2017-02-01:/security-apar-assistant-saassist.html</id><summary type="html">&lt;p&gt;&lt;span style="color: rgb(92, 93, 94); font-family: -apple-system, BlinkMacSystemFont, &amp;#39;Segoe UI&amp;#39;, Roboto, Oxygen-Sans, Ubuntu, Cantarell, &amp;#39;Helvetica Neue&amp;#39;, sans-serif; font-size: 14px;"&gt;Hi
+there,&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="color: rgb(92, 93, 94); font-family: -apple-system, BlinkMacSystemFont, &amp;#39;Segoe UI&amp;#39;, Roboto, Oxygen-Sans, Ubuntu, Cantarell, &amp;#39;Helvetica Neue&amp;#39;, sans-serif; font-size: 14px;"&gt;During
+my last vacation I started a new project with intention learn more
+about &lt;/span&gt;&lt;span style="font-size: 14px;"&gt;Python and AIX/PowerVM
+APARs and ifix. Now, I'm releasing it as an Open Source tool. &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="font-size: 14px;"&gt;This project objectives is make easy to
+administrate and manage AIX/PowerVM APARs/ifix . This is the first …&lt;/span&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;span style="color: rgb(92, 93, 94); font-family: -apple-system, BlinkMacSystemFont, &amp;#39;Segoe UI&amp;#39;, Roboto, Oxygen-Sans, Ubuntu, Cantarell, &amp;#39;Helvetica Neue&amp;#39;, sans-serif; font-size: 14px;"&gt;Hi
+there,&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="color: rgb(92, 93, 94); font-family: -apple-system, BlinkMacSystemFont, &amp;#39;Segoe UI&amp;#39;, Roboto, Oxygen-Sans, Ubuntu, Cantarell, &amp;#39;Helvetica Neue&amp;#39;, sans-serif; font-size: 14px;"&gt;During
+my last vacation I started a new project with intention learn more
+about &lt;/span&gt;&lt;span style="font-size: 14px;"&gt;Python and AIX/PowerVM
+APARs and ifix. Now, I'm releasing it as an Open Source tool. &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="font-size: 14px;"&gt;This project objectives is make easy to
+administrate and manage AIX/PowerVM APARs/ifix . This is the first
+version&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="font-size: 14px;"&gt;http://github.com/SAAssist/&lt;/span&gt;&lt;/p&gt;
+&lt;h2&gt;Overview&lt;/h2&gt;
+&lt;p&gt;Security APAR Assist (SAAssist) is a tool to controls security APARs for
+IBM AIX and IBM PowerVM environment.&lt;/p&gt;
+&lt;p&gt;There are two basic components on SAAssist, SAAssist Server
+(saassist-server) and SAAssist Client (saassist-client).&lt;/p&gt;
+&lt;p&gt;This is a Open Source software licensed by Apache License 2.0.&lt;/p&gt;
+&lt;p&gt;Important:&lt;/p&gt;
+&lt;p&gt;The Security APAR Assistant (including saassist-server and
+saassist-client) is not an IBM Inc. software and it is not supported or
+guaranteed by IBM.&lt;/p&gt;
+&lt;p&gt;IBM AIX, IBM PowerVM and IBM Fix Level Recommended Tool website are
+registered trademarks of IBM Corporation in the United States, other
+countries, or
+both.&lt;/p&gt;
+&lt;h2&gt;&lt;a href="https://github.com/SAAssist/saassist-server#how-it-works"&gt;&lt;/a&gt;How it works&lt;/h2&gt;
+&lt;p&gt;SAAssist Server (saassist-server) is the tool that works directly with
+the IBM Fix Level Recommendation Tool (FLRT) website
+( &lt;a href="https://www-304.ibm.com/support/customercare/flrt/"&gt;https://www-304.ibm.com/support/customercare/flrt/&lt;/a&gt;) and it creates
+a repository with APARs information and packages based on CVE or IV
+number.&lt;/p&gt;
+&lt;p&gt;Those APARs information and packages are accessed by SAAssist Client
+(saassist-client) by HTTP or NFS protocol and checks if the APAR affect
+the server and if it can be installed.&lt;/p&gt;
+&lt;p&gt;Only the SAAssist Server needs to access the IBM FLRT website, proxy is
+also supported and it can be used. AAssist Client needs to access only
+SAAssist Server by HTTP or NFS.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Schema
+    overvivew&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;_________________|                 | -----[ Internet ]-----[ IBM FLRT website ]| saassist server |        * web proxy|_________________|        |        |        `----- [  Repository  ]               [  info, fixes ]               [  HTTP: :NFS  ]                       |        .--------------'        |________|_________|                 || saassist client ||_________________|        |        |        |`-{check}   verifies if APAR is applicable &amp;amp; boot required        |        |`-{info}    gets detailed information about APAR (asc file)        |         `-{install} installs APARsaassist-server:     it can be an AIX, Linux or MacOS with Internet access directly     or through proxy.saassist-client:     AIX or PowerVM server&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;&lt;a href="https://github.com/SAAssist/saassist-server#saassist-server-saassist-server"&gt;&lt;/a&gt;SAAssist Server (saassist-server)&lt;/h3&gt;
+&lt;p&gt;The SAAssist Server (saassist-server) is written in Python.&lt;/p&gt;
+&lt;p&gt;saassist-server accesses the IBM FLRT website and collects all
+information about a specific CVE or IV number. It downloads data from
+website and stores it in a repository to be used by SAAssist Client
+(saassist-client) upon request through HTTP or NFS.&lt;/p&gt;
+&lt;p&gt;The saassist-server includes the HTTP server (saassist-webserver), if a
+non static HTTP server is available it can be used as well.&lt;/p&gt;
+&lt;p&gt;To use NFS is necessary that the system administrator exports the full
+path of repository ([saassist-server
+directory]/saassist/data/repos).&lt;/p&gt;
+&lt;h4&gt;&lt;a href="https://github.com/SAAssist/saassist-server#using-saassist-server"&gt;&lt;/a&gt;Using saassist-server&lt;/h4&gt;
+&lt;p&gt;The saassist-server is simple to use. You need to run the
+saassist-server specifying the CVE or IV number that you want to create
+(-c) on the repository.&lt;/p&gt;
+&lt;p&gt;Example: &lt;code&gt;saassist-server -c CVE-2016-3053&lt;/code&gt; or &lt;code&gt;saassist-server -c
+IV88136&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;The other options are -h to help of -u to update an existent
+CVE/IV.&lt;/p&gt;
+&lt;h5&gt;&lt;a href="https://github.com/SAAssist/saassist-server#screenshots"&gt;&lt;/a&gt;Screenshots&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;Help&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href="https://github.com/SAAssist/saassist-server/blob/master/doc/screenshots/help.png"&gt;&lt;img alt="doc/screenshots/help.png" src="https://github.com/SAAssist/saassist-server/raw/master/doc/screenshots/help.png"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Creating a repository for a
+CVE&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href="https://github.com/SAAssist/saassist-server/blob/master/doc/screenshots/creating_repo.png"&gt;&lt;img alt="doc/screenshots/creating_repo.png" src="https://github.com/SAAssist/saassist-server/raw/master/doc/screenshots/creating_repo.png"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Updating an existing repository for
+IV&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href="https://github.com/SAAssist/saassist-server/blob/master/doc/screenshots/updating_repo.png"&gt;&lt;img alt="doc/screenshots/updating_repo.png" src="https://github.com/SAAssist/saassist-server/raw/master/doc/screenshots/updating_repo.png"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;&lt;a href="https://github.com/SAAssist/saassist-server#running-saassist-webserver"&gt;&lt;/a&gt;Running saassist-webserver&lt;/h4&gt;
+&lt;p&gt;The web server is included. If you want to have a static HTTP Server is
+recommended install Apache or another one. If you want to run this
+temporary, just
+run:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;saassist-webserver&lt;/code&gt;&lt;/p&gt;
+&lt;h5&gt;&lt;a href="https://github.com/SAAssist/saassist-server#screenshots-1"&gt;&lt;/a&gt;Screenshots&lt;/h5&gt;
+&lt;p&gt;&lt;a href="https://github.com/SAAssist/saassist-server/blob/master/doc/screenshots/saassist-webserver.png"&gt;&lt;img alt="doc/screenshots/saassist-webserver.png" src="https://github.com/SAAssist/saassist-server/raw/master/doc/screenshots/saassist-webserver.png"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;&lt;a href="https://github.com/SAAssist/saassist-server#saassist-client-saassist-client"&gt;&lt;/a&gt;SAAssist Client (saassist-client)&lt;/h3&gt;
+&lt;p&gt;The SAAssist Client (saassist-client) is written in Korn Shell (ksh).&lt;/p&gt;
+&lt;p&gt;This is a simple ksh script that accesses the SAAssist Server
+(saassist-server) using HTTP or NFS protocol and collects information
+about a specific APAR (CVE/IV), checks if it is applicable for the
+server, provides detailed information and installs the fix if required
+by you.&lt;/p&gt;
+&lt;p&gt;Using NFS procotol, there is no requirements. Curl is required if you
+want to use saassist-client through HTTP
+procotol.&lt;/p&gt;
+&lt;h4&gt;&lt;a href="https://github.com/SAAssist/saassist-server#using-saassist-client"&gt;&lt;/a&gt;Using saassist-client&lt;/h4&gt;
+&lt;p&gt;The saassist-server is simple to use. You need to run the
+saassist-client.sh with the actions (parameters) that you want to
+perform and specify the CVE or IV Number.&lt;/p&gt;
+&lt;p&gt;To get full help use: &lt;code&gt;saassist-client.sh help&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;check : Verifies if the system is affected by CVE/IV&lt;/li&gt;
+&lt;li&gt;info : Shows details about the CVE/IV&lt;/li&gt;
+&lt;li&gt;install : Installs the APAR if it is available and applicable to the
+    system&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;saassist-client check CVE-2016-0281&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;saassist-client info IV91004&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;saassist-client install
+CVE-2016-0281&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h5&gt;&lt;a href="https://github.com/SAAssist/saassist-server#screenshots-2"&gt;&lt;/a&gt;Screenshots&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;Checking&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;not
+affected&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/SAAssist/saassist-server/blob/master/doc/screenshots/client_not_affected.png"&gt;&lt;img alt="doc/screenshots/client_not_affected.png" src="https://github.com/SAAssist/saassist-server/raw/master/doc/screenshots/client_not_affected.png"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;affected&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/SAAssist/saassist-server/blob/master/doc/screenshots/client_affected.png"&gt;&lt;img alt="doc/screenshots/client_affected.png" src="https://github.com/SAAssist/saassist-server/raw/master/doc/screenshots/client_affected.png"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Reading
+info&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href="https://github.com/SAAssist/saassist-server/blob/master/doc/screenshots/client_info.png"&gt;&lt;img alt="doc/screenshots/client_info.png" src="https://github.com/SAAssist/saassist-server/raw/master/doc/screenshots/client_info.png"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Install
+APAR/Fix&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href="https://github.com/SAAssist/saassist-server/blob/master/doc/screenshots/client_install.png"&gt;&lt;img alt="doc/screenshots/client_install.png" src="https://github.com/SAAssist/saassist-server/raw/master/doc/screenshots/client_install.png"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/SAAssist/saassist-server/blob/master/doc/screenshots/client_install_end.png"&gt;&lt;img alt="doc/screenshots/client_install_end.png" src="https://github.com/SAAssist/saassist-server/raw/master/doc/screenshots/client_install_end.png"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;&lt;a href="https://github.com/SAAssist/saassist-server#saassist-server-saassist-server-installation"&gt;&lt;/a&gt;SAAssist Server (saassist-server) Installation&lt;/h2&gt;
+&lt;p&gt;The dependencies to install the saassist-server are Python version 3 and
+BeautifulSoup4 module for
+Python.&lt;/p&gt;
+&lt;h3&gt;&lt;a href="https://github.com/SAAssist/saassist-server#installing-python-3"&gt;&lt;/a&gt;Installing Python 3&lt;/h3&gt;
+&lt;p&gt;Python version 3 is required by saassist-server and it can runs on
+Linux, AIX and MacOS (I have never on Windows, but I believe that it is
+possible too).&lt;/p&gt;
+&lt;p&gt;Follow bellow the instruction for Linux and AIX.&lt;/p&gt;
+&lt;h4&gt;&lt;a href="https://github.com/SAAssist/saassist-server#linux"&gt;&lt;/a&gt;LINUX&lt;/h4&gt;
+&lt;p&gt;To install Python 3 use yum or apt-get from your Linux distribution, do
+the same to install pip3&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;yum install python3 pip3&lt;/code&gt;&lt;/p&gt;
+&lt;h4&gt;&lt;a href="https://github.com/SAAssist/saassist-server#aix"&gt;&lt;/a&gt;AIX&lt;/h4&gt;
+&lt;p&gt;I have been using this Python3 package to my environment and it can be
+installed using &lt;code&gt;smitty
+install&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.aixtools.net/index.php/python3"&gt;http://www.aixtools.net/index.php/python3&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;&lt;a href="https://github.com/SAAssist/saassist-server#installing-beautifulsoup4"&gt;&lt;/a&gt;Installing BeautifulSoup4&lt;/h3&gt;
+&lt;p&gt;BeautifulSoup is a Python package (module) and it is required for
+saassist-server. It can be installed using PIP&lt;/p&gt;
+&lt;h4&gt;&lt;a href="https://github.com/SAAssist/saassist-server#pip"&gt;&lt;/a&gt;PIP&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;pip3 install
+bs4&lt;/code&gt;&lt;/p&gt;
+&lt;h3&gt;&lt;a href="https://github.com/SAAssist/saassist-server#installing-saassist-server"&gt;&lt;/a&gt;Installing saassist-server&lt;/h3&gt;
+&lt;p&gt;To install saassist-server you need to download the latest version,
+extract the content and edit config server_config.py file.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Download&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href="http://github.com/SAAssist"&gt;http://github.com/SAAssist&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Extract&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;.zip &lt;code&gt;unzip saassist-server[version].zip&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;.tar &lt;code&gt;tar xvf saassist-server[version].zip&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;!-- end list --&gt;
+
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Configure the server_config.py&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Please check the comments inside of config file&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;vi
+server_config.py&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;&lt;a href="https://github.com/SAAssist/saassist-server#saassist-client-saassist-client-installation"&gt;&lt;/a&gt;SAAssist Client (saassist-client) Installation&lt;/h2&gt;
+&lt;p&gt;If you want to use HTTP protocol, remember the package curl is required
+for IBM AIX/PowerVM.&lt;/p&gt;
+&lt;p&gt;Download the saassist-client from the link, extract the files and edit
+client_config file.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Download&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href="http://github.com/SAAssist/saassist-client"&gt;http://github.com/SAAssist/saassist-client&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Extract the files&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;.zip &lt;code&gt;unzip saassist-client[version].zip&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;.tar &lt;code&gt;tar xvf saassist-client[version].zip&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;!-- end list --&gt;
+
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Configure the client_config&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Please check the comments inside the config file&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;vi
+client_config&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;&lt;a href="https://github.com/SAAssist/saassist-server#reporting-bugs-and-improvements"&gt;&lt;/a&gt;Reporting bugs and improvements&lt;/h2&gt;
+&lt;p&gt;SAAssist Server &lt;a href="https://github.com/SAAssist/saassist-server/issues"&gt;https://github.com/SAAssist/saassist-server/issues&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;SAAssist
+Client &lt;a href="https://github.com/SAAssist/saassist-client/issues"&gt;https://github.com/SAAssist/saassist-client/issues&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;&lt;a href="https://github.com/SAAssist/saassist-server#contributing"&gt;&lt;/a&gt;Contributing&lt;/h2&gt;
+&lt;p&gt;SAAssist Server (saassist-server) is developed in Python (version 3)
+language&lt;/p&gt;
+&lt;p&gt;and SAAssist Client (saassist-client) is developed in Korn Shell (ksh).&lt;/p&gt;
+&lt;h3&gt;&lt;a href="https://github.com/SAAssist/saassist-server#to-do"&gt;&lt;/a&gt;To Do&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;[server] Avoid to store the same fix for different versions to
+    reduce data storage usage.&lt;/li&gt;
+&lt;li&gt;[server/client] implement checksum for files&lt;/li&gt;
+&lt;li&gt;[server/client] Include support for ftp protocol&lt;/li&gt;
+&lt;li&gt;[server] Create all unit tests for Python
+code&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;&lt;a href="https://github.com/SAAssist/saassist-server#new-code-or-bug-fixes"&gt;&lt;/a&gt;New code or bug fixes&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Do the fork from &lt;a href="http://github.com/SAAssist/saassist-server"&gt;http://github.com/SAAssist/saassist-server&lt;/a&gt; or
+    saassist-client&lt;/li&gt;
+&lt;li&gt;Do the clone from your fork &lt;code&gt;git clone
+    http://github.com/username/saassist-server&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Create a branch &lt;code&gt;git checkout -b new_feature&lt;/code&gt; or &lt;code&gt;git checkout -b
+    bug_000X&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Do your code or fix a bug :)&lt;/li&gt;
+&lt;li&gt;Run tests &lt;code&gt;tox -e py34&lt;/code&gt; (if your version is Python 3.5 use py35)&lt;/li&gt;
+&lt;li&gt;Submit your code to review &lt;code&gt;git-review&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;</content><category term="comments"></category><category term="recommend"></category><category term="ibm"></category><category term="apar"></category><category term="assistance"></category><category term="update"></category><category term="power"></category><category term="ifix"></category><category term="security"></category><category term="aix"></category><category term="powervm"></category></entry><entry><title>After mksysb migration 0042-012 nim: this command may only be executed on a NIM master</title><link href="http://kairo.eti.br/after-mksysb-migration-0042-012-nim-this-command-may-only-be-executed-on-a-nim-master.html" rel="alternate"></link><published>2015-04-22T13:22:00+02:00</published><updated>2015-04-22T13:22:00+02:00</updated><author><name>Kairo Araujo</name></author><id>tag:kairo.eti.br,2015-04-22:/after-mksysb-migration-0042-012-nim-this-command-may-only-be-executed-on-a-nim-master.html</id><summary type="html">&lt;p&gt;After migrate my NIM Server to another box and change the hostname when
+I tried make something on NIM Master/Server I received this message:&lt;/p&gt;
+&lt;p&gt;0042-012 nim: this command may only be executed on a  &lt;/p&gt;
+&lt;p&gt;NIM master&lt;/p&gt;
+&lt;p&gt;To make work again I move the /etc/niminfo to /etc/niminfo.orig …&lt;/p&gt;</summary><content type="html">&lt;p&gt;After migrate my NIM Server to another box and change the hostname when
+I tried make something on NIM Master/Server I received this message:&lt;/p&gt;
+&lt;p&gt;0042-012 nim: this command may only be executed on a  &lt;/p&gt;
+&lt;p&gt;NIM master&lt;/p&gt;
+&lt;p&gt;To make work again I move the /etc/niminfo to /etc/niminfo.orig and
+rebuild the /etc/niminfo using the smitty&lt;/p&gt;
+&lt;p&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;# mv
+/etc/niminfo /etc/niminfo.orig&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;# smitty
+nim_admin&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;  Rebuild the
+niminfo File on the Master&lt;/span&gt;&lt;/p&gt;</content><category term="comments"></category><category term="recommend"></category><category term="command"></category><category term="only"></category><category term="this"></category><category term="master"></category><category term="0042-012"></category><category term="may"></category><category term="on"></category><category term="executed"></category><category term="nim"></category></entry><entry><title>PowerAdm v0.9-beta released. Now option to help on troubleshootings</title><link href="http://kairo.eti.br/poweradm-v09-beta-released-now-option-to-help-on-troubleshootings.html" rel="alternate"></link><published>2015-04-09T13:35:00+02:00</published><updated>2015-04-09T13:35:00+02:00</updated><author><name>Kairo Araujo</name></author><id>tag:kairo.eti.br,2015-04-09:/poweradm-v09-beta-released-now-option-to-help-on-troubleshootings.html</id><summary type="html">&lt;p&gt;I'm releasing the version 0.9-beta of PowerAdm http://www.poweradm.org&lt;/p&gt;
+&lt;p&gt;Principal features:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;troubleshooting options. I'm using a lsseas* and I create a similar
+    tool to NPIV (inspired on the lsseas);&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;working with HMC 8;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;improve on documantation based on pydoc.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;* lsseas is an original code of Benoit Creau …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I'm releasing the version 0.9-beta of PowerAdm http://www.poweradm.org&lt;/p&gt;
+&lt;p&gt;Principal features:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;troubleshooting options. I'm using a lsseas* and I create a similar
+    tool to NPIV (inspired on the lsseas);&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;working with HMC 8;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;improve on documantation based on pydoc.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;* lsseas is an original code of Benoit Creau from http://chmod666.org.
+I modified the code to work with PowerAdm. Thanks Benoit Creau for the
+idea and original code.&lt;/p&gt;
+&lt;p&gt;About troubleshooting options&lt;/p&gt;
+&lt;p&gt;All screenshots are here
+&lt;a href="https://github.com/kairoaraujo/PowerAdm/wiki/troubleshooting"&gt;https://github.com/kairoaraujo/PowerAdm/wiki/troubleshooting&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;For the release 0.10-beta I'll back work to deploy OS using VMware
+vCenter Orchestrator (vCO) and improve the integration.&lt;/p&gt;
+&lt;p&gt;Some screenshots:&lt;/p&gt;
+&lt;p&gt;You can check de environment or a specific LPAR by ID or searching by
+the
+name.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="https://camo.githubusercontent.com/c20ea6d20965bdf77c4549edb08e8c67e95f290b/687474703a2f2f6b6169726f2e667265657368656c6c2e6f72672f706f77657261646d2f74622f74622d6d61696e2d6d656e752e706e67"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Checking specific
+LPAR&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="https://camo.githubusercontent.com/be9da3828cfa95f5f04605f5b8d0abc6b9017dab/687474703a2f2f6b6169726f2e667265657368656c6c2e6f72672f706f77657261646d2f74622f74622d6c7061722d696e666f2e706e67"&gt;&lt;/p&gt;
+&lt;p&gt;vSCSI
+configuration&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="https://camo.githubusercontent.com/53e688598a8ffee74829cc4ae00d01e70daa573c/687474703a2f2f6b6169726f2e667265657368656c6c2e6f72672f706f77657261646d2f74622f74622d6c7061722d736373692e706e67"&gt;&lt;/p&gt;
+&lt;p&gt;vFC (NPIV) of specific LPAR and your NPIV on
+VIOS&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="https://camo.githubusercontent.com/8409f770056cf010c632703a35f78c7fff5bc606/687474703a2f2f6b6169726f2e667265657368656c6c2e6f72672f706f77657261646d2f74622f74622d6c7061722d6e7069762d312e706e67"&gt;&lt;/p&gt;
+&lt;p&gt;Virtual ethernet os specific LPAR and SEAS on VIOS used by
+LPAR.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="https://camo.githubusercontent.com/b28676af96a44db229a33b8a98ae3990e92aca72/687474703a2f2f6b6169726f2e667265657368656c6c2e6f72672f706f77657261646d2f74622f74622d6c7061722d6e65742d312e706e67"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Environment:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;SEAs&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="https://camo.githubusercontent.com/e0f8cd80f7277dbbdf71f444e289f691b9fe4d57/687474703a2f2f6b6169726f2e667265657368656c6c2e6f72672f706f77657261646d2f74622f74622d656e762d7365612d312e706e67"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="https://camo.githubusercontent.com/4fc5a471b3a05c50f2c5e7e637bb946b7a3cd505/687474703a2f2f6b6169726f2e667265657368656c6c2e6f72672f706f77657261646d2f74622f74622d656e762d7365612d332e706e67"&gt;&lt;/p&gt;
+&lt;p&gt;NPIV&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="https://camo.githubusercontent.com/c4269b5f19f665a69d4b24bc83e5d87365590d3c/687474703a2f2f6b6169726f2e667265657368656c6c2e6f72672f706f77657261646d2f74622f74622d656e762d6e7069762e706e67"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="" src="https://camo.githubusercontent.com/fc613e132de8a0abcedeb5fcd8e2aae154d0cf6a/687474703a2f2f6b6169726f2e667265657368656c6c2e6f72672f706f77657261646d2f74622f74622d656e762d6e7069762d322e706e67"&gt;&lt;/p&gt;</content><category term="comments"></category><category term="recommend"></category><category term="ibm"></category><category term="administration"></category><category term="hmc"></category><category term="powervm"></category><category term="aix"></category><category term="poweradm"></category><category term="power"></category><category term="vios"></category></entry><entry><title>Python on AIX 7.1 / 6.1</title><link href="http://kairo.eti.br/python-on-aix-71-61.html" rel="alternate"></link><published>2015-03-20T17:09:00+01:00</published><updated>2015-03-20T17:09:00+01:00</updated><author><name>Kairo Araujo</name></author><id>tag:kairo.eti.br,2015-03-20:/python-on-aix-71-61.html</id><summary type="html">&lt;p&gt;First thanks Renato Gregio to give me all packages / dependecies.&lt;/p&gt;
+&lt;p&gt;I created (by R. Gregio) a TAR with RPM files to install the Python
+2.6.8. You can download here
+&lt;a href="https://github.com/kairoaraujo/Python-AIX-RPM"&gt;https://github.com/kairoaraujo/Python-AIX-RPM&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The Python is necessary for my personal project
+&lt;a href="http://poweradm.org"&gt;PowerAdm&lt;/a&gt; and I'll try maintain this …&lt;/p&gt;</summary><content type="html">&lt;p&gt;First thanks Renato Gregio to give me all packages / dependecies.&lt;/p&gt;
+&lt;p&gt;I created (by R. Gregio) a TAR with RPM files to install the Python
+2.6.8. You can download here
+&lt;a href="https://github.com/kairoaraujo/Python-AIX-RPM"&gt;https://github.com/kairoaraujo/Python-AIX-RPM&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The Python is necessary for my personal project
+&lt;a href="http://poweradm.org"&gt;PowerAdm&lt;/a&gt; and I'll try maintain this TAR updated.&lt;/p&gt;
+&lt;p&gt;The original packages can be downloded on
+&lt;a href="http://www.perzl.org/aix/index.php?n=main.python"&gt;http://www.perzl.org/aix/index.php?n=main.python&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Package list:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;bash-4.3-13.aix5.1.ppc.rpm  &lt;/p&gt;
+&lt;p&gt;bzip2-1.0.6-1.aix5.1.ppc.rpm  &lt;/p&gt;
+&lt;p&gt;db4-4.7.25-2.aix5.1.ppc.rpm  &lt;/p&gt;
+&lt;p&gt;expat-2.1.0-1.aix5.1.ppc.rpm  &lt;/p&gt;
+&lt;p&gt;fontconfig-2.10.2-1.aix5.1.ppc.rpm  &lt;/p&gt;
+&lt;p&gt;freetype2-2.5.3-1.aix5.1.ppc.rpm  &lt;/p&gt;
+&lt;p&gt;gdbm-1.11-1.aix5.1.ppc.rpm  &lt;/p&gt;
+&lt;p&gt;gettext-0.10.40-8.aix5.2.ppc.rpm  &lt;/p&gt;
+&lt;p&gt;gmp-6.0.0a-1.aix5.1.ppc.rpm  &lt;/p&gt;
+&lt;p&gt;info-5.1-2.aix5.1.ppc.rpm  &lt;/p&gt;
+&lt;p&gt;libdbi-0.8.4-1.aix5.1.ppc.rpm  &lt;/p&gt;
+&lt;p&gt;libffi-3.2.1-1.aix5.1.ppc.rpm  &lt;/p&gt;
+&lt;p&gt;libgcc-4.8.3-1.aix7.1.ppc.rpm  &lt;/p&gt;
+&lt;p&gt;libiconv-1.14-2.aix5.1.ppc.rpm  &lt;/p&gt;
+&lt;p&gt;libpng-1.6.16-1.aix5.1.ppc.rpm  &lt;/p&gt;
+&lt;p&gt;libstdc++-4.8.3-1.aix7.1.ppc.rpm  &lt;/p&gt;
+&lt;p&gt;libXft-2.3.1-1.aix5.1.ppc.rpm  &lt;/p&gt;
+&lt;p&gt;libXrender-0.9.8-1.aix6.1.ppc.rpm  &lt;/p&gt;
+&lt;p&gt;openssl-1.0.1l-1.aix5.1.ppc.rpm  &lt;/p&gt;
+&lt;p&gt;python-2.6.8-1.aix6.1.ppc.rpm  &lt;/p&gt;
+&lt;p&gt;python-libs-2.6.8-1.aix6.1.ppc.rpm  &lt;/p&gt;
+&lt;p&gt;readline-6.3-5.aix5.1.ppc.rpm  &lt;/p&gt;
+&lt;p&gt;sqlite-3.8.7.1-1.aix5.1.ppc.rpm  &lt;/p&gt;
+&lt;p&gt;tcl-8.6.3-1.aix5.1.ppc.rpm  &lt;/p&gt;
+&lt;p&gt;tk-8.6.3-1.aix5.1.ppc.rpm&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Install&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;tar xvf python-2.6.8-AIX-RPM-pkgs-YYYYMMDD.tar  &lt;/p&gt;
+&lt;p&gt;x python-2.6.8  &lt;/p&gt;
+&lt;p&gt;x python-2.6.8/bash-4.3-13.aix5.1.ppc.rpm, 2098335 bytes, 4099 media
+blocks.  &lt;/p&gt;
+&lt;p&gt;x python-2.6.8/bzip2-1.0.6-1.aix5.1.ppc.rpm, 122731 bytes, 240 media
+blocks.  &lt;/p&gt;
+&lt;p&gt;x python-2.6.8/db4-4.7.25-2.aix5.1.ppc.rpm, 3054640 bytes, 5967 media
+blocks.  &lt;/p&gt;
+&lt;p&gt;x python-2.6.8/expat-2.1.0-1.aix5.1.ppc.rpm, 389811 bytes, 762 media
+blocks.  &lt;/p&gt;
+&lt;p&gt;x python-2.6.8/fontconfig-2.10.2-1.aix5.1.ppc.rpm, 1016700 bytes, 1986
+media blocks.  &lt;/p&gt;
+&lt;p&gt;x python-2.6.8/freetype2-2.5.3-1.aix5.1.ppc.rpm, 763223 bytes, 1491
+media blocks.  &lt;/p&gt;
+&lt;p&gt;x python-2.6.8/gdbm-1.11-1.aix5.1.ppc.rpm, 102301 bytes, 200 media
+blocks.  &lt;/p&gt;
+&lt;p&gt;x python-2.6.8/gettext-0.10.40-8.aix5.2.ppc.rpm, 1074719 bytes, 2100
+media blocks.  &lt;/p&gt;
+&lt;p&gt;x python-2.6.8/gmp-6.0.0a-1.aix5.1.ppc.rpm, 1529950 bytes, 2989 media
+blocks.  &lt;/p&gt;
+&lt;p&gt;x python-2.6.8/info-5.1-2.aix5.1.ppc.rpm, 262713 bytes, 514 media
+blocks.  &lt;/p&gt;
+&lt;p&gt;x python-2.6.8/libXft-2.3.1-1.aix5.1.ppc.rpm, 217394 bytes, 425 media
+blocks.  &lt;/p&gt;
+&lt;p&gt;x python-2.6.8/libXrender-0.9.8-1.aix6.1.ppc.rpm, 139468 bytes, 273
+media blocks.  &lt;/p&gt;
+&lt;p&gt;x python-2.6.8/libdbi-0.8.4-1.aix5.1.ppc.rpm, 123683 bytes, 242 media
+blocks.  &lt;/p&gt;
+&lt;p&gt;x python-2.6.8/libffi-3.2.1-1.aix5.1.ppc.rpm, 131626 bytes, 258 media
+blocks.  &lt;/p&gt;
+&lt;p&gt;x python-2.6.8/libgcc-4.8.3-1.aix7.1.ppc.rpm, 926039 bytes, 1809 media
+blocks.  &lt;/p&gt;
+&lt;p&gt;x python-2.6.8/libiconv-1.14-2.aix5.1.ppc.rpm, 1582858 bytes, 3092 media
+blocks.  &lt;/p&gt;
+&lt;p&gt;x python-2.6.8/libpng-1.6.16-1.aix5.1.ppc.rpm, 1290852 bytes, 2522 media
+blocks.  &lt;/p&gt;
+&lt;p&gt;x python-2.6.8/libstdc++-4.8.3-1.aix7.1.ppc.rpm, 10119514 bytes, 19765
+media blocks.  &lt;/p&gt;
+&lt;p&gt;x python-2.6.8/openssl-1.0.1l-1.aix5.1.ppc.rpm, 18204359 bytes, 35556
+media blocks.  &lt;/p&gt;
+&lt;p&gt;x python-2.6.8/python-2.6.8-2.6.8-1.aix6.1.ppc.rpm, 14121725 bytes,
+27582 media blocks.  &lt;/p&gt;
+&lt;p&gt;x python-2.6.8/python-2.6.8-libs-2.6.8-1.aix6.1.ppc.rpm, 1786610 bytes,
+3490 media blocks.  &lt;/p&gt;
+&lt;p&gt;x python-2.6.8/readline-6.3-5.aix5.1.ppc.rpm, 840022 bytes, 1641 media
+blocks.  &lt;/p&gt;
+&lt;p&gt;x python-2.6.8/sqlite-3.8.7.1-1.aix5.1.ppc.rpm, 734476 bytes, 1435 media
+blocks.  &lt;/p&gt;
+&lt;p&gt;x python-2.6.8/tcl-8.6.3-1.aix5.1.ppc.rpm, 3169586 bytes, 6191 media
+blocks.  &lt;/p&gt;
+&lt;p&gt;x python-2.6.8/tk-8.6.3-1.aix5.1.ppc.rpm, 2549937 bytes, 4981 media
+blocks.&lt;/p&gt;
+&lt;p&gt;Install the packges&lt;/p&gt;
+&lt;p&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;# cd
+python-2.6.8&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;# rpm -Uvh
+*&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;bash                       
+##################################################  &lt;/p&gt;
+&lt;p&gt;bzip2                      
+##################################################  &lt;/p&gt;
+&lt;p&gt;db4                        
+##################################################  &lt;/p&gt;
+&lt;p&gt;expat                      
+##################################################  &lt;/p&gt;
+&lt;p&gt;fontconfig                 
+##################################################  &lt;/p&gt;
+&lt;p&gt;freetype2                  
+##################################################  &lt;/p&gt;
+&lt;p&gt;gdbm                       
+##################################################  &lt;/p&gt;
+&lt;p&gt;gettext                    
+##################################################  &lt;/p&gt;
+&lt;p&gt;gmp                        
+##################################################  &lt;/p&gt;
+&lt;p&gt;warning: /opt/freeware/info/dir created as
+/opt/freeware/info/dir.rpmnew  &lt;/p&gt;
+&lt;p&gt;info                       
+##################################################  &lt;/p&gt;
+&lt;p&gt;Please check that /etc/info-dir does exist.  &lt;/p&gt;
+&lt;p&gt;You might have to rename it from /etc/info-dir.rpmsave to
+/etc/info-dir.  &lt;/p&gt;
+&lt;p&gt;libXft                     
+##################################################  &lt;/p&gt;
+&lt;p&gt;libXrender                 
+##################################################  &lt;/p&gt;
+&lt;p&gt;libdbi                     
+##################################################  &lt;/p&gt;
+&lt;p&gt;libffi                     
+##################################################  &lt;/p&gt;
+&lt;p&gt;libgcc                     
+##################################################  &lt;/p&gt;
+&lt;p&gt;libiconv                   
+##################################################  &lt;/p&gt;
+&lt;p&gt;libpng                     
+##################################################  &lt;/p&gt;
+&lt;p&gt;cannot remove /usr/lib - directory not empty  &lt;/p&gt;
+&lt;p&gt;cannot remove /usr/bin - directory not empty  &lt;/p&gt;
+&lt;p&gt;libstdc++                  
+##################################################  &lt;/p&gt;
+&lt;p&gt;warning: /var/ssl/openssl.cnf saved as /var/ssl/openssl.cnf.rpmorig  &lt;/p&gt;
+&lt;p&gt;openssl                    
+##################################################  &lt;/p&gt;
+&lt;p&gt;python                     
+##################################################  &lt;/p&gt;
+&lt;p&gt;python-libs                
+##################################################  &lt;/p&gt;
+&lt;p&gt;readline                   
+##################################################  &lt;/p&gt;
+&lt;p&gt;sqlite                     
+##################################################  &lt;/p&gt;
+&lt;p&gt;tcl                        
+##################################################  &lt;/p&gt;
+&lt;p&gt;tk                         
+##################################################&lt;/p&gt;
+&lt;p&gt;Test  the python&lt;/p&gt;
+&lt;p&gt;# python  &lt;/p&gt;
+&lt;p&gt;Python 2.6.8 (unknown, Aug  3 2013, 00:54:53) [C] on aix6  &lt;/p&gt;
+&lt;p&gt;Type "help", "copyright", "credits" or "license" for more information.  &lt;/p&gt;
+&lt;p&gt;&gt;&gt;&gt; import platform  &lt;/p&gt;
+&lt;p&gt;&gt;&gt;&gt; print platform.system()  &lt;/p&gt;
+&lt;p&gt;AIX  &lt;/p&gt;
+&lt;p&gt;&gt;&gt;&gt; quit()&lt;/p&gt;</content><category term="comments"></category><category term="recommend"></category><category term="aix5l"></category><category term="python"></category><category term="5.3"></category><category term="6.1"></category><category term="python2"></category><category term="aix"></category><category term="poweradm"></category><category term="aix5"></category><category term="7.1"></category><category term="2.6.8"></category></entry><entry><title>Upgrading HMC to V8R8.2.0. Using network update</title><link href="http://kairo.eti.br/upgrading-hmc-to-v8r820-using-network-update.html" rel="alternate"></link><published>2015-03-06T11:43:00+01:00</published><updated>2015-03-06T11:43:00+01:00</updated><author><name>Kairo Araujo</name></author><id>tag:kairo.eti.br,2015-03-06:/upgrading-hmc-to-v8r820-using-network-update.html</id><summary type="html">&lt;p&gt;In my case I'm using HMC version V7R7.9.0.1 to go to V8R8.2.0, if you
+not using that version see the post &lt;a href="https://www.ibm.com/developerworks/community/blogs/kairoaraujo/entry/updating_hmc_to_v7r7_9_0_1_using_network_update?lang=pt_br"&gt;Upgrading HMC to V7R7.9.0.1 Using
+network
+update&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;[Sorry my bad english]&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;0. Check the firmware x HMC version
+matrix.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www-933.ibm.com/support/fixcentral/main/transform?xml=http://download.boulder.ibm.com/ibmdl/pub/software/server/firmware/sfw_fixSupportedCombos.xml&amp;amp;title=Supported+Combinations"&gt;http://www-933 …&lt;/a&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;In my case I'm using HMC version V7R7.9.0.1 to go to V8R8.2.0, if you
+not using that version see the post &lt;a href="https://www.ibm.com/developerworks/community/blogs/kairoaraujo/entry/updating_hmc_to_v7r7_9_0_1_using_network_update?lang=pt_br"&gt;Upgrading HMC to V7R7.9.0.1 Using
+network
+update&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;[Sorry my bad english]&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;0. Check the firmware x HMC version
+matrix.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www-933.ibm.com/support/fixcentral/main/transform?xml=http://download.boulder.ibm.com/ibmdl/pub/software/server/firmware/sfw_fixSupportedCombos.xml&amp;amp;title=Supported+Combinations"&gt;http://www-933.ibm.com/support/fixcentral/main/transform?xml=http://download.boulder.ibm.com/ibmdl/pub/software/server/firmware/sfw_fixSupportedCombos.xml&amp;amp;title=Supported+Combinations&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1. Download the HMC packages&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;List of files&lt;/p&gt;
+&lt;p&gt;-rw-r--r--    1 17037    209       882348032 Nov 18 12:05 base.img  &lt;/p&gt;
+&lt;p&gt;-rw-r--r--    1 17037    209      2382655488 Nov 18 12:54 disk1.img  &lt;/p&gt;
+&lt;p&gt;-rw-r--r--    1 17037    209              55 Nov 18 12:52
+hmcnetworkfiles.sum  &lt;/p&gt;
+&lt;p&gt;-rw-r--r--    1 17037    209         4035696 Nov 18 12:52 img2a  &lt;/p&gt;
+&lt;p&gt;-rw-r--r--    1 17037    209        38434428 Nov 18 12:52
+img3a&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www14.software.ibm.com/webapp/set2/sas/f/netinstall/v8820network.html"&gt;http://www14.software.ibm.com/webapp/set2/sas/f/netinstall/v8820network.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;or, directly using the FTP&lt;/p&gt;
+&lt;p&gt;# ftp  &lt;/p&gt;
+&lt;p&gt;ftp&gt; open ftp.software.ibm.com  &lt;/p&gt;
+&lt;p&gt;Name: anonymous  &lt;/p&gt;
+&lt;p&gt;Password: ftp  &lt;/p&gt;
+&lt;p&gt;ftp&gt; cd software/server/hmc/network/v8820  &lt;/p&gt;
+&lt;p&gt;ftp&gt; prompt  &lt;/p&gt;
+&lt;p&gt;ftp&gt; bin    &lt;/p&gt;
+&lt;p&gt;ftp&gt; mget *   &lt;/p&gt;
+&lt;p&gt;ftp&gt; bye  &lt;/p&gt;
+&lt;p&gt;Save the files in local FTP local&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3. Login at HMC using SSH and run the commands (hscroot)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;# saveupgdata
+-r disk&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;# getupgfiles
+-h ftpserver -u root --passwd xxxxx -d /tmp/v8820&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;# chhmc -c
+altdiskboot -s enable --mode upgrade&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;# hmcshutdown
+-r -t now&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;The upgrade time
+for my HMC was 30 minutes.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Sources&lt;/strong&gt;:&lt;/p&gt;
+&lt;p&gt;- &lt;a href="http://www-01.ibm.com/support/docview.wss?uid=nas8N1020108"&gt;http://www-01.ibm.com/support/docview.wss?uid=nas8N1020108&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;-
+&lt;a href="http://www14.software.ibm.com/webapp/set2/sas/f/netinstall/v8820network.html"&gt;http://www14.software.ibm.com/webapp/set2/sas/f/netinstall/v8820network.html&lt;/a&gt;&lt;/p&gt;</content><category term="comments"></category><category term="recommend"></category><category term="power"></category><category term="upgrade"></category><category term="hmc"></category><category term="8"></category><category term="upgrading"></category><category term="updating"></category><category term="update"></category><category term="ibm"></category></entry><entry><title>Upgrading HMC to V7R7.9.0.1 Using network update</title><link href="http://kairo.eti.br/upgrading-hmc-to-v7r7901-using-network-update.html" rel="alternate"></link><published>2015-03-05T18:01:00+01:00</published><updated>2015-03-05T18:01:00+01:00</updated><author><name>Kairo Araujo</name></author><id>tag:kairo.eti.br,2015-03-05:/upgrading-hmc-to-v7r7901-using-network-update.html</id><summary type="html">&lt;p&gt;[sorry my bad english]&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;0. Check the firmware x HMC version
+matrix&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www-933.ibm.com/support/fixcentral/main/transform?xml=http://download.boulder.ibm.com/ibmdl/pub/software/server/firmware/sfw_fixSupportedCombos.xml&amp;amp;title=Supported+Combinations"&gt;http://www-933.ibm.com/support/fixcentral/main/transform?xml=http://download.boulder.ibm.com/ibmdl/pub/software/server/firmware/sfw_fixSupportedCombos.xml&amp;amp;title=Supported+Combinations&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Don't update to HMC 7.7.90 if you have these firmwares&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;01Ax770 levels …&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;[sorry my bad english]&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;0. Check the firmware x HMC version
+matrix&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www-933.ibm.com/support/fixcentral/main/transform?xml=http://download.boulder.ibm.com/ibmdl/pub/software/server/firmware/sfw_fixSupportedCombos.xml&amp;amp;title=Supported+Combinations"&gt;http://www-933.ibm.com/support/fixcentral/main/transform?xml=http://download.boulder.ibm.com/ibmdl/pub/software/server/firmware/sfw_fixSupportedCombos.xml&amp;amp;title=Supported+Combinations&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Don't update to HMC 7.7.90 if you have these firmwares&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;01Ax770 levels 032 (GA) to 064&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;01Ax773 levels 033 to 051&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;01Ax780 levels 040 (GA) to 050&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Check it for more details:
+&lt;a href="http://www-01.ibm.com/support/docview.wss?uid=nas8N1020088"&gt;http://www-01.ibm.com/support/docview.wss?uid=nas8N1020088&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1. Download the V7R7.9.0&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The files:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;-rw-r--r--    1 17037    209         2730176 Apr 25 2014  bzImage  &lt;/p&gt;
+&lt;p&gt;-rw-r--r--    1 17037    209       817065984 Apr 25 2014  disk1.img  &lt;/p&gt;
+&lt;p&gt;-rw-r--r--    1 17037    209      1456427008 Apr 25 2014  disk2.img  &lt;/p&gt;
+&lt;p&gt;-rw-r--r--    1 17037    209       873922560 Apr 25 2014  disk3.img  &lt;/p&gt;
+&lt;p&gt;-rw-r--r--    1 17037    209              78 Apr 25 2014 
+hmcnetworkfiles.sum  &lt;/p&gt;
+&lt;p&gt;-rw-r--r--    1 17037    209        34185788 Apr 25 2014  initrd.gz&lt;/p&gt;
+&lt;p&gt;# ftp  &lt;/p&gt;
+&lt;p&gt;ftp&gt; open ftp.software.ibm.com  &lt;/p&gt;
+&lt;p&gt;Name: anonymous  &lt;/p&gt;
+&lt;p&gt;Password: ftp  &lt;/p&gt;
+&lt;p&gt;ftp&gt; cd software/server/hmc/network/v7790  &lt;/p&gt;
+&lt;p&gt;ftp&gt; prompt  &lt;/p&gt;
+&lt;p&gt;ftp&gt; bin    &lt;/p&gt;
+&lt;p&gt;ftp&gt; mget *   &lt;/p&gt;
+&lt;p&gt;ftp&gt; bye  &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;2. On IBM Fix Central you need get files to upgrade to
+V7R7.9.0.1&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class="dummyQOClass" style="WORD-BREAK:BREAK-ALL"&gt;&lt;a href="http://www.ibm.com/support/fixcentral/main/quickorder?parent=powersysmgmntcouncil&amp;amp;product=ibm/hmc/9100HMC&amp;amp;release=V7R7.9.0&amp;amp;platform=All&amp;amp;function=all&amp;amp;source=fc"&gt;http://www.ibm.com/support/fixcentral/main/quickorder?parent=powersysmgmntcouncil&amp;amp;product=ibm/hmc/9100HMC&amp;amp;release=V7R7.9.0&amp;amp;platform=All&amp;amp;function=all&amp;amp;source=fc&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The required files is *.iso:&lt;/p&gt;
+&lt;p&gt;HMC_Update_V7R790_SP1.iso  &lt;/p&gt;
+&lt;p&gt;MH01406.iso  &lt;/p&gt;
+&lt;p&gt;MH01435.iso  &lt;/p&gt;
+&lt;p&gt;MH01463.iso  &lt;/p&gt;
+&lt;p&gt;MH01467.iso  &lt;/p&gt;
+&lt;p&gt;MH01473.iso  &lt;/p&gt;
+&lt;p&gt;MH01484.iso  &lt;/p&gt;
+&lt;p&gt;MH01490.iso&lt;/p&gt;
+&lt;p&gt;Tip: Put this files in local FTP  too.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3. Upgrading to v7790&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Put all files downloaded on item 1 in a local FTP Server&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;4. Login at HMC using SSH and run the commands (hscroot)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;# saveupgdata
+-r disk&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;# getupgfiles
+-h ftpserver -u root --passwd xxxxx -d /tmp/v7790&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;# chhmc -c
+altdiskboot -s enable --mode upgrade&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;# hmcshutdown
+-r -t now&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;The upgrade
+time for my HMC was 30 minutes.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;5. Updating to v7r7.9.0.1&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Log on HMC Web interface&lt;/p&gt;
+&lt;p&gt;a. Updates (left menu)&lt;/p&gt;
+&lt;p&gt;b. HMC Update&lt;/p&gt;
+&lt;p&gt;b.1. Next&lt;/p&gt;
+&lt;p&gt;b.2. Remote Server&lt;/p&gt;
+&lt;p&gt;b.3. FTP , Remote Server Address, User ID, Password and Dir files&lt;/p&gt;
+&lt;p&gt;b.4. Select File&lt;/p&gt;
+&lt;p&gt;At this point, apply MHXXXX.iso files (one by one) using number
+sequence. If you receive the message requiring the version V7R79.0.1 is
+the momment to apply the HMC_Update_V7R790_SP1.iso . I don't know if
+this is correct method, but works fine to me.&lt;/p&gt;
+&lt;p&gt;All the .iso requires HMC reboot.&lt;/p&gt;
+&lt;p&gt;When you apply the  HMC_Update_V7R790_SP1.iso you will receive that
+screen (sorry, my HMC in Portuguese)&lt;/p&gt;
+&lt;p&gt;The reboot for Update is ~30
+minutes&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://www.ibm.com/developerworks/community/blogs/kairoaraujo/resource/BLOGS_UPLOADED_IMAGES/ScreenShot2015-03-05at10.32.09.png"&gt;https://www.ibm.com/developerworks/community/blogs/kairoaraujo/resource/BLOGS_UPLOADED_IMAGES/ScreenShot2015-03-05at10.32.09.png&lt;/a&gt;&lt;/p&gt;</content><category term="comments"></category><category term="recommend"></category><category term="7"></category><category term="update"></category><category term="hmc"></category><category term="v7r7902"></category><category term="upgrade"></category><category term="power"></category></entry><entry><title>PowerAdm v0.8-beta released. Now works with VMware vCenter Orchestrator</title><link href="http://kairo.eti.br/poweradm-v08-beta-released-now-works-with-vmware-vcenter-orchestrator.html" rel="alternate"></link><published>2015-01-18T22:51:00+01:00</published><updated>2015-01-18T22:51:00+01:00</updated><author><name>Kairo Araujo</name></author><id>tag:kairo.eti.br,2015-01-18:/poweradm-v08-beta-released-now-works-with-vmware-vcenter-orchestrator.html</id><summary type="html">&lt;p&gt;&lt;span style="font-size:13px"&gt;Hello everyone.&lt;/span&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;span style="font-size:13px"&gt;Few days ago I came here to post about my
+personal project ‘PowerAdm’ a Python tool for IBM Power / PowerVM
+administration.&lt;/span&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;span style="font-size:13px"&gt;Today I am releasing the version v0.8-beta.
+This new release improves a few things and also add an interface
+(workflow) for VMware vCenter Orchestrator (VCO).&lt;/span&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;span style="font-size:13px"&gt;With …&lt;/span&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;span style="font-size:13px"&gt;Hello everyone.&lt;/span&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;span style="font-size:13px"&gt;Few days ago I came here to post about my
+personal project ‘PowerAdm’ a Python tool for IBM Power / PowerVM
+administration.&lt;/span&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;span style="font-size:13px"&gt;Today I am releasing the version v0.8-beta.
+This new release improves a few things and also add an interface
+(workflow) for VMware vCenter Orchestrator (VCO).&lt;/span&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;span style="font-size:13px"&gt;With this interface now it is possible to
+request and create LPAR using vCenter Orchestrator.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The Workflow has tree steps:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;LPAR request&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;LPAR config (approval)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Confirm Config (approval)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I am also working on NIM Deploy module to vCO. Coming soon.&lt;/p&gt;
+&lt;p&gt;&lt;span style="font-size:13px"&gt;For more information visit:&lt;/span&gt;  &lt;/p&gt;
+&lt;p&gt;PowerAdm: &lt;a href="http://poweradm.org"&gt;http://poweradm.org&lt;/a&gt;  &lt;/p&gt;
+&lt;p&gt;vCO workflow for PowerAdm:
+&lt;a href="https://github.com/kairoaraujo/PowerAdm/wiki/vCO-for-PowerAdm"&gt;https://github.com/kairoaraujo/PowerAdm/wiki/vCO-for-PowerAdm&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://www.ibm.com/developerworks/community/blogs/kairoaraujo/resource/BLOGS_UPLOADED_IMAGES/vCO-config-approval.png"&gt;https://www.ibm.com/developerworks/community/blogs/kairoaraujo/resource/BLOGS_UPLOADED_IMAGES/vCO-config-approval.png&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://www.ibm.com/developerworks/community/blogs/kairoaraujo/resource/BLOGS_UPLOADED_IMAGES/poweradm-v08-beta.png"&gt;https://www.ibm.com/developerworks/community/blogs/kairoaraujo/resource/BLOGS_UPLOADED_IMAGES/poweradm-v08-beta.png&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Regards,&lt;/p&gt;</content><category term="comments"></category><category term="recommend"></category><category term="vio"></category><category term="vco"></category><category term="poweradm"></category><category term="vios"></category><category term="power"></category><category term="vmware"></category><category term="ochestrator"></category><category term="vcenter"></category><category term="powervm"></category><category term="aix"></category><category term="deploy"></category></entry><entry><title>install -C installp: An error occurred during bosboot verification processing.</title><link href="http://kairo.eti.br/install-c-installp-an-error-occurred-during-bosboot-verification-processing.html" rel="alternate"></link><published>2015-01-07T23:26:00+01:00</published><updated>2015-01-07T23:26:00+01:00</updated><author><name>Kairo Araujo</name></author><id>tag:kairo.eti.br,2015-01-07:/install-c-installp-an-error-occurred-during-bosboot-verification-processing.html</id><summary type="html">&lt;p&gt;&lt;span class="hps"&gt;This can occur when&lt;/span&gt;
+&lt;span class="hps"&gt;installing a&lt;/span&gt; &lt;span class="hps"&gt;fileset&lt;/span&gt;
+&lt;span class="hps"&gt;is interrupted&lt;/span&gt;&lt;span&gt;.&lt;/span&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;span class="hps"&gt;The package&lt;/span&gt; stay&lt;span class="hps"&gt; in&lt;/span&gt;
+APPLYING &lt;span class="hps"&gt;or&lt;/span&gt; COMMITING
+&lt;span class="hps"&gt;state.&lt;/span&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sysmgtlib.libraries.apps       7.1.3.0  &lt;/p&gt;
+&lt;p&gt;wio.fcp                        7.1.3.0  &lt;/p&gt;
+&lt;p&gt;wio.fcp                        7.1.3.15  &lt;/p&gt;
+&lt;p&gt;xlC.rte                        12.1.0.1  &lt;/p&gt;
+&lt;p&gt;installp: There are incomplete installation operations  &lt;/p&gt;
+&lt;p&gt;on the …&lt;/p&gt;&lt;/blockquote&gt;</summary><content type="html">&lt;p&gt;&lt;span class="hps"&gt;This can occur when&lt;/span&gt;
+&lt;span class="hps"&gt;installing a&lt;/span&gt; &lt;span class="hps"&gt;fileset&lt;/span&gt;
+&lt;span class="hps"&gt;is interrupted&lt;/span&gt;&lt;span&gt;.&lt;/span&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;span class="hps"&gt;The package&lt;/span&gt; stay&lt;span class="hps"&gt; in&lt;/span&gt;
+APPLYING &lt;span class="hps"&gt;or&lt;/span&gt; COMMITING
+&lt;span class="hps"&gt;state.&lt;/span&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;sysmgtlib.libraries.apps       7.1.3.0  &lt;/p&gt;
+&lt;p&gt;wio.fcp                        7.1.3.0  &lt;/p&gt;
+&lt;p&gt;wio.fcp                        7.1.3.15  &lt;/p&gt;
+&lt;p&gt;xlC.rte                        12.1.0.1  &lt;/p&gt;
+&lt;p&gt;installp: There are incomplete installation operations  &lt;/p&gt;
+&lt;p&gt;on the following filesets.  Run installp -C to clean up  &lt;/p&gt;
+&lt;p&gt;the previously failed installations before continuing.  &lt;/p&gt;
+&lt;p&gt;devices.common.IBM.ib.rte&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Problem in cleaning up a failed installation fileset.&lt;/p&gt;
+&lt;p&gt;myserver:[root]/MIDIAS/7100-03-04/TL03SP04&gt; installp -C  &lt;/p&gt;
+&lt;p&gt;installp:  bosboot verification starting...  &lt;/p&gt;
+&lt;p&gt;installp:  An error occurred during bosboot verification processing.&lt;/p&gt;
+&lt;p&gt;Workaroung:&lt;/p&gt;
+&lt;p&gt;Edit the /usr/sbin/bosboot and put after
+#!/usr/bin/ksh&lt;/p&gt;
+&lt;p&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;#!/usr/bin/ksh&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;exit 0&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Run installp -C again&lt;/p&gt;
+&lt;p&gt;myserver:[root]/MIDIAS/7100-03-04/TL03SP04&gt; installp -C  &lt;/p&gt;
+&lt;p&gt;installp:  bosboot verification starting...  &lt;/p&gt;
+&lt;p&gt;installp:  bosboot verification completed.  &lt;/p&gt;
+&lt;p&gt;installp:  bosboot process starting...  &lt;/p&gt;
+&lt;p&gt;0503-292 This update will not fully take effect until after a  &lt;/p&gt;
+&lt;p&gt;system reboot.  &lt;/p&gt;
+&lt;p&gt;* * *  A T T E N T I O N  * * *  &lt;/p&gt;
+&lt;p&gt;System boot image has been updated. You should reboot the  &lt;/p&gt;
+&lt;p&gt;system as soon as possible to properly integrate the changes  &lt;/p&gt;
+&lt;p&gt;and to avoid disruption of current functionality.  &lt;/p&gt;
+&lt;p&gt;installp:  bosboot process completed.  &lt;/p&gt;
+&lt;p&gt;installp: Cleaning up software for:  &lt;/p&gt;
+&lt;p&gt;devices.common.IBM.ib.rte 7.1.3.30  &lt;/p&gt;
+&lt;p&gt;Installation Summary  &lt;/p&gt;
+&lt;p&gt;--------------------  &lt;/p&gt;
+&lt;p&gt;Name                        Level           Part        Event      
+Result  &lt;/p&gt;
+&lt;p&gt;-------------------------------------------------------------------------------  &lt;/p&gt;
+&lt;p&gt;devices.common.IBM.ib.rte   7.1.3.30        USR         CLEANUP    
+SUCCESS&lt;/p&gt;
+&lt;p&gt;After run, change back the /usr/sbin/bosboot removing exit 0 after
+#!/usr/bin/ksh&lt;/p&gt;
+&lt;p&gt;source:
+&lt;a href="https://www.ibm.com/developerworks/community/forums/html/topic?id=77777777-0000-0000-0000-000014223705"&gt;https://www.ibm.com/developerworks/community/forums/html/topic?id=77777777-0000-0000-0000-000014223705&lt;/a&gt;&lt;/p&gt;</content><category term="comments"></category><category term="recommend"></category><category term="installp"></category><category term="processing"></category><category term="bosboot"></category><category term="commiting"></category><category term="applying"></category><category term="verification"></category><category term="during"></category><category term="-c"></category><category term="/usr/sbin/bosboot"></category><category term="error"></category><category term="occurred"></category><category term="aix"></category></entry><entry><title>PowerAdm - Python Tool to Power</title><link href="http://kairo.eti.br/poweradm-python-tool-to-power.html" rel="alternate"></link><published>2014-12-15T12:35:00+01:00</published><updated>2014-12-15T12:35:00+01:00</updated><author><name>Kairo Araujo</name></author><id>tag:kairo.eti.br,2014-12-15:/poweradm-python-tool-to-power.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;&lt;span class="hps"&gt;Hello everybody&lt;/span&gt;&lt;span&gt;!&lt;/span&gt;&lt;/strong&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;span class="hps atn"&gt;(&lt;/span&gt;&lt;span&gt;First,&lt;/span&gt;
+&lt;span class="hps"&gt;sorry&lt;/span&gt; &lt;span class="hps"&gt;for my&lt;/span&gt;
+&lt;span class="hps"&gt;bad&lt;/span&gt;
+&lt;span class="hps"&gt;english&lt;/span&gt;&lt;span&gt;)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class="hps"&gt;We do not appear&lt;/span&gt; &lt;span class="hps"&gt;in my
+blog&lt;/span&gt; &lt;span class="hps"&gt;a long time&lt;/span&gt;&lt;span&gt;.&lt;/span&gt;  &lt;/p&gt;
+&lt;p&gt;Over the last few weeks I &lt;span class="hps"&gt;have&lt;/span&gt;
+&lt;span class="hps"&gt;played&lt;/span&gt; &lt;span class="hps"&gt;a little&lt;/span&gt;
+&lt;span class="hps"&gt;with&lt;/span&gt; &lt;span class="hps"&gt;Python&lt;/span&gt;
+&lt;span class="hps"&gt;and&lt;/span&gt; &lt;span class="hps"&gt;Power&lt;/span&gt;
+&lt;span class="hps"&gt;to facilitate&lt;/span&gt; &lt;span class="hps"&gt;my work with my
+colleagues.&lt;/span&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;span class="hps"&gt;Some nights&lt;/span&gt; &lt;span class="hps"&gt;I've been&lt;/span&gt;
+&lt;span class="hps"&gt;working on&lt;/span&gt; &lt;span class="hps"&gt;what I call&lt;/span&gt;
+&lt;span class="hps atn"&gt;'&lt;/span&gt;&lt;span&gt;PowerAdm&lt;/span&gt;&lt;span&gt;'&lt;/span&gt;&lt;span&gt;.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;If …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;&lt;span class="hps"&gt;Hello everybody&lt;/span&gt;&lt;span&gt;!&lt;/span&gt;&lt;/strong&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;span class="hps atn"&gt;(&lt;/span&gt;&lt;span&gt;First,&lt;/span&gt;
+&lt;span class="hps"&gt;sorry&lt;/span&gt; &lt;span class="hps"&gt;for my&lt;/span&gt;
+&lt;span class="hps"&gt;bad&lt;/span&gt;
+&lt;span class="hps"&gt;english&lt;/span&gt;&lt;span&gt;)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class="hps"&gt;We do not appear&lt;/span&gt; &lt;span class="hps"&gt;in my
+blog&lt;/span&gt; &lt;span class="hps"&gt;a long time&lt;/span&gt;&lt;span&gt;.&lt;/span&gt;  &lt;/p&gt;
+&lt;p&gt;Over the last few weeks I &lt;span class="hps"&gt;have&lt;/span&gt;
+&lt;span class="hps"&gt;played&lt;/span&gt; &lt;span class="hps"&gt;a little&lt;/span&gt;
+&lt;span class="hps"&gt;with&lt;/span&gt; &lt;span class="hps"&gt;Python&lt;/span&gt;
+&lt;span class="hps"&gt;and&lt;/span&gt; &lt;span class="hps"&gt;Power&lt;/span&gt;
+&lt;span class="hps"&gt;to facilitate&lt;/span&gt; &lt;span class="hps"&gt;my work with my
+colleagues.&lt;/span&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;span class="hps"&gt;Some nights&lt;/span&gt; &lt;span class="hps"&gt;I've been&lt;/span&gt;
+&lt;span class="hps"&gt;working on&lt;/span&gt; &lt;span class="hps"&gt;what I call&lt;/span&gt;
+&lt;span class="hps atn"&gt;'&lt;/span&gt;&lt;span&gt;PowerAdm&lt;/span&gt;&lt;span&gt;'&lt;/span&gt;&lt;span&gt;.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;If someone wants to contribute will be very welcome.  &lt;/p&gt;
+&lt;p&gt;&lt;span class="hps"&gt;Page:&lt;/span&gt;
+&lt;span class="hps"&gt;&lt;a href="https://github.com/kairoaraujo/PowerAdm/wiki"&gt;https://github.com/kairoaraujo/PowerAdm/wiki&lt;/a&gt;&lt;/span&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;span class="hps"&gt;Screenshots:&lt;/span&gt;
+&lt;span class="hps"&gt;&lt;a href="https://github.com/kairoaraujo/PowerAdm/wiki/screenshots"&gt;https://github.com/kairoaraujo/PowerAdm/wiki/screenshots&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;code: &lt;a href="https://github.com/kairoaraujo/PowerAdm"&gt;https://github.com/kairoaraujo/PowerAdm&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Power Adm is a free (BSD License) and simple tool developed in Python to
+easily and quickly create an LPAR with their standards and also it will
+be able to deploy AIX Operating System in the
+future.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://www.ibm.com/developerworks/community/blogs/kairoaraujo/resource/BLOGS_UPLOADED_IMAGES/poweradm.png"&gt;https://www.ibm.com/developerworks/community/blogs/kairoaraujo/resource/BLOGS_UPLOADED_IMAGES/poweradm.png&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://github.com/kairoaraujo/PowerAdm/wiki/screenshots"&gt;Screenshots&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://github.com/kairoaraujo/PowerAdm/wiki/requirements"&gt;Requirements&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://github.com/kairoaraujo/PowerAdm/blob/master/INSTALL"&gt;Install&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://github.com/kairoaraujo/PowerAdm/blob/master/LICENSE"&gt;License&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Principal features&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Create LPAR profile on HMC&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Supports multiple frames&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add virtual Ethernet (maximum 3 ethernets)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Select the Virtual Switch&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;VLAN&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add vSCSI on two VIOs&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Create Virtual SCSI server on VIO automatically&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add NPIV on two VIOs&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Make vfcmap automatically&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add disk on vSCSI (only if you have Shared Storage Pool)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Centralized config (poweradm/config.py)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Deploy SO from the NIM Server&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Organize your IDs!!!&lt;/strong&gt; Don't you know what is it? Keep
+    reading...&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In the future:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Web Interface&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Whoever manages an IBM Power environment through the Hardware Management
+Console (HMC) knows that it is an easy management interface to create
+LPARs but we can not say the same when talking about managing the
+devices IDs, such as virtual network, virtual fiber channel, virtual
+scsi, etc or managing information about the maximum and minimum memory
+and CPUs, physical devices, capped, uncapped, and so on.&lt;/p&gt;
+&lt;p&gt;The objective of this tool is to adopt a standard for IDs based on the
+LPAR ID and also to facilitate the LPAR creation with no need of expert
+knowledge, making it easier even for analysts without experienced skills
+in Power or operators.&lt;/p&gt;
+&lt;p&gt;Power Adm is a free and simple tool developed in Python to create LPARs
+easily, quickly and with their standards.&lt;/p&gt;
+&lt;p&gt;Something that we really consider the differential in this tool is the
+IDs organization.&lt;/p&gt;
+&lt;p&gt;IDs Structure / Organize your IDs&lt;/p&gt;
+&lt;p&gt;These IDs are well organized, assisting in the identification of
+devices, particularly in times of troubleshooting on environments with a
+large number of LPARs These IDs also help managing the Live Partition
+Mobility. Therefore, if well organized, will always remain the same
+independent of the box.&lt;/p&gt;
+&lt;p&gt;For this, the following rules were established:&lt;/p&gt;
+&lt;p&gt;Every LPAR has a maximum number of virtual devices 40 and the following
+structure: Virtual Network IDs will be between 10 and 19 Virtual SCSI
+IDs will be between 20 and 29 (default 21 primary VIO, 22 secondary VIO)
+Virtual Fibre Channel IDs will be between 30 and 39 (default 33 primary
+VIO, 34 secondary VIO)&lt;/p&gt;
+&lt;p&gt;"VIOS" settings have the following default: Maximum number of virtual
+devices in the Primary VIO is 3500 and in the Secondary VIO 4500
+allowing a total of 500 LPARs on this set of VIOS&lt;/p&gt;
+&lt;p&gt;Virtual SCSI IDs: the Primary VIO 1 + 'LPAR ID' and on Secondary VIO 2 +
+'LPAR ID' Fiber Channel IDs: the Primary VIO 3 + 'LPAR ID' and on
+Secondary VIO 4 + 'LPAR ID'&lt;/p&gt;
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;p&gt;VIOS1 - ID: 1 Maximum number of virtual IDs: 3500 VIOS2 - ID: 2 Maximum
+number of virtual IDs: 4500&lt;/p&gt;
+&lt;p&gt;LPAR AIX1 ID: 11 Virtual devices:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;10: Network adapter data&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;11: Network adapter backup&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;21: Virtual SCSI (Server: 111 VIOS1)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;22: Virtual SCSI (Server: 211 VIOS2)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;33: Fiber Channel (Server: 311 VIOS1)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;34: Fiber Channel (Server: 411 VIOS2)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;LPAR AIX1 ID: 12 Virtual devices:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;10: Network adapter data&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;11: Network adapter backup&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;21: Virtual SCSI (Server: 112 VIOS1)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;22: Virtual SCSI (Server: 212 VIOS2)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;33: Fiber Channel (Server: 312 VIOS1)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;34: Fiber Channel (Server: 412 VIOS2)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;VIOS1 ID: 1 Virtual devices:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;111 Virtual SCSI (Client ID: 11 / Virtual Client: 21)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;112 Virtual SCSI (Client ID: 12 / Virtual Client: 21)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;311 Fiber Channel (Client ID: 11 / Virtual Client: 33)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;312 Fiber Channel (Client ID: 12 / Virtual Client: 33)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;VIOS2 ID: 2 Virtual devices:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;211 Virtual SCSI (Client: 11 / Virtual Client: 22)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;212 Virtual SCSI (Client: 12 / Virtual Client: 22)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;411 Fiber Channel (Client: 11 / Virtual Client: 34)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;412 Fiber Channel (Client: 12 / Virtual Client: 34)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In this example we can easily identify which VIO serves the virtual
+devices, by only looking the partition ID.&lt;/p&gt;
+&lt;p&gt;Sample: Identifying AIX1 on
+    VIOs&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;padmin@VIOS1:[/home/padmin]lsmap -all | grep C111vhost6          U9119.FHB.8297FCR-V3-C111                    0x0000000bpadmin@VIOS1:[/home/padmin]lsmap -vadapter vhost6SVSA            Physloc                                      Client Partition ID--------------- -------------------------------------------- ------------------vhost6          U9119.FHB.8297FCR-V3-C111                    0x0000000bVTD                   NO VIRTUAL TARGET DEVICE FOUNDpadmin@VIOS1:[/home/padmin]lsmap -all -npiv | grep C311vfchost3      U9119.FHB.8297FCR-V3-C311              11 AIX1 AIXpadmin@VIOS1:[/home/padmin]lsmap -npiv -vadapter vfchost3Name          Physloc                            ClntID ClntName       ClntOS------------- ---------------------------------- ------ -------------- -------vfchost3      U9119.FHB.8297FCR-V3-C311              11 AIX1           AIXStatus:LOGGED_INFC name:fcs0                    FC loc code:U5873.001.992014K-P1-C6-T1Ports logged in:2Flags:a&amp;lt;LOGGED_IN,STRIP_MERGE&amp;gt;VFC client name:fcs0            VFC client DRC:U9119.FHB.8297FCR-V11-C33
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;How is it developed?&lt;/p&gt;
+&lt;p&gt;It's developed using Python and uses some Shell Scripting. I'm a
+sysadmin not a developer so sorry if it is not looking great. Your help
+is important and kindly accept to improve the tool.&lt;/p&gt;
+&lt;p&gt;If you don't have an HMC and a Power to run tests, don't worry. I've an
+some code with simulation on createlparconf.py, newid.py. Directory
+simulation is available upon request.&lt;/p&gt;
+&lt;p&gt;License&lt;/p&gt;
+&lt;p&gt;This software is BSD License. Please more details in LICENSE file.
+IMPORTANT: IBM, PowerVM (a.k.a. vios) are registered trademarks of IBM
+Corporation in the United States, other countries, or both.&lt;/p&gt;
+&lt;p&gt;Download&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/kairoaraujo/PowerAdm/releases"&gt;https://github.com/kairoaraujo/PowerAdm/releases&lt;/a&gt;&lt;/p&gt;</content><category term="comments"></category><category term="recommend"></category><category term="hmc"></category><category term="deploy"></category><category term="powervm"></category><category term="nim"></category><category term="vios"></category><category term="python"></category><category term="lpar"></category></entry><entry><title>Installing IBM lin_tape and lin_taped on Linux (Red Hat Enterprise Linux)</title><link href="http://kairo.eti.br/installing-ibm-lin_tape-and-lin_taped-on-linux-red-hat-enterprise-linux.html" rel="alternate"></link><published>2012-03-28T12:55:00+02:00</published><updated>2012-03-28T12:55:00+02:00</updated><author><name>Kairo Araujo</name></author><id>tag:kairo.eti.br,2012-03-28:/installing-ibm-lin_tape-and-lin_taped-on-linux-red-hat-enterprise-linux.html</id><summary type="html">&lt;p&gt;&lt;span class="Apple-style-span" style="color: rgb(68, 68, 68); font-family: &amp;#39;Lucida Grande&amp;#39;, Verdana, Arial, sans-serif; font-size: 13px; line-height: 19px; "&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Installing IBM lin_tape on Linux (Red Hat Enterprise
+Linux)&lt;/p&gt;
+&lt;p&gt;&lt;span class="Apple-style-span" style="color: rgb(68, 68, 68); font-family: &amp;#39;Lucida Grande&amp;#39;, Verdana, Arial, sans-serif; font-size: 13px; line-height: 19px; "&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Steps for install lin_tape and
+lin_taped:&lt;/p&gt;
+&lt;p&gt;&lt;span class="Apple-style-span" style="color: rgb(68, 68, 68); font-family: &amp;#39;Lucida Grande&amp;#39;, Verdana, Arial, sans-serif; font-size: 13px; line-height: 19px; "&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;1. Download the lin_tape source and lin_taped from IBM
+Site:&lt;/p&gt;
+&lt;p&gt;&lt;span class="Apple-style-span" style="color: rgb(68, 68, 68); font-family: &amp;#39;Lucida Grande&amp;#39;, Verdana, Arial, sans-serif; font-size: 13px; line-height: 19px; "&gt;&lt;a href="http://www-01.ibm.com/support/docview.wss?uid=swg21428656&amp;amp;myns=swgtiv&amp;amp;mynp=OCSSRQGY&amp;amp;mynp=OCSSVVS7&amp;amp;mynp=OCSSSQZW&amp;amp;mynp=OCSSSQWC&amp;amp;mynp=OCSSGSG7&amp;amp;mync=R"&gt;Look
+the new procedure to download
+here.&lt;/a&gt;&lt;/span&gt;&lt;span class="Apple-style-span" style="color: rgb(68, 68, 68); font-family: &amp;#39;Lucida Grande&amp;#39;, Verdana, Arial, sans-serif; font-size: 13px; line-height: 19px; "&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;div&gt;
+
+ 
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;in_tape-X.YY.Z-W.src.rpm.binlin_taped-X.YY.Z-rhel[V].arch.rpm.bin&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Samples for version 1.20.0-1 …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;span class="Apple-style-span" style="color: rgb(68, 68, 68); font-family: &amp;#39;Lucida Grande&amp;#39;, Verdana, Arial, sans-serif; font-size: 13px; line-height: 19px; "&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Installing IBM lin_tape on Linux (Red Hat Enterprise
+Linux)&lt;/p&gt;
+&lt;p&gt;&lt;span class="Apple-style-span" style="color: rgb(68, 68, 68); font-family: &amp;#39;Lucida Grande&amp;#39;, Verdana, Arial, sans-serif; font-size: 13px; line-height: 19px; "&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Steps for install lin_tape and
+lin_taped:&lt;/p&gt;
+&lt;p&gt;&lt;span class="Apple-style-span" style="color: rgb(68, 68, 68); font-family: &amp;#39;Lucida Grande&amp;#39;, Verdana, Arial, sans-serif; font-size: 13px; line-height: 19px; "&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;1. Download the lin_tape source and lin_taped from IBM
+Site:&lt;/p&gt;
+&lt;p&gt;&lt;span class="Apple-style-span" style="color: rgb(68, 68, 68); font-family: &amp;#39;Lucida Grande&amp;#39;, Verdana, Arial, sans-serif; font-size: 13px; line-height: 19px; "&gt;&lt;a href="http://www-01.ibm.com/support/docview.wss?uid=swg21428656&amp;amp;myns=swgtiv&amp;amp;mynp=OCSSRQGY&amp;amp;mynp=OCSSVVS7&amp;amp;mynp=OCSSSQZW&amp;amp;mynp=OCSSSQWC&amp;amp;mynp=OCSSGSG7&amp;amp;mync=R"&gt;Look
+the new procedure to download
+here.&lt;/a&gt;&lt;/span&gt;&lt;span class="Apple-style-span" style="color: rgb(68, 68, 68); font-family: &amp;#39;Lucida Grande&amp;#39;, Verdana, Arial, sans-serif; font-size: 13px; line-height: 19px; "&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;div&gt;
+
+ 
+
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;in_tape-X.YY.Z-W.src.rpm.binlin_taped-X.YY.Z-rhel[V].arch.rpm.bin&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Samples for version 1.20.0-1&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;lin_tape-1.20.0-1.src.rpm.binlin_taped-1.20.0-rhel4.x86_64.rpm.bin&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;2. Rebuild lin_tape rpm source&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# rpmbuild --rebuild lin_tape-X.YY.Z-W.src.rpm.bin&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span id="more-188"&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Sample for version 1.20.0-1&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# rpmbuild --rebuild lin_tape-1.20.0-1.src.rpm.binInstalling
+lin_tape-1.20.0-1.src.rpm.binExecuting(%prep): /bin/sh -e
+/var/tmp/rpm-tmp.52502+ umask 022+ cd /usr/src/redhat/BUILD+ LANG=C+
+export LANG+ unset DISPLAY+ cd /usr/src/redhat/BUILD+ rm -rf
+lin_tape-1.20.0+ /bin/gzip -dc
+/usr/src/redhat/SOURCES/lin_tape-1.20.0.tgz+ tar -xf -+ STATUS=0+ '[' 0
+-ne 0 ']'+ cd lin_tape-1.20.0++ /usr/bin/id -u+ '[' 0 = 0 ']'+
+/bin/chown -Rhf root .++ /usr/bin/id -u+ '[' 0 = 0 ']'+ /bin/chgrp -Rhf
+root .+ /bin/chmod -Rf a+rX,u+w,g-w,o-w .+ exit 0Executing(%build):
+/bin/sh -e /var/tmp/rpm-tmp.52502+ umask 022+ cd /usr/src/redhat/BUILD+
+cd lin_tape-1.20.0+ LANG=C+ export LANG+ unset DISPLAY++ echo
+x86_64-redhat-linux-gnu++ cut -f 1 -d -+ p=x86_64+ '[' x86_64 == i386
+']'+ '[' x86_64 == i586 ']'+ '[' x86_64 == i686 ']'+ '[' x86_64 == ppc64
+']'+ '[' x86_64 == powerpc ']'+ '[' x86_64 == s390 ']'+ '[' x86_64 ==
+s390x ']'+ '[' x86_64 == ia64 ']'+ '[' x86_64 == x86_64 ']'+ proc=AMD+
+cp -af lin_tape_359X_AMD.ReadMe lin_tape_359X.ReadMe+ cp -af
+lin_tape_Ultrium_AMD.ReadMe lin_tape_Ultrium.ReadMe+ make
+KERNEL=2.6.9-78.0.13.ELsmp PROC=x86_64 drivergrep: IBMtapeutil.c: No
+such file or directorymake -C /lib/modules/2.6.9-78.0.13.ELsmp/build
+SUBDIRS=/usr/src/redhat/BUILD/lin_tape-1.20.0
+PWD=/usr/src/redhat/BUILD/lin_tape-1.20.0 cleanmake[1]: Entering
+directory `/usr/src/kernels/2.6.9-78.0.13.EL-smp-x86_64'grep:
+IBMtapeutil.c: No such file or directorymake[1]: Leaving directory
+`/usr/src/kernels/2.6.9-78.0.13.EL-smp-x86_64'mkdir bldtmpmake
+KERNEL=2.6.9-78.0.13.ELsmp compileclean lin_tape.kogrep: IBMtapeutil.c:
+No such file or directorymake[1]: Entering directory
+`/usr/src/redhat/BUILD/lin_tape-1.20.0'export PWDmake -C
+/lib/modules/2.6.9-78.0.13.ELsmp/build
+SUBDIRS=/usr/src/redhat/BUILD/lin_tape-1.20.0
+PWD=/usr/src/redhat/BUILD/lin_tape-1.20.0 modulesmake[2]: Entering
+directory `/usr/src/kernels/2.6.9-78.0.13.EL-smp-x86_64'grep:
+IBMtapeutil.c: No such file or directoryCC [M]
+/usr/src/redhat/BUILD/lin_tape-1.20.0/lin_tape_scsi_config.oCC [M]
+/usr/src/redhat/BUILD/lin_tape-1.20.0/lin_tape_scsi_tape.oCC [M]
+/usr/src/redhat/BUILD/lin_tape-1.20.0/lin_tape_scsi_trace.oCC [M]
+/usr/src/redhat/BUILD/lin_tape-1.20.0/lin_tape_ioctl_tape.oCC [M]
+/usr/src/redhat/BUILD/lin_tape-1.20.0/lin_tape_ioctl_changer.oCC [M]
+/usr/src/redhat/BUILD/lin_tape-1.20.0/lin_tape_extra_ioctl.oLD [M]
+/usr/src/redhat/BUILD/lin_tape-1.20.0/lin_tape.oBuilding modules,
+stage 2.MODPOSTCC /usr/src/redhat/BUILD/lin_tape-1.20.0/lin_tape.mod.oLD
+[M] /usr/src/redhat/BUILD/lin_tape-1.20.0/lin_tape.komake[2]: Leaving
+directory `/usr/src/kernels/2.6.9-78.0.13.EL-smp-x86_64'make[1]: Leaving
+directory `/usr/src/redhat/BUILD/lin_tape-1.20.0'mv lin_tape.ko
+bldtmp/lin_tape-2.6.9-78.0.13.ELsmp.ko+ exit 0Executing(%install):
+/bin/sh -e /var/tmp/rpm-tmp.33921+ umask 022+ cd /usr/src/redhat/BUILD+
+cd lin_tape-1.20.0+ LANG=C+ export LANG+ unset DISPLAY+ rm -rf
+/var/tmp/lin_tape-1.20.0-1-root-root+ install -D -m 644
+bldtmp/lin_tape-2.6.9-78.0.13.ELsmp.ko
+/var/tmp/lin_tape-1.20.0-1-root-root/lib/modules/2.6.9-78.0.13.ELsmp/kernel/drivers/scsi/lin_tape.ko+
+install -D -m 644 98-lin_tape.rules
+/var/tmp/lin_tape-1.20.0-1-root-root/etc/udev/rules.d/98-lin_tape.rules+
+install -D -m 755 udev.get_lin_tape_id.sh
+/var/tmp/lin_tape-1.20.0-1-root-root/sbin/udev.get_lin_tape_id.sh++
+uname -m+ PROC=x86_64+ p=x86_64+ '[' x86_64 == i386 ']'+ '[' x86_64 ==
+i586 ']'+ '[' x86_64 == i686 ']'+ install -D -m 700 lin_tape
+/var/tmp/lin_tape-1.20.0-1-root-root/etc/init.d/lin_tape+ cd
+/var/tmp/lin_tape-1.20.0-1-root-root+ ln -sf /etc/init.d/lin_tape
+/usr/sbin/rclin_tape+ cd -/usr/src/redhat/BUILD/lin_tape-1.20.0+
+/usr/lib/rpm/redhat/brp-compress+ /usr/lib/rpm/redhat/brp-strip
+/usr/bin/strip+ /usr/lib/rpm/redhat/brp-strip-static-archive
+/usr/bin/strip+ /usr/lib/rpm/redhat/brp-strip-comment-note
+/usr/bin/strip /usr/bin/objdumpProcessing files:
+lin_tape-1.20.0-1Executing(%doc): /bin/sh -e /var/tmp/rpm-tmp.33921+
+umask 022+ cd /usr/src/redhat/BUILD+ cd lin_tape-1.20.0+
+DOCDIR=/var/tmp/lin_tape-1.20.0-1-root-root/usr/share/doc/lin_tape-1.20.0+
+export DOCDIR+ rm -rf
+/var/tmp/lin_tape-1.20.0-1-root-root/usr/share/doc/lin_tape-1.20.0+
+/bin/mkdir -p
+/var/tmp/lin_tape-1.20.0-1-root-root/usr/share/doc/lin_tape-1.20.0+ cp
+-pr lin_tape_Ultrium.ReadMe lin_tape_359X.ReadMe COPYING COPYING.LIB
+/var/tmp/lin_tape-1.20.0-1-root-root/usr/share/doc/lin_tape-1.20.0+
+exit 0Checking for unpackaged file(s): /usr/lib/rpm/check-files
+/var/tmp/lin_tape-1.20.0-1-root-rootwarning: Could not canonicalize
+hostname: hotsm001odeWrote:
+/usr/src/redhat/RPMS/x86_64/lin_tape-1.20.0-1.x86_64.rpmExecuting(%clean):
+/bin/sh -e /var/tmp/rpm-tmp.70795+ umask 022+ cd /usr/src/redhat/BUILD+
+cd lin_tape-1.20.0+ rm -rf /var/tmp/lin_tape-1.20.0-1-root-root+
+exit 0Executing(--clean): /bin/sh -e /var/tmp/rpm-tmp.70795+ umask 022+
+cd /usr/src/redhat/BUILD+ rm -rf lin_tape-1.20.0+ exit 0&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;3. Install the rpm wroted in /usr/src/redhat/RPMS/[your_arch]/&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# rpm -ivh /usr/src/redhat/RPMS/x86_64/lin_tape-1.20.0-1.x86_64.rpm&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;4. Install the rpm lin_taped&lt;br&gt;
+&lt;code&gt;lin_taped-X.YY.Z-rhel[V].arch.rpm.bin&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Sample for version 1.20.0-1&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# rpm -ivh lin_taped-1.20.0-rhel4.x86_64.rpm.bin&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;5. Start lin_tape service&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# /etc/init.d/lin_tape start&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;6. Check your tapes on /proc/scsci/IBM*&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# cat /proc/scsi/IBM*lin_tape version: 1.20.0lin_tape major
+number: 252Attached Tape Devices:Number model SN HBA FO
+Path0 03584L32 00000782XXXXXXXE qla2xxx NA1 03584L32 00000782XXXXXXXE
+qla2xxx NAlin_tape version: 1.20.0lin_tape major number: 252Attached
+Tape Devices:Number model SN HBA FO Path0 ULT3580-TD4 00078XXXXX qla2xxx
+NA1 ULT3580-TD4 00078XXXXX qla2xxx NA2 ULT3580-TD4 00078XXXXX qla2xxx
+NA3 ULT3580-TD4 00078XXXXX qla2xxx NA4 ULT3580-TD4 00078XXXXX qla2xxx
+NA5 ULT3580-TD4 00078XXXXX qla2xxx NA&lt;/code&gt;&lt;/p&gt;</content><category term="comments"></category><category term="recommend"></category><category term="red"></category><category term="linux"></category><category term="ibm"></category><category term="lin_taped"></category><category term="lin_tape"></category><category term="rhel"></category><category term="tape"></category><category term="hat"></category></entry><entry><title>AIX change device from diagnose state to defined</title><link href="http://kairo.eti.br/aix-change-device-from-diagnose-state-to-defined.html" rel="alternate"></link><published>2012-03-28T12:38:00+02:00</published><updated>2012-03-28T12:38:00+02:00</updated><author><name>Kairo</name></author><id>tag:kairo.eti.br,2012-03-28:/aix-change-device-from-diagnose-state-to-defined.html</id><summary type="html">&lt;p&gt;&lt;span class="Apple-style-span" style="font-family: &amp;#39;Lucida Grande&amp;#39;, Verdana, Arial, sans-serif; font-size: 13px; line-height: 19px; "&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Looking my adapters I found fcs0 in diagnose state&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# lsdev -Cc adapterent0    Available 21-08    IBM 10/100 Mbps Ethernet
+PCI Adapter (23100020)ent1    Available 1A-08    10/100 Mbps Ethernet
+PCI Adapter II (1410ff01)ent2    Available 14-08    Gigabit Ethernet-SX
+PCI Adapter (14100401)ent3    Available 37-08    10/100 Mbps Ethernet
+PCI Adapter …&lt;/code&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;span class="Apple-style-span" style="font-family: &amp;#39;Lucida Grande&amp;#39;, Verdana, Arial, sans-serif; font-size: 13px; line-height: 19px; "&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Looking my adapters I found fcs0 in diagnose state&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# lsdev -Cc adapterent0    Available 21-08    IBM 10/100 Mbps Ethernet
+PCI Adapter (23100020)ent1    Available 1A-08    10/100 Mbps Ethernet
+PCI Adapter II (1410ff01)ent2    Available 14-08    Gigabit Ethernet-SX
+PCI Adapter (14100401)ent3    Available 37-08    10/100 Mbps Ethernet
+PCI Adapter II (1410ff01)ent4    Available 27-08    Gigabit Ethernet-SX
+PCI Adapter (14100401)ent5    Available 3A-08    Gigabit Ethernet-SX PCI
+Adapter (14100401)fcs0    Diagnose  2A-08    FC Adapterfda0   
+Available 01-D1    Standard I/O Diskette Adaptermg20   
+Available 2D-08    GXT130P Graphics Adapterppa0    Available 01-R1   
+CHRP IEEE1284 (ECP) Parallel Port Adaptersa0     Available 01-S1   
+Standard I/O Serial Portsa1     Available 01-S2    Standard I/O Serial
+Portsa2     Available 01-S3    Standard I/O Serial Portsa3    
+Available 01-S4    Standard I/O Serial Portscsi0   Available 11-08   
+Wide/Ultra-2 SCSI I/O Controllerscsi1   Available 11-09    Wide/Ultra-2
+SCSI I/O Controllerscsi2   Available 17-08    Wide/Fast-20 SCSI I/O
+Controllersioka0  Available 01-K1-00 Keyboard Adaptersiokma0
+Available 01-K1    Keyboard/Mouse Adaptersioma0  Available 01-K1-01
+Mouse Adapter&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# lsdev -C | grep fsc0fcs0    Diagnose  2A-08    FC Adapter&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Run the ucfgdiag to change this state&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# /etc/methods/ucfgdiag -l fcs0&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Looking devices&lt;br&gt;
+&lt;code&gt;# lsdev -Cc adapterent0    Available 21-08    IBM 10/100 Mbps Ethernet
+PCI Adapter (23100020)ent1    Available 1A-08    10/100 Mbps Ethernet
+PCI Adapter II (1410ff01)ent2    Available 14-08    Gigabit Ethernet-SX
+PCI Adapter (14100401)ent3    Available 37-08    10/100 Mbps Ethernet
+PCI Adapter II (1410ff01)ent4    Available 27-08    Gigabit Ethernet-SX
+PCI Adapter (14100401)ent5    Available 3A-08    Gigabit Ethernet-SX PCI
+Adapter (14100401)fcs0    Defined   2A-08    FC Adapterfda0   
+Available 01-D1    Standard I/O Diskette Adaptermg20   
+Available 2D-08    GXT130P Graphics Adapterppa0    Available 01-R1   
+CHRP IEEE1284 (ECP) Parallel Port Adaptersa0     Available 01-S1   
+Standard I/O Serial Portsa1     Available 01-S2    Standard I/O Serial
+Portsa2     Available 01-S3    Standard I/O Serial Portsa3    
+Available 01-S4    Standard I/O Serial Portscsi0   Available 11-08   
+Wide/Ultra-2 SCSI I/O Controllerscsi1   Available 11-09    Wide/Ultra-2
+SCSI I/O Controllerscsi2   Available 17-08    Wide/Fast-20 SCSI I/O
+Controllersioka0  Available 01-K1-00 Keyboard Adaptersiokma0
+Available 01-K1    Keyboard/Mouse Adaptersioma0  Available 01-K1-01
+Mouse Adapter&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# lsdev -C | grep fsc0fcs0    Defined   2A-08    FC Adapter&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Now, I can remove device and your childs for new discover.&lt;/p&gt;
+&lt;p&gt;ATTENTION: This command remove all child and device&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# rmdev -dl fcs0 -Rfcnet0 deletedfscsi0 deletedfcs0 deleted&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;For new discover run cfgmgr&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# cfgmgr -v&lt;/code&gt;&lt;/p&gt;</content><category term="comments"></category><category term="recommend"></category><category term="to"></category><category term="device"></category><category term="diagnose"></category><category term="form"></category><category term="state"></category><category term="change"></category><category term="defined"></category><category term="aix"></category></entry></feed>

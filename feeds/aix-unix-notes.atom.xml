@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Kairo Araujo - AIX, Unix Notes</title><link href="http://kairo.eti.br/" rel="alternate"></link><link href="http://kairo.eti.br/feeds/aix-unix-notes.atom.xml" rel="self"></link><id>http://kairo.eti.br/</id><updated>2009-04-03T12:32:00+02:00</updated><entry><title>AIX change device form diagnose state to defined</title><link href="http://kairo.eti.br/aix-change-device-diagnose-state-to-defined.html" rel="alternate"></link><published>2009-04-03T12:32:00+02:00</published><updated>2009-04-03T12:32:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2009-04-03:/aix-change-device-diagnose-state-to-defined.html</id><summary type="html">&lt;p&gt;Looking my adapters I found fcs0 in diagnose state&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# lsdev -Cc adapter ent0    Available 21-08    IBM 10/100 Mbps Ethernet
+PCI Adapter (23100020) ent1    Available 1A-08    10/100 Mbps Ethernet
+PCI Adapter II (1410ff01) ent2    Available 14-08    Gigabit Ethernet-SX
+PCI Adapter (14100401) ent3    Available 37-08    10/100 Mbps Ethernet
+PCI …&lt;/code&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;Looking my adapters I found fcs0 in diagnose state&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# lsdev -Cc adapter ent0    Available 21-08    IBM 10/100 Mbps Ethernet
+PCI Adapter (23100020) ent1    Available 1A-08    10/100 Mbps Ethernet
+PCI Adapter II (1410ff01) ent2    Available 14-08    Gigabit Ethernet-SX
+PCI Adapter (14100401) ent3    Available 37-08    10/100 Mbps Ethernet
+PCI Adapter II (1410ff01) ent4    Available 27-08    Gigabit Ethernet-SX
+PCI Adapter (14100401) ent5    Available 3A-08    Gigabit Ethernet-SX
+PCI Adapter (14100401) fcs0    Diagnose  2A-08    FC Adapter fda0   
+Available 01-D1    Standard I/O Diskette Adapter mg20   
+Available 2D-08    GXT130P Graphics Adapter ppa0    Available 01-R1   
+CHRP IEEE1284 (ECP) Parallel Port Adapter sa0     Available 01-S1   
+Standard I/O Serial Port sa1     Available 01-S2    Standard I/O Serial
+Port sa2     Available 01-S3    Standard I/O Serial Port sa3    
+Available 01-S4    Standard I/O Serial Port scsi0   Available 11-08   
+Wide/Ultra-2 SCSI I/O Controller scsi1   Available 11-09    Wide/Ultra-2
+SCSI I/O Controller scsi2   Available 17-08    Wide/Fast-20 SCSI I/O
+Controller sioka0  Available 01-K1-00 Keyboard Adapter siokma0
+Available 01-K1    Keyboard/Mouse Adapter sioma0  Available 01-K1-01
+Mouse Adapter&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# lsdev -C | grep fsc0 fcs0    Diagnose  2A-08    FC Adapter&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Run the ucfgdiag to change this state&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# /etc/methods/ucfgdiag -l fcs0&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Looking devices&lt;br&gt;
+&lt;code&gt;# lsdev -Cc adapter ent0    Available 21-08    IBM 10/100 Mbps
+Ethernet PCI Adapter (23100020) ent1    Available 1A-08    10/100 Mbps
+Ethernet PCI Adapter II (1410ff01) ent2    Available 14-08    Gigabit
+Ethernet-SX PCI Adapter (14100401) ent3    Available 37-08    10/100
+Mbps Ethernet PCI Adapter II (1410ff01) ent4    Available 27-08   
+Gigabit Ethernet-SX PCI Adapter (14100401) ent5    Available 3A-08   
+Gigabit Ethernet-SX PCI Adapter (14100401) fcs0    Defined   2A-08    FC
+Adapter fda0    Available 01-D1    Standard I/O Diskette Adapter mg20   
+Available 2D-08    GXT130P Graphics Adapter ppa0    Available 01-R1   
+CHRP IEEE1284 (ECP) Parallel Port Adapter sa0     Available 01-S1   
+Standard I/O Serial Port sa1     Available 01-S2    Standard I/O Serial
+Port sa2     Available 01-S3    Standard I/O Serial Port sa3    
+Available 01-S4    Standard I/O Serial Port scsi0   Available 11-08   
+Wide/Ultra-2 SCSI I/O Controller scsi1   Available 11-09    Wide/Ultra-2
+SCSI I/O Controller scsi2   Available 17-08    Wide/Fast-20 SCSI I/O
+Controller sioka0  Available 01-K1-00 Keyboard Adapter siokma0
+Available 01-K1    Keyboard/Mouse Adapter sioma0  Available 01-K1-01
+Mouse Adapter&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# lsdev -C | grep fsc0 fcs0    Defined   2A-08    FC Adapter&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Now, I can remove device and your childs for new discover.&lt;/p&gt;
+&lt;p&gt;ATENTION: This command remove all child and device&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# rmdev -dl fcs0 -R fcnet0 deleted fscsi0 deleted fcs0 deleted&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;For new discover run cfgmgr&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# cfgmgr -v&lt;/code&gt;&lt;/p&gt;</content></entry><entry><title>Basic Commands - AIX System/Packages Consistence</title><link href="http://kairo.eti.br/basic-commands-aix-systempackages-consistence.html" rel="alternate"></link><published>2008-07-21T13:34:00+02:00</published><updated>2008-07-21T13:34:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2008-07-21:/basic-commands-aix-systempackages-consistence.html</id><summary type="html">&lt;p&gt;Checking AIX version, ML and service pack&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# oslevel -s&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Checking LPP (packages)&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# lppchk -v -m3&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Checking ML and filesets found&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# instfix -i | grep ML&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Checking missing packages in ML&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# instfix -icqk 5300-04_AIXML | grep ":-:"&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="text-decoration:underline;"&gt;Tip&lt;/span&gt;:&lt;/p&gt;
+&lt;p&gt;Checking all missing packages in all MLs&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;for i in $(instfix -i | grep ML | awk '{ print …&lt;/code&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;Checking AIX version, ML and service pack&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# oslevel -s&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Checking LPP (packages)&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# lppchk -v -m3&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Checking ML and filesets found&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# instfix -i | grep ML&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Checking missing packages in ML&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# instfix -icqk 5300-04_AIXML | grep ":-:"&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="text-decoration:underline;"&gt;Tip&lt;/span&gt;:&lt;/p&gt;
+&lt;p&gt;Checking all missing packages in all MLs&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;for i in $(instfix -i | grep ML | awk '{ print $4 }'); do instfix -icqk
+$i |  grep ":-:"; done&lt;/code&gt;&lt;/p&gt;</content></entry><entry><title>AIX : 0509-130 Symbol resolution failed for /usr/lib/libc.a[aio_64.o]</title><link href="http://kairo.eti.br/aix-0509-130-symbol-resolution-failed-for-usrliblibcaaio_64o.html" rel="alternate"></link><published>2008-07-19T12:12:00+02:00</published><updated>2008-07-19T12:12:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2008-07-19:/aix-0509-130-symbol-resolution-failed-for-usrliblibcaaio_64o.html</id><summary type="html">&lt;p&gt;0509-130 Symbol resolution failed for /usr/lib/libc.a[aio_64.o]&lt;/p&gt;
+&lt;p&gt;This error occurs because the Asynchronous I/O are not available.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# lsattr -El aio0 autoconfig defined STATE to be configured at system
+restart True fastpath enable State of fast path True kprocprio 39 Server
+PRIORITY True maxreqs 4096 Maximum …&lt;/code&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;0509-130 Symbol resolution failed for /usr/lib/libc.a[aio_64.o]&lt;/p&gt;
+&lt;p&gt;This error occurs because the Asynchronous I/O are not available.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# lsattr -El aio0 autoconfig defined STATE to be configured at system
+restart True fastpath enable State of fast path True kprocprio 39 Server
+PRIORITY True maxreqs 4096 Maximum number of REQUESTS True maxservers 10
+MAXIMUM number of servers per cpu True minservers 1 MINIMUM number of
+servers True&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;You must make the Asynchronous I/O available using smitty&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# smitty chgaio&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Change this item&lt;/p&gt;
+&lt;p&gt;STATE to be configured at system restart available&lt;/p&gt;
+&lt;p&gt;IMPORTANT: Changes will become effective at next system restart&lt;/p&gt;
+&lt;p&gt;For configure Asynchronous I/O now use:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# smitty aio&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Configure Defined Asynchronous I/O&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Checking aio0 again&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# lsattr -El aio0 autoconfig available STATE to be configured at system
+restart True fastpath   enable    State of fast
+path                       True
+kprocprio  39        Server PRIORITY                         
+True maxreqs    4096      Maximum number of REQUESTS               True
+maxservers 10        MAXIMUM number of servers per cpu        True
+minservers 1         MINIMUM number of servers                True&lt;/code&gt;&lt;/p&gt;</content><category term="0509-130 symbol resolution failed"></category></entry><entry><title>Removendo EFIX do AIX para evitar/corrigir Erro atualizar ML AIX</title><link href="http://kairo.eti.br/removendo-efix-do-aix-para-evitarcorrigir-erro-atualizar-ml-aix.html" rel="alternate"></link><published>2008-06-24T23:54:00+02:00</published><updated>2008-06-24T23:54:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2008-06-24:/removendo-efix-do-aix-para-evitarcorrigir-erro-atualizar-ml-aix.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;1. Listando efix instalados&lt;/strong&gt;&lt;/p&gt;
+&lt;h1&gt;`# /usr/sbin/emgr -P PACKAGE INSTALLER LABEL&lt;/h1&gt;
+&lt;p&gt;========== bos.rte.odm installp IY97632_05 bos.rte.cron installp
+IZ00139_05 bos.rte.shell installp IZ01134_05 bos.rte.methods installp
+IZ01433_05 bos.perf.tools installp IZ00149_05`&lt;br&gt;
+&lt;strong&gt;2. Removendo todos os EFIX&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Para remover individualmente utilize&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;#emgr -r -L [LABEL]&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Para …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;1. Listando efix instalados&lt;/strong&gt;&lt;/p&gt;
+&lt;h1&gt;`# /usr/sbin/emgr -P PACKAGE INSTALLER LABEL&lt;/h1&gt;
+&lt;p&gt;========== bos.rte.odm installp IY97632_05 bos.rte.cron installp
+IZ00139_05 bos.rte.shell installp IZ01134_05 bos.rte.methods installp
+IZ01433_05 bos.perf.tools installp IZ00149_05`&lt;br&gt;
+&lt;strong&gt;2. Removendo todos os EFIX&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Para remover individualmente utilize&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;#emgr -r -L [LABEL]&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Para remover todos os EFIX instalados pode utilizar o looping abaixo&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# for i in $(emgr -P | grep installp | awk '{ print $3 }'); do emgr -r
+-L $i; done&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;DICA:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Após atualizar verifique se todos os EFIX foram aplicados, isto garante
+que seu sistema está com todas vulnerabilidades aplicadas.&lt;/p&gt;
+&lt;p&gt;Para verificar individualmente&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# instfix -i | grep IY97632&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Para verificar todos os removido crie um looping conforme exemplo&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# for i in IY97632 IZ00139 IZ01134 IZ01433 IZ00149; do instfix -i |
+grep $i; done&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Se você receber essa saida por exemplo:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# for i in IY97632 IZ00139 IZ01134 IZ01433 IZ00149; do instfix -i |
+grep $i; done All filesets for IY97632 were found. All filesets for
+IZ00139 were found. No filesets which have fixes for IZ01134 are
+currently installed. All filesets for IZ01433 were found. All filesets
+for IZ00149 were found.&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;É necessário que instale o EFIX novamente IZ01134, caso todos estejam
+presentes seu sistema está OK.&lt;br&gt;
+Exemplo:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# for i in IY97632 IZ00139 IZ01134 IZ01433 IZ00149; do instfix -i |
+grep $i; done All filesets for IY97632 were found. All filesets for
+IZ00139 were found. All filesets for IZ01134 were found. All filesets
+for IZ01433 were found. All filesets for IZ00149 were found.&lt;/code&gt;&lt;/p&gt;</content></entry><entry><title>Analise de consumo de memória no AIX por usuário ou Processo + Dica do Oracle</title><link href="http://kairo.eti.br/analise-de-consumo-de-memoria-no-aix-por-usuario-ou-processo-dica-do-oracle.html" rel="alternate"></link><published>2008-04-06T15:56:00+02:00</published><updated>2008-04-06T15:56:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2008-04-06:/analise-de-consumo-de-memoria-no-aix-por-usuario-ou-processo-dica-do-oracle.html</id><summary type="html">&lt;p&gt;Para fazermos análise do consumo de memória do usuário ou processo
+fazemos o uso do svmon.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Consumo por usuário:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# svmon -U kairoa | grep kairoa kairoa 20115 7393 0 19739&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;O primeiro valor é o Inuse, o valor que precisamos. Porém ele está em
+blocos de 4096.&lt;br&gt;
+Para obter o valor …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Para fazermos análise do consumo de memória do usuário ou processo
+fazemos o uso do svmon.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Consumo por usuário:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# svmon -U kairoa | grep kairoa kairoa 20115 7393 0 19739&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;O primeiro valor é o Inuse, o valor que precisamos. Porém ele está em
+blocos de 4096.&lt;br&gt;
+Para obter o valor em Megabytes multiplique por 4096, em seguida divida
+por 1024 para obter em bytes e novamente por 1024 para obter os valores
+em megas.&lt;/p&gt;
+&lt;p&gt;Exemplo utilizando o BC&lt;br&gt;
+&lt;code&gt;# echo "20324*4096/1024/1024" | bc 79&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Sendo assim meu usuário está consumindo 79Mb da memória.&lt;/p&gt;
+&lt;p&gt;Outro exemplo, o do root:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# svmon -U root | grep root root 80333 8481 26 65502 #echo
+"80333*4096/1024/1024"|bc 313&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Como sabemos que o root é responsável pelos processos do sistema
+operacional AIX, podemos concluir que o sistema operacional está
+consumindo 313Mb.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Consumo de um processo:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Basta utilizar o parâmetro -P pid&lt;/p&gt;
+&lt;p&gt;Exemplo:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# svmon -P 757966 | grep 757966 757966 sshd 19916 7390 0 19602 N N N&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;# echo "19916*4096/1024/1024" | bc&lt;br&gt;
+77&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Dica sobre memória do Oracle no AIX&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;O Oracle possui dois processos distintos no AIX, são eles:&lt;/p&gt;
+&lt;p&gt;*smon* - SGA do banco&lt;br&gt;
+*pmon* - Reserva para processos do banco&lt;/p&gt;
+&lt;p&gt;Se deseja saber quanto de SGA está definida para o banco faça:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# ps -ef | grep smon root 1306682 4423854 0 12:49:33 pts/1 0:00 grep
+smon oracle 3698866 1 0 Feb 17 - 16:03 ora_smon_XXX # svmon -P 3698866 |
+grep 3698866 3698866 oracle 5917562 65586 4872321 5896659 Y N N # echo
+"5917562*4096/1024/1024" | bc 23115&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Ou seja, a SGA do banco está setado com 23Gb.&lt;/p&gt;
+&lt;p&gt;Para pegar o pmon proceda da mesma forma.&lt;/p&gt;
+&lt;p&gt;Observação: o pmon e smon pode acessar a mesma área que está em shared.
+sendo assim confirme com o DBA. ;)&lt;/p&gt;
+&lt;p&gt;Mais informações: &lt;code&gt;man svmon&lt;/code&gt;&lt;/p&gt;</content></entry><entry><title>Red Hat Enterprise e IBM System Storage DS4000 - Conexão e Gerência</title><link href="http://kairo.eti.br/linux-red-hat-enterprise-e-ds4000-conexao-e-gerencia.html" rel="alternate"></link><published>2008-04-04T17:19:00+02:00</published><updated>2008-04-04T17:19:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2008-04-04:/linux-red-hat-enterprise-e-ds4000-conexao-e-gerencia.html</id><summary type="html">&lt;p&gt;Este documento tem como objetivo mostar os passos para conexão do Red
+Hat Enterprise Linux ao DS4000 e como gerenciar as LUNs (discos lógicos
+alocados).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RDAC: Conexão do Storage System IBM DS4000&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1. Instalar RDAC&lt;/p&gt;
+&lt;p&gt;a. Baixar IBM DS4000 Storage ManagerLinux RDAC&lt;br&gt;
+http://www-304.ibm.com/systems/support/storage/disk …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Este documento tem como objetivo mostar os passos para conexão do Red
+Hat Enterprise Linux ao DS4000 e como gerenciar as LUNs (discos lógicos
+alocados).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RDAC: Conexão do Storage System IBM DS4000&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1. Instalar RDAC&lt;/p&gt;
+&lt;p&gt;a. Baixar IBM DS4000 Storage ManagerLinux RDAC&lt;br&gt;
+http://www-304.ibm.com/systems/support/storage/disk/ds4800/stormgr1.html&lt;/p&gt;
+&lt;p&gt;b. Copiar para o /usr/src&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# mv rdac-LINUX-09.02.B5.15-source.tar.gz /usr/src&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;c. acesse o diretório /usr/src&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# cd /usr/src&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;d. descompactar o arquivo&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# tar xvzf rdac-LINUX-09.02.B5.15-source.tar.gz&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;e. acessar o diretório descompactado&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# cd linuxrdac-09.02.B5.15&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;f. compilar o rdac&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# make clean # make # make install&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;g. confirir o menu.lst do Grub&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# more /boot/grub/menu.lst&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Tem de ter uma entrada assim para o seu Kernel:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;title Red Hat Enterprise Linux ES (2.6.9-67.0.4.ELsmp + RDAC) root
+(hd0,0) kernel /vmlinuz-2.6.9-67.0.4.ELsmp ro root=/dev/rootvg/rootlv
+initrd /mpp-2.6.9-67.0.4.ELsmp.img&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;2. Reconhecendo LUNs com o rdac&lt;/p&gt;
+&lt;p&gt;a. Fazer scan de novas LUNs (discos)&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# mppBusRescan&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Obs: Geralmente te de rodar 2 ou 3 vezes... delay do Storage para o
+Linux&lt;/p&gt;
+&lt;p&gt;b. Fazer update do initrd mpp&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# mppUpdate&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;SMDevices: Gerenciamento das LUNs (DS4000) no Linux&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1. Instalar o SMdevices (ele lista todas as LUNs reconhecidas)&lt;/p&gt;
+&lt;p&gt;a. Fazer download do IBM DS4000 Storage Manager for Linux&lt;br&gt;
+http://www-304.ibm.com/systems/support/storage/disk/ds4800/stormgr1.html&lt;/p&gt;
+&lt;p&gt;b. descompacte o .tgz&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# tar xvzf sm10.10_linux_smia-10.10.xx.06.tgz&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;c. instale apenas o SMruntime-LINUX e SMutil-Linux&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# rpm -Uvh SMruntime*.rpm SMruntime*.rpm&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;2. Utilizando o SMdevices para listar Luns&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# SMdevices IBM System Storage DS4000/FAStT Storage Manager Devices,
+Version 10.00.A5.02 Built Tue Nov 06 14:32:16 CST 2007 (C) Copyright
+International Business Machines Corporation, 2003-2007 Licensed Material
+- Program Property of IBM. All rights reserved. &amp;lt;n/a&amp;gt; (/dev/sg1)
+[Storage Subsystem DS4300, Logical Drive Access, LUN 12, Logical Drive
+ID &amp;lt;600a0b8000199a760000000000000000&amp;gt;] /dev/sdi (/dev/sg10) [Storage
+Subsystem DS4300, Logical Drive 60, LUN 8, Logical Drive ID
+&amp;lt;600a0b8000199a760000182a46c4b6e6&amp;gt;, Preferred Path (Controller-A): In
+Use] /dev/sdj (/dev/sg11) [Storage Subsystem DS4300, Logical Drive 61,
+LUN 9, Logical Drive ID &amp;lt;600a0b8000198a620000422346c4bb53&amp;gt;, Preferred
+Path (Controller-B): In Use] /dev/sdk (/dev/sg12) [Storage Subsystem
+DS4300, Logical Drive 66, LUN 10, Logical Drive ID
+&amp;lt;600a0b8000199a760000183146c4cb28&amp;gt;, Preferred Path (Controller-A): In
+Use] /dev/sdl (/dev/sg13) [Storage Subsystem DS4300, Logical Drive 67,
+LUN 11, Logical Drive ID &amp;lt;600a0b8000198a620000422746c4ced5&amp;gt;, Preferred
+Path (Controller-B): In Use]&lt;/code&gt;&lt;/p&gt;</content></entry><entry><title>Verificando data de instalação do AIX</title><link href="http://kairo.eti.br/verificando-data-de-instalacao-do-aix.html" rel="alternate"></link><published>2008-03-25T12:28:00+01:00</published><updated>2008-03-25T12:28:00+01:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2008-03-25:/verificando-data-de-instalacao-do-aix.html</id><summary type="html">&lt;p&gt;Para verificar a data de instalação do AIX verifique o pacote
+bos.rte.install pegando a data do primeiro pacote:&lt;/p&gt;
+&lt;h2&gt;` # lslpp -h bos.rte.install Fileset Level Action Status Date Time&lt;/h2&gt;
+&lt;p&gt;Path: /usr/lib/objrepos bos.rte.install 5.3.0.30 COMMIT
+COMPLETE 01/23/06 08:29:39 …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Para verificar a data de instalação do AIX verifique o pacote
+bos.rte.install pegando a data do primeiro pacote:&lt;/p&gt;
+&lt;h2&gt;` # lslpp -h bos.rte.install Fileset Level Action Status Date Time&lt;/h2&gt;
+&lt;p&gt;Path: /usr/lib/objrepos bos.rte.install 5.3.0.30 COMMIT
+COMPLETE 01/23/06 08:29:39 5.3.0.40 COMMIT
+COMPLETE 11/19/06 06:35:59 5.3.0.41 COMMIT
+COMPLETE 11/19/06 06:36:08 5.3.0.42 APPLY
+COMPLETE 11/19/06 06:43:08 5.3.0.44 APPLY
+COMPLETE 11/19/06 06:47:19 5.3.0.57 APPLY COMPLETE 06/09/07 16:51:06`&lt;/p&gt;</content></entry><entry><title>Alternate Disk - AIX 5.2 / 5.3</title><link href="http://kairo.eti.br/alternate-disk-aix-52-53.html" rel="alternate"></link><published>2008-03-17T16:42:00+01:00</published><updated>2008-03-17T16:42:00+01:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2008-03-17:/alternate-disk-aix-52-53.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Apresentação:&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;O Alternate Disk é uma solução para clonar o sistema operacional AIX em
+um disco de stand by, que se for forçado o boot via SMS ou indicado como
+um boot válido no bootlist do AIX será restaurado.&lt;br&gt;
+Uma melhor explicação também seria chamá-lo: mksysb em disco.&lt;br&gt;
+Se seu …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;Apresentação:&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;O Alternate Disk é uma solução para clonar o sistema operacional AIX em
+um disco de stand by, que se for forçado o boot via SMS ou indicado como
+um boot válido no bootlist do AIX será restaurado.&lt;br&gt;
+Uma melhor explicação também seria chamá-lo: mksysb em disco.&lt;br&gt;
+Se seu rootvg esta em mirror em dois discos (normalmente hdisk0 e
+hdisk1) basta quebrar o mirror e realizar os procedimentos -- este
+artigo demonstra como fazer caso seus logical volumes (LV) não estejam
+espelhados.&lt;br&gt;
+Uma aplicação interessante para esta solução é uma contingência rápida
+para recuperação de ambiente em atividades críticas tais como aplicação
+de ML, migração/upgrade de versão.&lt;br&gt;
+Isto porque o backup image tem um restore a partir de uma mídia ou de um
+nimsrv (pretendo abordá-lo no futuro)&lt;/p&gt;
+&lt;p&gt;Resumo:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1. Pré-requesitos&lt;br&gt;
+a. Instalação do pacote do alternate disc&lt;br&gt;
+b. Calcular espaço dos LVs não espelhados&lt;br&gt;
+3. Quebrar o espelhamento do rootvg&lt;br&gt;
+4. Remover área de boot do hdisk 1&lt;br&gt;
+5. Verificar conteúdo não espelhado e migrar para o hdisk0&lt;br&gt;
+6. Remover o hdisk1 do rootvg&lt;br&gt;
+7. Cria o boot image no hdisk0&lt;br&gt;
+8. Verifica a sequencia de boot&lt;br&gt;
+9. Realiza o alternate Disk&lt;br&gt;
+10. Valida o Alternate Disk em disco&lt;br&gt;
+11. Removendo o alternate disk&lt;br&gt;
+12. Adicionando o disco novamente ao rootvg&lt;br&gt;
+13. Recriando o mirror entre os discos&lt;br&gt;
+14. Recolocando os discos no boot list e recriando áreas de boot&lt;br&gt;
+15. Validação com boot&lt;/strong&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1. Pré-requesitos&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;a. Instalação do pacote do alternate disc&lt;br&gt;
+O pacote bos.alt_disc_install pode ser obtido na mídia dois do AIX 5.2
+ou 5.3&lt;br&gt;
+Instale via&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# smitty install&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Nota: Se seu ambiente já possuir MLs aplicadas e recomendado fazer o
+download dos fixes e aplicá-los.&lt;/p&gt;
+&lt;p&gt;b. Calcular espaço dos LVs não espelhados&lt;br&gt;
+Caso tenha Logical Volume (LV) não espelhados é preciso identicar se o
+hdisk que será utilizado dispõe de espaço para receber estes LVs.&lt;br&gt;
+Exemplo:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;#lsvg –l rootvg rootvg: LV NAME TYPE LPs PPs PVs LV STATE MOUNT POINT
+hd5 boot 1 2 2 closed/syncd N/A hd6 paging 80 160 2 open/syncd N/A hd8
+jfs2log 1 2 2 open/syncd N/A hd4 jfs2 1 2 2 open/syncd / hd2
+jfs2 53 106 2 open/syncd /usr hd9var jfs2 1 2 2 open/syncd /var hd3
+jfs2 10 20 2 open/syncd /tmp hd1 jfs2 2 4 2 open/syncd /home hd10opt
+jfs2 1 2 2 open/syncd /opt lg_dumplv sysdump 16 16 2 open/syncd N/A
+paging00 paging 80 160 2 open/syncd N/A teste-lv jfs2 10 10 1 open/syncd
+/teste-lv lvML jfs2 24 24 2 open/syncd /ML&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# lslv -l testelv teste-lv:/teste-lv PV COPIES IN BAND DISTRIBUTION
+Hdisk1 010:000:000 0% 010:000:000:000:000&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Os LVs teste-lv não ficará no disco após a quebra do mirror.&lt;br&gt;
+Desta formaerá necessário 10 PPs a mais no disco hdisk0&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# lspv hdisk0 | grep FREE FREE PPs: 252 (32256 megabytes) HOT SPARE: no
+FREE DISTRIBUTION: 67..00..00..76..109&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3. Quebrar o espelhamento do rootvg&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# unmirrorvg -c1 rootvg hdisk1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Estou removendo o hdisk1, onde fazerei o alternate&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;4. Remover área de boot do hdisk 1&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# chpv -c hdisk1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;5. Verificar conteúdo não espelhado e migrar para o hdisk0&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Verifica LVs presentes no disco&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# lspv -l hdisk1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Migra todo o restante para o hdisk0, lembrand que não podem possuir o
+mesmo nome.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;#migratepv hdisk1 hdisk0&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Verifica se não sobrou nada, se está zerado&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# lspv -l hdisk1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;6. Remover o hdisk1 do rootvg&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Retira o hdisk1 do rootvg&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# reducevg rootvg hdisk1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Verifica se está somente o hdisk0 no rootvg&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# lsvg -p rootvg&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;7. Cria o boot image no hdisk0&lt;br&gt;
+&lt;/strong&gt;&lt;br&gt;
+&lt;code&gt;# bosboot -a -d /dev/hdisk0&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Verifica o bootlist do hdisk0&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# bootlist -m normal hdisk0&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;8. Verifica a sequencia de boot&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# bootlist -m normal –o&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;9. Realiza o alternate Disk&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# alt_disk_install -C -O hdisk1 Calling mkszfile to create new
+/image.data file. Checking disk sizes. Creating cloned rootvg volume
+group and associated logical volumes. Creating logical volume alt_hd5.
+Creating logical volume alt_hd6. Creating logical volume alt_hd8.
+Creating logical volume alt_hd4. Creating logical volume alt_hd2.
+Creating logical volume alt_hd9var. Creating logical volume alt_hd3.
+Creating logical volume alt_hd1. Creating logical volume alt_hd10opt.
+Creating /alt_inst/ file system. Creating /alt_inst/home file system.
+Creating /alt_inst/opt file system. Creating /alt_inst/tmp file system.
+Creating /alt_inst/usr file system. Creating /alt_inst/var file system.
+Generating a list of files for backup and restore into the alternate
+file system... Backing-up the rootvg files and restoring them to the
+alternate file system... Modifying ODM on cloned disk. Building boot
+image on cloned disk. forced unmount of /alt_inst/var forced unmount of
+/alt_inst/usr forced unmount of /alt_inst/tmp forced unmount of
+/alt_inst/opt forced unmount of /alt_inst/home forced unmount of
+/alt_inst forced unmount of /alt_inst Changing logical volume names in
+volume group descriptor area. Fixing LV control blocks... Fixing file
+system superblocks...&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;10. Valida o Alternate Disk em disco&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# lspv | grep root hdisk0 00531d9a33ff6ab5 rootvg active
+hdisk1 00531d9a47ed2df6 altinst_rootvg&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;11. Removendo o alternate disk&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# alt_disk_install -X altinst_rootvg&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;12. Adicionando o disco novamente ao rootvg&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# extendvg rootvg hdisk1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;13. Recriando o mirror entre os discos&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# nohup mirrorvg rootvg hdisk1 &amp;amp;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;14. Recolocando os discos no boot list e recriando áreas de boot&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Recoloca os discos no boot list normal&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# bootlist -m normal hdisk0 hdisk1&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Recriar area de boot&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# bosboot -a -d /dev/hdisk00 # bosboot -a -d /dev/hdisk01&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;15. Validação com boot&lt;br&gt;
+&lt;/strong&gt;&lt;br&gt;
+&lt;code&gt;# shutdown -Fr&lt;/code&gt;&lt;/p&gt;</content></entry><entry><title>Compartilhamento Windows no AIX (via CIFS)</title><link href="http://kairo.eti.br/compartilhamento-windows-no-aix-via-cifs.html" rel="alternate"></link><published>2007-09-26T04:10:00+02:00</published><updated>2007-09-26T04:10:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2007-09-26:/compartilhamento-windows-no-aix-via-cifs.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;Filesets necessários:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[server:root:/:] lslpp -l | grep -i cifs bos.cifs_fs.rte 5.3.0.50
+COMMITTED Runtime for SMBFS bos.cifs_fs.smit 5.3.0.0 COMMITTED SMIT
+Interface for SMBFS&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Montagem via smitty/smit&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[server:root:/:] smitty
+cifs_fs&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://kairo.files.wordpress.com/2007/09/cifs_fs_image1.JPG" title="smitty-cifs_fs01"&gt;&lt;img alt="smitty-cifs_fs01" src="http://kairo.files.wordpress.com/2007/09/cifs_fs_image1.thumbnail.JPG"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Tela Add/Mount a CIFS
+FileSystem&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://kairo.files.wordpress.com/2007/09/cifs_fs_image2.JPG" title="smitty-cifs_fs02"&gt;&lt;img alt="smitty-cifs_fs02" src="http://kairo.files.wordpress.com/2007/09/cifs_fs_image2.thumbnail.JPG"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Montando via linha de …&lt;/strong&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;Filesets necessários:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[server:root:/:] lslpp -l | grep -i cifs bos.cifs_fs.rte 5.3.0.50
+COMMITTED Runtime for SMBFS bos.cifs_fs.smit 5.3.0.0 COMMITTED SMIT
+Interface for SMBFS&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Montagem via smitty/smit&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[server:root:/:] smitty
+cifs_fs&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://kairo.files.wordpress.com/2007/09/cifs_fs_image1.JPG" title="smitty-cifs_fs01"&gt;&lt;img alt="smitty-cifs_fs01" src="http://kairo.files.wordpress.com/2007/09/cifs_fs_image1.thumbnail.JPG"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Tela Add/Mount a CIFS
+FileSystem&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://kairo.files.wordpress.com/2007/09/cifs_fs_image2.JPG" title="smitty-cifs_fs02"&gt;&lt;img alt="smitty-cifs_fs02" src="http://kairo.files.wordpress.com/2007/09/cifs_fs_image2.thumbnail.JPG"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Montando via linha de comando:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[server:root:/:] mount -v cifs -n [IP_DO_SERVIDOR]/[USUARIO]/[SENHA] -o
+uid:0250,fmode:0775 [COMPARTILHAMENTO_WIN] /mnt&lt;/code&gt;&lt;/p&gt;</content></entry><entry><title>Deixando o AIX 5.3 pronto para dumps (como gerar)</title><link href="http://kairo.eti.br/deixando-o-aix-53-pronto-para-dumps-como-gerar.html" rel="alternate"></link><published>2007-09-25T14:14:00+02:00</published><updated>2007-09-25T14:14:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2007-09-25:/deixando-o-aix-53-pronto-para-dumps-como-gerar.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;1) Verificando o status do sysdump&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# sysdumpdev -l primary /dev/lg_dumplv secondary /dev/sysdumpnull copy
+directory /var/adm/ras forced copy flag TRUE always allow dump FALSE
+dump compression ON&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2) Verificando o tamanho estimado para o dump&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# sysdumpdev -e 0453-041 Estimated dump size in bytes: 1016279859&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3) Verificando o …&lt;/strong&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;1) Verificando o status do sysdump&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# sysdumpdev -l primary /dev/lg_dumplv secondary /dev/sysdumpnull copy
+directory /var/adm/ras forced copy flag TRUE always allow dump FALSE
+dump compression ON&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2) Verificando o tamanho estimado para o dump&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# sysdumpdev -e 0453-041 Estimated dump size in bytes: 1016279859&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3) Verificando o tamanho da Área de DUMP&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3.1) Encontrando o lv de dump&lt;/strong&gt;&lt;br&gt;
+&lt;code&gt;# lsvg -l rootvg | grep sysdump lg_dumplv          
+sysdump    96    96    1    open/syncd    N/A&lt;/code&gt;&lt;br&gt;
+&lt;strong&gt;3.2) Verificando o tamanho dos PPs&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# lslv lg_dumplv LOGICAL VOLUME:     lg_dumplv              VOLUME
+GROUP:   rootvg LV IDENTIFIER:      000c6a8d00004c000000011533b4b782.10
+PERMISSION:     read/write VG STATE:           active/complete        LV
+STATE:       opened/syncd TYPE:               sysdump               
+WRITE VERIFY:   off MAX LPs:            512                    PP
+SIZE:        32 megabyte(s) COPIES:             1                     
+SCHED POLICY:   parallel LPs:                96                    
+PPs:            96 STALE PPs:          0                      BB
+POLICY:      relocatable INTER-POLICY:       minimum               
+RELOCATABLE:    yes INTRA-POLICY:       middle                 UPPER
+BOUND:    32 MOUNT POINT:        N/A                    LABEL:         
+None MIRROR WRITE CONSISTENCY: on/ACTIVE EACH LP COPY ON A SEPARATE PV
+?: yes Serialize IO ?:     NO&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3.3) Calculando o tamanho da área em Mb&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# echo 96*32 | bc 3072&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;4) Se quiser gerar um dump basta executar o comando abaixo *** ISSO
+VAI REINICIAR O SERVIDOR ***&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# sysdumpstart -p&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;5) Gerando o SNAP com o DUMP&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# snap -r # snap -gfktLDc&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Ele vai gerar o arquivo:&lt;br&gt;
+&lt;code&gt;/tmp/ibmsupt/snap.pax.Z&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Contate agora o seu fornecedor.&lt;/p&gt;</content></entry><entry><title>losf for AIX</title><link href="http://kairo.eti.br/losf-for-aix.html" rel="alternate"></link><published>2007-09-01T12:11:00+02:00</published><updated>2007-09-01T12:11:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2007-09-01:/losf-for-aix.html</id><summary type="html">&lt;p&gt;&lt;a href="http://aixpdslib.seas.ucla.edu/packages/lsof.html"&gt;http://aixpdslib.seas.ucla.edu/packages/lsof.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;1. Descomprimir&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[server:root:/home/kairoa:] uncompress lsof.4.76.tar.Z&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;2. Descompactar&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;server:root:/home/kairoa:] cd / [server:root:/:] tar xvf
+~kairoa/lsof.4.76.tar x ./usr/local/bin/lsof, 612041 bytes, 1196 media
+blocks. x ./usr/local/man …&lt;/code&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;a href="http://aixpdslib.seas.ucla.edu/packages/lsof.html"&gt;http://aixpdslib.seas.ucla.edu/packages/lsof.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;1. Descomprimir&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[server:root:/home/kairoa:] uncompress lsof.4.76.tar.Z&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;2. Descompactar&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;server:root:/home/kairoa:] cd / [server:root:/:] tar xvf
+~kairoa/lsof.4.76.tar x ./usr/local/bin/lsof, 612041 bytes, 1196 media
+blocks. x ./usr/local/man/man8/lsof.8, 110489 bytes, 216 media blocks&lt;/code&gt;&lt;/p&gt;</content></entry><entry><title>Renomear VG AIX 5.3</title><link href="http://kairo.eti.br/renomear-vg-aix-53.html" rel="alternate"></link><published>2007-09-01T12:09:00+02:00</published><updated>2007-09-01T12:09:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2007-09-01:/renomear-vg-aix-53.html</id><summary type="html">&lt;p&gt;1. Guarde um PV existente no VG com nome atual~&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;kairoserver:root:/:] lspv | grep vg02 | tail -1
+hdisk93 00c3cabb03b15fdd vg02 active&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;2. Coloque o VG em varyoff&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[kairoserver:root:/:] varyoffvg vg02&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;3. Exportar o VG&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[kairoserver:root:/:] exportvg vg02&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;4. Importando o VG com o novo nome&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[kairoserver:root:/:] importvg …&lt;/code&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;1. Guarde um PV existente no VG com nome atual~&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;kairoserver:root:/:] lspv | grep vg02 | tail -1
+hdisk93 00c3cabb03b15fdd vg02 active&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;2. Coloque o VG em varyoff&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[kairoserver:root:/:] varyoffvg vg02&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;3. Exportar o VG&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[kairoserver:root:/:] exportvg vg02&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;4. Importando o VG com o novo nome&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[kairoserver:root:/:] importvg -y vgnew02 hdisk93 vgnew02&lt;/code&gt;&lt;/p&gt;</content></entry><entry><title>"Debug" de comandos no AIX 5.3</title><link href="http://kairo.eti.br/debug-de-comandos-no-aix-53.html" rel="alternate"></link><published>2007-08-21T16:28:00+02:00</published><updated>2007-08-21T16:28:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2007-08-21:/debug-de-comandos-no-aix-53.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;truss&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Ele faz um mapeamento das chamadas de sistema.&lt;br&gt;
+Um exemplo de aplicação dele.&lt;/p&gt;
+&lt;p&gt;Um NFS que não responde no df -k.&lt;br&gt;
+Precisa identificar NFS, pois o df -k não retorna.&lt;br&gt;
+Desta forma fazemos via truss&lt;/p&gt;
+&lt;p&gt;Exemplo do DNS não respondendo&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[kairosrv:root:/:] df -k Filesystem 1024-blocks Free %Used Iused …&lt;/code&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;truss&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Ele faz um mapeamento das chamadas de sistema.&lt;br&gt;
+Um exemplo de aplicação dele.&lt;/p&gt;
+&lt;p&gt;Um NFS que não responde no df -k.&lt;br&gt;
+Precisa identificar NFS, pois o df -k não retorna.&lt;br&gt;
+Desta forma fazemos via truss&lt;/p&gt;
+&lt;p&gt;Exemplo do DNS não respondendo&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[kairosrv:root:/:] df -k Filesystem 1024-blocks Free %Used Iused
+%Iused Mounted on /dev/hd4 131072 28872 78% 3378 33% /
+/dev/hd2 3538944 1071200 70% 51963 17% /usr
+/dev/hd9var 131072 88040 33% 659 4% /var
+/dev/hd3 524288 368164 30% 607 1% /tmp /dev/hd1 131072 123764 6% 332 2%
+/home /proc - - - - - /proc /dev/hd10opt 131072 76928 42% 2343 12% /opt&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;... neste ponto ele ficava congelado ...&lt;/p&gt;
+&lt;p&gt;Suponhamos que eu não sei qual o FS em NFS utlizado.&lt;br&gt;
+Eu utilizo o truss para fazer um mapeamento:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[kairosrv:root:/:] truss df -k
+execve("/usr/bin/df", 0x2FF22D48, 0x2FF22D54) argc: 2 sbrk(0x00000000)
+= 0x20000C58 vmgetinfo(0x2FF21EF0, 7, 16) = 0 sbrk(0x00000000)
+= 0x20000C58 sbrk(0x00000008) = 0x20000C58 __libc_sbrk(0x00000000)
+= 0x20000C60 getuidx(4) = 0 . . . statfs64("/nimsrv/images", 0x2FF21AD0)
+(sleeping...)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Desta forma eu sei qual está congelado e posso força-lo&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;[kairosrv:root:/:] umount -f /nimsrv/images forced unmount of
+/nimsrv/images&lt;/code&gt;&lt;/p&gt;</content></entry><entry><title>Checklist pré-reboot AIX</title><link href="http://kairo.eti.br/checklist-pre-reboot-aix.html" rel="alternate"></link><published>2007-07-19T13:57:00+02:00</published><updated>2007-07-19T13:57:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2007-07-19:/checklist-pre-reboot-aix.html</id><summary type="html">&lt;p&gt;Para uma maior segurança ao rebootar um servidor que está um longo tempo
+sem boot adoto um checklist básico.&lt;br&gt;
+Ele consiste em:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Verificar os discos que fazem parte do rootvg;&lt;/li&gt;
+&lt;li&gt;Regravar o boot nos discos do rootvg;&lt;/li&gt;
+&lt;li&gt;Verificar a ordem de boot;&lt;/li&gt;
+&lt;li&gt;Setar a ordem verificada.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Na prática:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Verificar os …&lt;/p&gt;&lt;/li&gt;&lt;/ol&gt;</summary><content type="html">&lt;p&gt;Para uma maior segurança ao rebootar um servidor que está um longo tempo
+sem boot adoto um checklist básico.&lt;br&gt;
+Ele consiste em:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Verificar os discos que fazem parte do rootvg;&lt;/li&gt;
+&lt;li&gt;Regravar o boot nos discos do rootvg;&lt;/li&gt;
+&lt;li&gt;Verificar a ordem de boot;&lt;/li&gt;
+&lt;li&gt;Setar a ordem verificada.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Na prática:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Verificar os discos que fazem parte do rootvg: &lt;code&gt;`` #lspv | grep
+    rootvg hdisk0 002007902d1d5e22 rootvg active hdisk1 002007902d25a1d1
+    rootvg active&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Regravar o boot nos discos do rootvg: &lt;code&gt;`` # bosboot -ad hdisk0
+    bosboot: Boot image is 30434 512 byte blocks. # bosboot -ad hdisk1
+    bosboot: Boot image is 30434 512 byte blocks.&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Verificar a ordem de boot; &lt;code&gt;`` # bootlist -m normal -o hdisk1
+    blv=hd5 hdisk0 blv=hd5 É interessante neste ponto também verificar
+    os discos usados pelos Logical Volumes do rootvg. Isso porque no
+    exemplo acima o SO sobe pelo hdisk1 primeiramente, caso um ele falhe
+    o boot vai dar inicio pelo hdisk0. Desta forma é importante
+    verificar o disco utilizado pelos Volume Groups não espelhados.&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;``  ``  `` # lsvg -l rootvg rootvg: LV NAME TYPE LPs PPs PVs LV
+STATE MOUNT POINT hd5 boot 1 2 2 closed/syncd N/A hd6
+paging 80 160 2 open/syncd N/A paging00 paging 80 160 2 open/syncd
+N/A hd8 jfs2log 1 2 2 open/syncd N/A hd4 jfs2 1 2 2 open/syncd / hd2
+jfs2 24 48 2 open/syncd /usr hd9var jfs2 1 2 2 open/syncd /var hd3
+jfs2 4 8 2 open/syncd /tmp hd1 jfs2 1 2 2 open/syncd /home hd10opt
+jfs2 1 2 2 open/syncd /opt lg_dumplv sysdump 16 16 1 open/syncd N/A
+Veja que o lg_dumplv usa apenas um disco. Vamos verificar qual disco
+ele está usando:&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# lslv -l lg_dumplv lg_dumplv:N/A PV COPIES IN BAND DISTRIBUTION
+hdisk1 016:000:000 0% 016:000:000:000:000&lt;/code&gt;&lt;br&gt;
+Sendo assim é importante que o SO inicialize pelo hdisk1&lt;br&gt;
+(Veja no Item 4)&lt;br&gt;
+&lt;em&gt;Nota:&lt;/em&gt; O ideal é que todos os lvs estejam utilizando os dois
+discos.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Setar a ordem verificada. &lt;code&gt;`` # bootlist -m normal hdisk1 hdisk0 #
+    bootlist -m normal -o hdisk1 blv=hd5 hdisk0 blv=hd5&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</content></entry><entry><title>IBM - MDS File Upload</title><link href="http://kairo.eti.br/aix-linux-storage-disk.html" rel="alternate"></link><published>2007-06-26T18:10:00+02:00</published><updated>2007-06-26T18:10:00+02:00</updated><author><name>kairo</name></author><id>tag:kairo.eti.br,2007-06-26:/aix-linux-storage-disk.html</id><summary type="html">&lt;p&gt;Rodando o &lt;em&gt;invscout&lt;/em&gt; em seu servidor AIX ele faz um &lt;strong&gt;"inventário"&lt;/strong&gt; de
+todo seu servidor.&lt;/p&gt;
+&lt;p&gt;Pegue este arquivo e faça upload dele no link &lt;a href="http://www14.software.ibm.com/webapp/set2/mds/fetch?page=mdsUpload.html"&gt;IBM - MDS File
+Upload&lt;/a&gt;
+e com isto tenha todas as informações de updates recomendadas tanto para
+seu hardware RISC quanto para seu SO AIX.&lt;/p&gt;
+&lt;p&gt;Maiores informações …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Rodando o &lt;em&gt;invscout&lt;/em&gt; em seu servidor AIX ele faz um &lt;strong&gt;"inventário"&lt;/strong&gt; de
+todo seu servidor.&lt;/p&gt;
+&lt;p&gt;Pegue este arquivo e faça upload dele no link &lt;a href="http://www14.software.ibm.com/webapp/set2/mds/fetch?page=mdsUpload.html"&gt;IBM - MDS File
+Upload&lt;/a&gt;
+e com isto tenha todas as informações de updates recomendadas tanto para
+seu hardware RISC quanto para seu SO AIX.&lt;/p&gt;
+&lt;p&gt;Maiores informações:&lt;br&gt;
+&lt;code&gt;# man invscout&lt;/code&gt;&lt;br&gt;
+Ler os dois links da página &lt;a href="http://www14.software.ibm.com/webapp/set2/mds/fetch?page=mdsUpload.html"&gt;IBM - MDS File
+Upload&lt;/a&gt;&lt;/p&gt;</content></entry></feed>
