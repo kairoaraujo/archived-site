@@ -9,16 +9,16 @@
 
         <title>AIX & PowerVM automation with Ansible</title>
 
-            <link href="http://kairo.eti.br/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Full Atom Feed" />
-            <link href="http://kairo.eti.br/feeds/automation-ansible-aix.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Categories Atom Feed" />
+            <link href="https://kairo.dev/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Full Atom Feed" />
+            <link href="https://kairo.dev/feeds/category.slug.atom.xml" type="application/atom+xml" rel="alternate" title="Kairo Araujo Categories Atom Feed" />
         <!-- Bootstrap Core CSS -->
-        <link href="http://kairo.eti.br/theme/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://kairo.dev/theme/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Custom CSS -->
-        <link href="http://kairo.eti.br/theme/css/clean-blog.min.css" rel="stylesheet">
+        <link href="https://kairo.dev/theme/css/clean-blog.min.css" rel="stylesheet">
 
         <!-- Code highlight color scheme -->
-            <link href="http://kairo.eti.br/theme/css/code_blocks/darkly.css" rel="stylesheet">
+            <link href="https://kairo.dev/theme/css/code_blocks/darkly.css" rel="stylesheet">
 
 
         <!-- Custom Fonts -->
@@ -50,13 +50,13 @@
 		<meta property="og:site_name" content="Kairo Araujo">
 
 	<meta property="og:type" content="article">
-            <meta property="article:author" content="http://kairo.eti.br/author/kairo-araujo.html">
-	<meta property="og:url" content="http://kairo.eti.br/aix-powervm-automation-with-ansible.html">
+            <meta property="article:author" content="https://kairo.dev/author/kairo-araujo.html">
+	<meta property="og:url" content="https://kairo.dev/aix-powervm-automation-with-ansible.html">
 	<meta property="og:title" content="AIX & PowerVM automation with Ansible">
 	<meta property="article:published_time" content="2017-10-12 23:30:00+02:00">
             <meta property="og:description" content="Using Ansible to manage AIX/PowerVM servers">
 
-            <meta property="og:image" content="http://kairo.eti.br/static/dc.jpg">
+            <meta property="og:image" content="https://kairo.dev/static/dc.jpg">
 </head>
 
 <body>
@@ -72,14 +72,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="http://kairo.eti.br/">Kairo Araujo</a>
+                <a class="navbar-brand" href="https://kairo.dev/">Kairo Araujo</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
 
-                            <li><a href="http://kairo.eti.br/pages/about.html">About</a></li>
+                            <li><a href="https://kairo.dev/pages/about.html">About</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -88,14 +88,14 @@
     </nav>
 
     <!-- Page Header -->
-        <header class="intro-header" style="background-image: url('http://kairo.eti.br/static/dc.jpg')">
+        <header class="intro-header" style="background-image: url('https://kairo.dev/static/dc.jpg')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
                         <h1>AIX & PowerVM automation with Ansible</h1>
                         <span class="meta">Posted by
-                                <a href="http://kairo.eti.br/author/kairo-araujo.html">Kairo Araujo</a>
+                                <a href="https://kairo.dev/author/kairo-araujo.html">Kairo Araujo</a>
                              on Thu 12 October 2017
                         </span>
                             <span class="meta">Updated on Mon 13 November 2017</span>
@@ -121,43 +121,43 @@ and only has two requirements, SSH and Python on the target.</p>
 <p>I have been playing a lot with Ansible to automate AIX and I also have been
 writing some contributions to the project to make Ansible work smooth with AIX.</p>
 <div class="contents topic" id="table-of-contents">
-<p class="topic-title first">Table of Contents</p>
+<p class="topic-title">Table of Contents</p>
 <ul class="simple">
-<li><a class="reference internal" href="#overview" id="id2">Overview</a><ul>
-<li><a class="reference internal" href="#special-modules-facts-for-aix" id="id3">Special modules/facts for AIX</a></li>
+<li><a class="reference internal" href="#overview" id="toc-entry-1">Overview</a><ul>
+<li><a class="reference internal" href="#special-modules-facts-for-aix" id="toc-entry-2">Special modules/facts for AIX</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#ansible-control-setup" id="id4">Ansible Control setup</a><ul>
-<li><a class="reference internal" href="#operational-system-installation-and-preparation" id="id5">Operational System installation and preparation</a></li>
-<li><a class="reference internal" href="#ansible-2-4-installation" id="id6">Ansible 2.4 Installation</a></li>
-<li><a class="reference internal" href="#ansible-aix-modules-support-installation" id="id7">Ansible AIX modules/support installation</a></li>
+<li><a class="reference internal" href="#ansible-control-setup" id="toc-entry-3">Ansible Control setup</a><ul>
+<li><a class="reference internal" href="#operational-system-installation-and-preparation" id="toc-entry-4">Operational System installation and preparation</a></li>
+<li><a class="reference internal" href="#ansible-2-4-installation" id="toc-entry-5">Ansible 2.4 Installation</a></li>
+<li><a class="reference internal" href="#ansible-aix-modules-support-installation" id="toc-entry-6">Ansible AIX modules/support installation</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id1" id="id8">Ansible Control Setup</a><ul>
-<li><a class="reference internal" href="#generating-keys" id="id9">Generating keys</a></li>
+<li><a class="reference internal" href="#ansible-control-setup-1" id="toc-entry-7">Ansible Control Setup</a><ul>
+<li><a class="reference internal" href="#generating-keys" id="toc-entry-8">Generating keys</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#ansible-targets-aix-vios-setup" id="id10">Ansible targets (AIX/VIOS) setup</a><ul>
-<li><a class="reference internal" href="#installing-python-on-aix" id="id11">Installing Python on AIX</a></li>
-<li><a class="reference internal" href="#distributing-keys" id="id12">Distributing keys</a></li>
+<li><a class="reference internal" href="#ansible-targets-aix-vios-setup" id="toc-entry-9">Ansible targets (AIX/VIOS) setup</a><ul>
+<li><a class="reference internal" href="#installing-python-on-aix" id="toc-entry-10">Installing Python on AIX</a></li>
+<li><a class="reference internal" href="#distributing-keys" id="toc-entry-11">Distributing keys</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#ansible-inventory-and-validation" id="id13">Ansible Inventory and validation</a><ul>
-<li><a class="reference internal" href="#creating-an-inventory" id="id14">Creating an inventory</a></li>
-<li><a class="reference internal" href="#checking-configuration" id="id15">Checking configuration</a></li>
-<li><a class="reference internal" href="#playbook-example" id="id16">Playbook example</a></li>
-<li><a class="reference internal" href="#running-the-playbook" id="id17">Running the playbook</a></li>
+<li><a class="reference internal" href="#ansible-inventory-and-validation" id="toc-entry-12">Ansible Inventory and validation</a><ul>
+<li><a class="reference internal" href="#creating-an-inventory" id="toc-entry-13">Creating an inventory</a></li>
+<li><a class="reference internal" href="#checking-configuration" id="toc-entry-14">Checking configuration</a></li>
+<li><a class="reference internal" href="#playbook-example" id="toc-entry-15">Playbook example</a></li>
+<li><a class="reference internal" href="#running-the-playbook" id="toc-entry-16">Running the playbook</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#conclusion" id="id18">Conclusion</a></li>
+<li><a class="reference internal" href="#conclusion" id="toc-entry-17">Conclusion</a></li>
 </ul>
 </div>
 <div class="section" id="overview">
-<h2><a class="toc-backref" href="#id2">Overview</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-1">Overview</a></h2>
 <p>For that I’m using a Red Hat Linux 7.4 as Ansible control to manage my AIX 6.1, 7.1 and 7.2 servers/nodes.
 My servers/nodes are AIXs and Linuxes boxes.</p>
 <div class="section" id="special-modules-facts-for-aix">
-<h3><a class="toc-backref" href="#id3">Special modules/facts for AIX</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-2">Special modules/facts for AIX</a></h3>
 <p>I have been writing some AIX modules and core (facts) to make it smoother  for AIX.
 All codes I have submitted Pull Requests to Ansible project, my goal is to have it on next versions of Ansible.
 While it is not available on the official Ansible repository — I hope to have something on 2.5 —
@@ -205,13 +205,13 @@ I created a repository on my Github to make it include this support to current s
 </div>
 </div>
 <div class="section" id="ansible-control-setup">
-<h2><a class="toc-backref" href="#id4">Ansible Control setup</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-3">Ansible Control setup</a></h2>
 <p>Operational System: Red Hat Linux 7.4
 Ansible: 2.4
 Python: 2.7
 Custom modules and core for AIX</p>
 <div class="section" id="operational-system-installation-and-preparation">
-<h3><a class="toc-backref" href="#id5">Operational System installation and preparation</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-4">Operational System installation and preparation</a></h3>
 <p>The Operation System (OS) installation follows a basic installation for Red hat 7.4 as a server.</p>
 <p>Requisites for Ansible Control server installation</p>
 <ol class="arabic simple">
@@ -232,7 +232,7 @@ Python <span class="m">2</span>.7.5
 </pre></div>
 </div>
 <div class="section" id="ansible-2-4-installation">
-<h3><a class="toc-backref" href="#id6">Ansible 2.4 Installation</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-5">Ansible 2.4 Installation</a></h3>
 <p>The installation can be done using PIP</p>
 <ol class="arabic simple">
 <li>Run PIP to install</li>
@@ -252,7 +252,7 @@ ansible <span class="m">2</span>.4.0.0
 </pre></div>
 </div>
 <div class="section" id="ansible-aix-modules-support-installation">
-<h3><a class="toc-backref" href="#id7">Ansible AIX modules/support installation</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-6">Ansible AIX modules/support installation</a></h3>
 <ol class="arabic simple">
 <li>Download from github</li>
 </ol>
@@ -293,19 +293,19 @@ Starting installation of Ansible AIX support
 </pre></div>
 </div>
 </div>
-<div class="section" id="id1">
-<h2><a class="toc-backref" href="#id8">Ansible Control Setup</a></h2>
+<div class="section" id="ansible-control-setup-1">
+<h2><a class="toc-backref" href="#toc-entry-7">Ansible Control Setup</a></h2>
 <div class="section" id="generating-keys">
-<h3><a class="toc-backref" href="#id9">Generating keys</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-8">Generating keys</a></h3>
 <p>On Ansible Control you need to generate the keys to be used by targets (AIX/VIOSes).</p>
 <div class="highlight"><pre><span></span><span class="o">[</span>root@ansible-cs ~<span class="o">]</span><span class="c1"># ssh-keygen</span>
 Generating public/private rsa key pair.
-Enter file in which to save the key <span class="o">(</span>/root/.ssh/id_rsa<span class="o">)</span>:
+Enter file <span class="k">in</span> which to save the key <span class="o">(</span>/root/.ssh/id_rsa<span class="o">)</span>:
 Created directory <span class="s1">&#39;/root/.ssh&#39;</span>.
 Enter passphrase <span class="o">(</span>empty <span class="k">for</span> no passphrase<span class="o">)</span>:
 Enter same passphrase again:
-Your identification has been saved in /root/.ssh/id_rsa.
-Your public key has been saved in /root/.ssh/id_rsa.pub.
+Your identification has been saved <span class="k">in</span> /root/.ssh/id_rsa.
+Your public key has been saved <span class="k">in</span> /root/.ssh/id_rsa.pub.
 The key fingerprint is:
 SHA256:FsuneRLg7Ugqk4rp12Goip8GaQAaBEFNIANZCgSU1l8 root@ansible-cs
 The key<span class="err">&#39;</span>s randomart image is:
@@ -324,11 +324,11 @@ The key<span class="err">&#39;</span>s randomart image is:
 </div>
 </div>
 <div class="section" id="ansible-targets-aix-vios-setup">
-<h2><a class="toc-backref" href="#id10">Ansible targets (AIX/VIOS) setup</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-9">Ansible targets (AIX/VIOS) setup</a></h2>
 <p>Ansible is agentless, this means that Ansible installation is not required.
 Ansible requires just two things: SSH (probably you already have it) and Python.</p>
 <div class="section" id="installing-python-on-aix">
-<h3><a class="toc-backref" href="#id11">Installing Python on AIX</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-10">Installing Python on AIX</a></h3>
 <p>So, to install Python on AIX I recommend downloading AIX Python package from <a class="reference external" href="http://www.aixtools.net/index.php/python">http://www.aixtools.net/index.php/python</a></p>
 <p>Remark: The only requisite is &gt;= openssl.base.rte.1.0.1.515</p>
 <ol class="arabic simple">
@@ -351,7 +351,7 @@ Python <span class="m">2</span>.7.12
 </pre></div>
 </div>
 <div class="section" id="distributing-keys">
-<h3><a class="toc-backref" href="#id12">Distributing keys</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-11">Distributing keys</a></h3>
 <p>The easy way to distribute the SSH keys to the AIX/VIOS servers is using ssh-copy-id</p>
 <p>If you cannot use keys with root to use SSH, Ansible supports sudo. This means that you can have another user to connect to AIX/VIOS and run Ansible with sudo. Check out <a class="reference external" href="http://docs.ansible.com/ansible/latest/become.html">http://docs.ansible.com/ansible/latest/become.html</a></p>
 <p>In that case, you need to use ssh-copy-id to user that you want to perform Ansible connection and have properly sudoers configured.</p>
@@ -369,12 +369,12 @@ Python <span class="m">2</span>.7.12
 </div>
 </div>
 <div class="section" id="ansible-inventory-and-validation">
-<h2><a class="toc-backref" href="#id13">Ansible Inventory and validation</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-12">Ansible Inventory and validation</a></h2>
 <p>To perform Ansible in your environment an Inventory on Ansible Control is required.
 The Inventory will have your target definitions, I encourage you to read it <a class="reference external" href="http://docs.ansible.com/ansible/latest/intro_inventory.html">http://docs.ansible.com/ansible/latest/intro_inventory.html</a>
 You can also have a dynamic inventory, you can search about it ;)</p>
 <div class="section" id="creating-an-inventory">
-<h3><a class="toc-backref" href="#id14">Creating an inventory</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-13">Creating an inventory</a></h3>
 <p>On this doc I created a simple inventory as example, including also a Linux server.</p>
 <div class="highlight"><pre><span></span><span class="o">[</span>root@ansible-cs ~<span class="o">]</span><span class="c1"># cat /etc/ansible_inventory</span>
 <span class="c1"># Global variables</span>
@@ -398,7 +398,7 @@ linux4
 <p>As you can see, I also included a Linux to show how you can manage both platforms together.</p>
 </div>
 <div class="section" id="checking-configuration">
-<h3><a class="toc-backref" href="#id15">Checking configuration</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-14">Checking configuration</a></h3>
 <p>Let's check if our configuration is working well:</p>
 <div class="highlight"><pre><span></span><span class="o">[</span>root@ansible-cs ~<span class="o">]</span><span class="c1"># ansible -i /etc/inventory all -m ping</span>
 lpar24 <span class="p">|</span> <span class="nv">SUCCESS</span> <span class="o">=</span>&gt; <span class="o">{</span>
@@ -434,7 +434,7 @@ linux4 <span class="p">|</span> <span class="nv">SUCCESS</span> <span class="o">
 </pre></div>
 </div>
 <div class="section" id="playbook-example">
-<h3><a class="toc-backref" href="#id16">Playbook example</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-15">Playbook example</a></h3>
 <p>Playbooks are configurations, deployments and tasks that you want to perform in a target host.
 For more details, check out <a class="reference external" href="http://docs.ansible.com/ansible/latest/playbooks.html">http://docs.ansible.com/ansible/latest/playbooks.html</a></p>
 <p>My first example of playbook will be: Create a filesystem for images and install TSM software and generate a mksysb backup.</p>
@@ -498,7 +498,7 @@ For more details, check out <a class="reference external" href="http://docs.ansi
 </pre></div>
 </div>
 <div class="section" id="running-the-playbook">
-<h3><a class="toc-backref" href="#id17">Running the playbook</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-16">Running the playbook</a></h3>
 <div class="highlight"><pre><span></span><span class="o">[</span>root@ansible-cs ~<span class="o">]</span><span class="c1"># ansible-playbook -i /etc/inventory /playbooks/pb-mksysb-tsm.yml -v</span>
 
 PLAY <span class="o">[</span>mksysb <span class="p">&amp;</span> tsm client install<span class="o">]</span> **********************************************************************************************
@@ -541,7 +541,7 @@ lpar28                     : <span class="nv">ok</span><span class="o">=</span><
 </div>
 </div>
 <div class="section" id="conclusion">
-<h2><a class="toc-backref" href="#id18">Conclusion</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-17">Conclusion</a></h2>
 <p>Ansible is simple tool that can helps a lot system administrators and DevOps to manage their environments.
 In my humble opinion the Ansible documentation is nice and there are a lot of training, tutorials, webinars
 that can help develop the skills about Ansible.</p>
@@ -552,7 +552,7 @@ that can help develop the skills about Ansible.</p>
     </article>
 
         <div class="tags">
-            <p>tags: <a href="http://kairo.eti.br/tag/aix.html">aix</a>, <a href="http://kairo.eti.br/tag/ansible.html">ansible</a>, <a href="http://kairo.eti.br/tag/automation.html">automation</a>, <a href="http://kairo.eti.br/tag/modules.html">modules</a>, <a href="http://kairo.eti.br/tag/setup.html">setup</a>, <a href="http://kairo.eti.br/tag/howto.html">howto</a></p>
+            <p>tags: <a href="https://kairo.dev/tag/aix.html">aix</a>, <a href="https://kairo.dev/tag/ansible.html">ansible</a>, <a href="https://kairo.dev/tag/automation.html">automation</a>, <a href="https://kairo.dev/tag/modules.html">modules</a>, <a href="https://kairo.dev/tag/setup.html">setup</a>, <a href="https://kairo.dev/tag/howto.html">howto</a></p>
         </div>
 
     <hr>
@@ -563,7 +563,7 @@ that can help develop the skills about Ansible.</p>
             <script type="text/javascript">
                 var disqus_shortname = 'kairoaraujo';
                 var disqus_identifier = 'aix-powervm-automation-with-ansible.html';
-                var disqus_url = 'http://kairo.eti.br/aix-powervm-automation-with-ansible.html';
+                var disqus_url = 'https://kairo.dev/aix-powervm-automation-with-ansible.html';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                     dsq.src = '//kairoaraujo.disqus.com/embed.js';
@@ -611,7 +611,7 @@ that can help develop the skills about Ansible.</p>
                     </ul>
 <p class="copyright text-muted">
     Blog powered by <a href="http://getpelican.com">Pelican</a>,
-    which takes great advantage of <a href="http://python.org">Python</a>. <br />        &copy;  Kairo Araujo 
+    which takes great advantage of <a href="http://python.org">Python</a>. <br />        &copy;  Kairo Araujo
     <br />
     These are my personal opinions
 </p>                </div>
@@ -620,13 +620,13 @@ that can help develop the skills about Ansible.</p>
     </footer>
 
     <!-- jQuery -->
-    <script src="http://kairo.eti.br/theme/js/jquery.min.js"></script>
+    <script src="https://kairo.dev/theme/js/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="http://kairo.eti.br/theme/js/bootstrap.min.js"></script>
+    <script src="https://kairo.dev/theme/js/bootstrap.min.js"></script>
 
         <!-- Custom Theme JavaScript -->
-        <script src="http://kairo.eti.br/theme/js/clean-blog.min.js"></script>
+        <script src="https://kairo.dev/theme/js/clean-blog.min.js"></script>
 
 <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

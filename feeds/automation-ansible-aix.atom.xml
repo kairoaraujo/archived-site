@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Kairo Araujo - Automation Ansible AIX</title><link href="http://kairo.eti.br/" rel="alternate"></link><link href="http://kairo.eti.br/feeds/automation-ansible-aix.atom.xml" rel="self"></link><id>http://kairo.eti.br/</id><updated>2017-11-13T20:00:00+01:00</updated><entry><title>New Ansible module AIX Devices</title><link href="http://kairo.eti.br/new-ansible-module-aix-devices.html" rel="alternate"></link><published>2017-10-28T17:30:00+02:00</published><updated>2017-10-28T17:30:00+02:00</updated><author><name>Kairo Araujo</name></author><id>tag:kairo.eti.br,2017-10-28:/new-ansible-module-aix-devices.html</id><summary type="html">&lt;p class="first last"&gt;New Ansible module to manage devices on AIX&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Kairo Araujo - Automation Ansible AIX</title><link href="https://kairo.dev/" rel="alternate"></link><link href="https://kairo.dev/feeds/automation-ansible-aix.atom.xml" rel="self"></link><id>https://kairo.dev/</id><updated>2017-11-13T20:00:00+01:00</updated><subtitle>Software Engineer, Python, GoLang, Automation. Former AIX/Linux Engineer</subtitle><entry><title>New Ansible module AIX Devices</title><link href="https://kairo.dev/new-ansible-module-aix-devices.html" rel="alternate"></link><published>2017-10-28T17:30:00+02:00</published><updated>2017-10-28T17:30:00+02:00</updated><author><name>Kairo Araujo</name></author><id>tag:kairo.dev,2017-10-28:/new-ansible-module-aix-devices.html</id><summary type="html">&lt;p class="first last"&gt;New Ansible module to manage devices on AIX&lt;/p&gt;
 </summary><content type="html">&lt;p&gt;Today I submitted a new pull request (PR) to Ansible Project with a new
 module. The new module aix_devices makes easy discovers, defines, removes
 and modifies attributes of AIX devices.&lt;/p&gt;
 &lt;p&gt;I also released this new module on my &lt;a class="reference external" href="https://github.com/kairoaraujo/ansible-aix-support"&gt;Ansible AIX support
 collections&lt;/a&gt;.
-If you don't what is that, visit &lt;a class="reference external" href="http://kairo.eti.br/aix-powervm-automation-with-ansible.html"&gt;my post about AIX modules&lt;/a&gt;&lt;/p&gt;
+If you don't what is that, visit &lt;a class="reference external" href="http://kairo.dev/aix-powervm-automation-with-ansible.html"&gt;my post about AIX modules&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;I am very motivated to put AIX native supported on Ansible.&lt;/p&gt;
 &lt;p&gt;This module is very useful to manage devices, doing tuning, discovering new
 adapters and also managing network and routing on AIX as it is configurable
@@ -95,16 +95,16 @@ changed: &lt;span class="o"&gt;[&lt;/span&gt;lpar22&lt;span class="o"&gt;]&lt;/s
 TASK &lt;span class="o"&gt;[&lt;/span&gt;Removes ent2.&lt;span class="o"&gt;]&lt;/span&gt; ******************************************************************************************
 changed: &lt;span class="o"&gt;[&lt;/span&gt;lpar22&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: true, &lt;span class="s2"&gt;&amp;quot;failed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;msg&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;ent2 deleted\n&amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;state&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;absent&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
 
-TASK &lt;span class="o"&gt;[&lt;/span&gt;Put device en2 in Defined&lt;span class="o"&gt;]&lt;/span&gt; ******************************************************************************
+TASK &lt;span class="o"&gt;[&lt;/span&gt;Put device en2 &lt;span class="k"&gt;in&lt;/span&gt; Defined&lt;span class="o"&gt;]&lt;/span&gt; ******************************************************************************
 ok: &lt;span class="o"&gt;[&lt;/span&gt;lpar22&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;failed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;msg&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;Device en2 already in Defined&amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;state&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;defined&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
 
 TASK &lt;span class="o"&gt;[&lt;/span&gt;Removes ent4 &lt;span class="o"&gt;(&lt;/span&gt;inexistent&lt;span class="o"&gt;)&lt;/span&gt;.&lt;span class="o"&gt;]&lt;/span&gt; *****************************************************************************
 ok: &lt;span class="o"&gt;[&lt;/span&gt;lpar22&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;failed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;msg&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;Device ent4 does not exist.&amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;state&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;absent&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
 
-TASK &lt;span class="o"&gt;[&lt;/span&gt;Put device en4 in Defined &lt;span class="o"&gt;(&lt;/span&gt;inexistent&lt;span class="o"&gt;)]&lt;/span&gt; *****************************************************************
+TASK &lt;span class="o"&gt;[&lt;/span&gt;Put device en4 &lt;span class="k"&gt;in&lt;/span&gt; Defined &lt;span class="o"&gt;(&lt;/span&gt;inexistent&lt;span class="o"&gt;)]&lt;/span&gt; *****************************************************************
 ok: &lt;span class="o"&gt;[&lt;/span&gt;lpar22&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;failed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;msg&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;Device en4 does not exist.&amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;state&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;defined&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
 
-TASK &lt;span class="o"&gt;[&lt;/span&gt;Put vscsi1 and children devices in Defined state.&lt;span class="o"&gt;]&lt;/span&gt; ******************************************************
+TASK &lt;span class="o"&gt;[&lt;/span&gt;Put vscsi1 and children devices &lt;span class="k"&gt;in&lt;/span&gt; Defined state.&lt;span class="o"&gt;]&lt;/span&gt; ******************************************************
 changed: &lt;span class="o"&gt;[&lt;/span&gt;lpar22&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;changed&amp;quot;&lt;/span&gt;: true, &lt;span class="s2"&gt;&amp;quot;failed&amp;quot;&lt;/span&gt;: false, &lt;span class="s2"&gt;&amp;quot;msg&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;vscsi1 Defined\n&amp;quot;&lt;/span&gt;, &lt;span class="s2"&gt;&amp;quot;state&amp;quot;&lt;/span&gt;: &lt;span class="s2"&gt;&amp;quot;defined&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
 
 TASK &lt;span class="o"&gt;[&lt;/span&gt;Removes vscsi1 and children devices.&lt;span class="o"&gt;]&lt;/span&gt; *******************************************************************
@@ -122,7 +122,7 @@ changed: &lt;span class="o"&gt;[&lt;/span&gt;lpar22&lt;span class="o"&gt;]&lt;/s
 PLAY RECAP ****************************************************************************************************
 lpar22                     : &lt;span class="nv"&gt;ok&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;12&lt;/span&gt;   &lt;span class="nv"&gt;changed&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;8&lt;/span&gt;    &lt;span class="nv"&gt;unreachable&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;    &lt;span class="nv"&gt;failed&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-</content><category term="aix"></category><category term="ansible"></category><category term="automation"></category><category term="modules"></category><category term="aix_devices"></category></entry><entry><title>AIX &amp; PowerVM automation with Ansible</title><link href="http://kairo.eti.br/aix-powervm-automation-with-ansible.html" rel="alternate"></link><published>2017-10-12T23:30:00+02:00</published><updated>2017-11-13T20:00:00+01:00</updated><author><name>Kairo Araujo</name></author><id>tag:kairo.eti.br,2017-10-12:/aix-powervm-automation-with-ansible.html</id><summary type="html">&lt;p class="first last"&gt;Using Ansible to manage AIX/PowerVM servers&lt;/p&gt;
+</content><category term="Automation Ansible AIX"></category><category term="aix"></category><category term="ansible"></category><category term="automation"></category><category term="modules"></category><category term="aix_devices"></category></entry><entry><title>AIX &amp; PowerVM automation with Ansible</title><link href="https://kairo.dev/aix-powervm-automation-with-ansible.html" rel="alternate"></link><published>2017-10-12T23:30:00+02:00</published><updated>2017-11-13T20:00:00+01:00</updated><author><name>Kairo Araujo</name></author><id>tag:kairo.dev,2017-10-12:/aix-powervm-automation-with-ansible.html</id><summary type="html">&lt;p class="first last"&gt;Using Ansible to manage AIX/PowerVM servers&lt;/p&gt;
 </summary><content type="html">&lt;p&gt;&lt;strong&gt;On this post I will show how to setup Ansible control with special modules and
 facts for AIX and give you some useful examples.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Ansible is a simple and powerful open source tool to automate repeated tasks
@@ -132,43 +132,43 @@ and only has two requirements, SSH and Python on the target.&lt;/p&gt;
 &lt;p&gt;I have been playing a lot with Ansible to automate AIX and I also have been
 writing some contributions to the project to make Ansible work smooth with AIX.&lt;/p&gt;
 &lt;div class="contents topic" id="table-of-contents"&gt;
-&lt;p class="topic-title first"&gt;Table of Contents&lt;/p&gt;
+&lt;p class="topic-title"&gt;Table of Contents&lt;/p&gt;
 &lt;ul class="simple"&gt;
-&lt;li&gt;&lt;a class="reference internal" href="#overview" id="id2"&gt;Overview&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a class="reference internal" href="#special-modules-facts-for-aix" id="id3"&gt;Special modules/facts for AIX&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#overview" id="toc-entry-1"&gt;Overview&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#special-modules-facts-for-aix" id="toc-entry-2"&gt;Special modules/facts for AIX&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;a class="reference internal" href="#ansible-control-setup" id="id4"&gt;Ansible Control setup&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a class="reference internal" href="#operational-system-installation-and-preparation" id="id5"&gt;Operational System installation and preparation&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class="reference internal" href="#ansible-2-4-installation" id="id6"&gt;Ansible 2.4 Installation&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class="reference internal" href="#ansible-aix-modules-support-installation" id="id7"&gt;Ansible AIX modules/support installation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#ansible-control-setup" id="toc-entry-3"&gt;Ansible Control setup&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#operational-system-installation-and-preparation" id="toc-entry-4"&gt;Operational System installation and preparation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#ansible-2-4-installation" id="toc-entry-5"&gt;Ansible 2.4 Installation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#ansible-aix-modules-support-installation" id="toc-entry-6"&gt;Ansible AIX modules/support installation&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;a class="reference internal" href="#id1" id="id8"&gt;Ansible Control Setup&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a class="reference internal" href="#generating-keys" id="id9"&gt;Generating keys&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#ansible-control-setup-1" id="toc-entry-7"&gt;Ansible Control Setup&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#generating-keys" id="toc-entry-8"&gt;Generating keys&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;a class="reference internal" href="#ansible-targets-aix-vios-setup" id="id10"&gt;Ansible targets (AIX/VIOS) setup&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a class="reference internal" href="#installing-python-on-aix" id="id11"&gt;Installing Python on AIX&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class="reference internal" href="#distributing-keys" id="id12"&gt;Distributing keys&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#ansible-targets-aix-vios-setup" id="toc-entry-9"&gt;Ansible targets (AIX/VIOS) setup&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#installing-python-on-aix" id="toc-entry-10"&gt;Installing Python on AIX&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#distributing-keys" id="toc-entry-11"&gt;Distributing keys&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;a class="reference internal" href="#ansible-inventory-and-validation" id="id13"&gt;Ansible Inventory and validation&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a class="reference internal" href="#creating-an-inventory" id="id14"&gt;Creating an inventory&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class="reference internal" href="#checking-configuration" id="id15"&gt;Checking configuration&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class="reference internal" href="#playbook-example" id="id16"&gt;Playbook example&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class="reference internal" href="#running-the-playbook" id="id17"&gt;Running the playbook&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#ansible-inventory-and-validation" id="toc-entry-12"&gt;Ansible Inventory and validation&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#creating-an-inventory" id="toc-entry-13"&gt;Creating an inventory&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#checking-configuration" id="toc-entry-14"&gt;Checking configuration&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#playbook-example" id="toc-entry-15"&gt;Playbook example&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#running-the-playbook" id="toc-entry-16"&gt;Running the playbook&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;a class="reference internal" href="#conclusion" id="id18"&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference internal" href="#conclusion" id="toc-entry-17"&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;div class="section" id="overview"&gt;
-&lt;h2&gt;&lt;a class="toc-backref" href="#id2"&gt;Overview&lt;/a&gt;&lt;/h2&gt;
+&lt;h2&gt;&lt;a class="toc-backref" href="#toc-entry-1"&gt;Overview&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;For that I’m using a Red Hat Linux 7.4 as Ansible control to manage my AIX 6.1, 7.1 and 7.2 servers/nodes.
 My servers/nodes are AIXs and Linuxes boxes.&lt;/p&gt;
 &lt;div class="section" id="special-modules-facts-for-aix"&gt;
-&lt;h3&gt;&lt;a class="toc-backref" href="#id3"&gt;Special modules/facts for AIX&lt;/a&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a class="toc-backref" href="#toc-entry-2"&gt;Special modules/facts for AIX&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;I have been writing some AIX modules and core (facts) to make it smoother  for AIX.
 All codes I have submitted Pull Requests to Ansible project, my goal is to have it on next versions of Ansible.
 While it is not available on the official Ansible repository — I hope to have something on 2.5 —
@@ -216,13 +216,13 @@ I created a repository on my Github to make it include this support to current s
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="ansible-control-setup"&gt;
-&lt;h2&gt;&lt;a class="toc-backref" href="#id4"&gt;Ansible Control setup&lt;/a&gt;&lt;/h2&gt;
+&lt;h2&gt;&lt;a class="toc-backref" href="#toc-entry-3"&gt;Ansible Control setup&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Operational System: Red Hat Linux 7.4
 Ansible: 2.4
 Python: 2.7
 Custom modules and core for AIX&lt;/p&gt;
 &lt;div class="section" id="operational-system-installation-and-preparation"&gt;
-&lt;h3&gt;&lt;a class="toc-backref" href="#id5"&gt;Operational System installation and preparation&lt;/a&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a class="toc-backref" href="#toc-entry-4"&gt;Operational System installation and preparation&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;The Operation System (OS) installation follows a basic installation for Red hat 7.4 as a server.&lt;/p&gt;
 &lt;p&gt;Requisites for Ansible Control server installation&lt;/p&gt;
 &lt;ol class="arabic simple"&gt;
@@ -243,7 +243,7 @@ Python &lt;span class="m"&gt;2&lt;/span&gt;.7.5
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="ansible-2-4-installation"&gt;
-&lt;h3&gt;&lt;a class="toc-backref" href="#id6"&gt;Ansible 2.4 Installation&lt;/a&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a class="toc-backref" href="#toc-entry-5"&gt;Ansible 2.4 Installation&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;The installation can be done using PIP&lt;/p&gt;
 &lt;ol class="arabic simple"&gt;
 &lt;li&gt;Run PIP to install&lt;/li&gt;
@@ -263,7 +263,7 @@ ansible &lt;span class="m"&gt;2&lt;/span&gt;.4.0.0
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="ansible-aix-modules-support-installation"&gt;
-&lt;h3&gt;&lt;a class="toc-backref" href="#id7"&gt;Ansible AIX modules/support installation&lt;/a&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a class="toc-backref" href="#toc-entry-6"&gt;Ansible AIX modules/support installation&lt;/a&gt;&lt;/h3&gt;
 &lt;ol class="arabic simple"&gt;
 &lt;li&gt;Download from github&lt;/li&gt;
 &lt;/ol&gt;
@@ -304,19 +304,19 @@ Starting installation of Ansible AIX support
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div class="section" id="id1"&gt;
-&lt;h2&gt;&lt;a class="toc-backref" href="#id8"&gt;Ansible Control Setup&lt;/a&gt;&lt;/h2&gt;
+&lt;div class="section" id="ansible-control-setup-1"&gt;
+&lt;h2&gt;&lt;a class="toc-backref" href="#toc-entry-7"&gt;Ansible Control Setup&lt;/a&gt;&lt;/h2&gt;
 &lt;div class="section" id="generating-keys"&gt;
-&lt;h3&gt;&lt;a class="toc-backref" href="#id9"&gt;Generating keys&lt;/a&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a class="toc-backref" href="#toc-entry-8"&gt;Generating keys&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;On Ansible Control you need to generate the keys to be used by targets (AIX/VIOSes).&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;root@ansible-cs ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# ssh-keygen&lt;/span&gt;
 Generating public/private rsa key pair.
-Enter file in which to save the key &lt;span class="o"&gt;(&lt;/span&gt;/root/.ssh/id_rsa&lt;span class="o"&gt;)&lt;/span&gt;:
+Enter file &lt;span class="k"&gt;in&lt;/span&gt; which to save the key &lt;span class="o"&gt;(&lt;/span&gt;/root/.ssh/id_rsa&lt;span class="o"&gt;)&lt;/span&gt;:
 Created directory &lt;span class="s1"&gt;&amp;#39;/root/.ssh&amp;#39;&lt;/span&gt;.
 Enter passphrase &lt;span class="o"&gt;(&lt;/span&gt;empty &lt;span class="k"&gt;for&lt;/span&gt; no passphrase&lt;span class="o"&gt;)&lt;/span&gt;:
 Enter same passphrase again:
-Your identification has been saved in /root/.ssh/id_rsa.
-Your public key has been saved in /root/.ssh/id_rsa.pub.
+Your identification has been saved &lt;span class="k"&gt;in&lt;/span&gt; /root/.ssh/id_rsa.
+Your public key has been saved &lt;span class="k"&gt;in&lt;/span&gt; /root/.ssh/id_rsa.pub.
 The key fingerprint is:
 SHA256:FsuneRLg7Ugqk4rp12Goip8GaQAaBEFNIANZCgSU1l8 root@ansible-cs
 The key&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;s randomart image is:
@@ -335,11 +335,11 @@ The key&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;s randomart image is:
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="ansible-targets-aix-vios-setup"&gt;
-&lt;h2&gt;&lt;a class="toc-backref" href="#id10"&gt;Ansible targets (AIX/VIOS) setup&lt;/a&gt;&lt;/h2&gt;
+&lt;h2&gt;&lt;a class="toc-backref" href="#toc-entry-9"&gt;Ansible targets (AIX/VIOS) setup&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Ansible is agentless, this means that Ansible installation is not required.
 Ansible requires just two things: SSH (probably you already have it) and Python.&lt;/p&gt;
 &lt;div class="section" id="installing-python-on-aix"&gt;
-&lt;h3&gt;&lt;a class="toc-backref" href="#id11"&gt;Installing Python on AIX&lt;/a&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a class="toc-backref" href="#toc-entry-10"&gt;Installing Python on AIX&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;So, to install Python on AIX I recommend downloading AIX Python package from &lt;a class="reference external" href="http://www.aixtools.net/index.php/python"&gt;http://www.aixtools.net/index.php/python&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Remark: The only requisite is &amp;gt;= openssl.base.rte.1.0.1.515&lt;/p&gt;
 &lt;ol class="arabic simple"&gt;
@@ -362,7 +362,7 @@ Python &lt;span class="m"&gt;2&lt;/span&gt;.7.12
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="distributing-keys"&gt;
-&lt;h3&gt;&lt;a class="toc-backref" href="#id12"&gt;Distributing keys&lt;/a&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a class="toc-backref" href="#toc-entry-11"&gt;Distributing keys&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;The easy way to distribute the SSH keys to the AIX/VIOS servers is using ssh-copy-id&lt;/p&gt;
 &lt;p&gt;If you cannot use keys with root to use SSH, Ansible supports sudo. This means that you can have another user to connect to AIX/VIOS and run Ansible with sudo. Check out &lt;a class="reference external" href="http://docs.ansible.com/ansible/latest/become.html"&gt;http://docs.ansible.com/ansible/latest/become.html&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;In that case, you need to use ssh-copy-id to user that you want to perform Ansible connection and have properly sudoers configured.&lt;/p&gt;
@@ -380,12 +380,12 @@ Python &lt;span class="m"&gt;2&lt;/span&gt;.7.12
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="ansible-inventory-and-validation"&gt;
-&lt;h2&gt;&lt;a class="toc-backref" href="#id13"&gt;Ansible Inventory and validation&lt;/a&gt;&lt;/h2&gt;
+&lt;h2&gt;&lt;a class="toc-backref" href="#toc-entry-12"&gt;Ansible Inventory and validation&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;To perform Ansible in your environment an Inventory on Ansible Control is required.
 The Inventory will have your target definitions, I encourage you to read it &lt;a class="reference external" href="http://docs.ansible.com/ansible/latest/intro_inventory.html"&gt;http://docs.ansible.com/ansible/latest/intro_inventory.html&lt;/a&gt;
 You can also have a dynamic inventory, you can search about it ;)&lt;/p&gt;
 &lt;div class="section" id="creating-an-inventory"&gt;
-&lt;h3&gt;&lt;a class="toc-backref" href="#id14"&gt;Creating an inventory&lt;/a&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a class="toc-backref" href="#toc-entry-13"&gt;Creating an inventory&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;On this doc I created a simple inventory as example, including also a Linux server.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;root@ansible-cs ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# cat /etc/ansible_inventory&lt;/span&gt;
 &lt;span class="c1"&gt;# Global variables&lt;/span&gt;
@@ -409,7 +409,7 @@ linux4
 &lt;p&gt;As you can see, I also included a Linux to show how you can manage both platforms together.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class="section" id="checking-configuration"&gt;
-&lt;h3&gt;&lt;a class="toc-backref" href="#id15"&gt;Checking configuration&lt;/a&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a class="toc-backref" href="#toc-entry-14"&gt;Checking configuration&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;Let's check if our configuration is working well:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;root@ansible-cs ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# ansible -i /etc/inventory all -m ping&lt;/span&gt;
 lpar24 &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="nv"&gt;SUCCESS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{&lt;/span&gt;
@@ -445,7 +445,7 @@ linux4 &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="nv"&gt;SUCCESS&lt;/s
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="playbook-example"&gt;
-&lt;h3&gt;&lt;a class="toc-backref" href="#id16"&gt;Playbook example&lt;/a&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a class="toc-backref" href="#toc-entry-15"&gt;Playbook example&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;Playbooks are configurations, deployments and tasks that you want to perform in a target host.
 For more details, check out &lt;a class="reference external" href="http://docs.ansible.com/ansible/latest/playbooks.html"&gt;http://docs.ansible.com/ansible/latest/playbooks.html&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;My first example of playbook will be: Create a filesystem for images and install TSM software and generate a mksysb backup.&lt;/p&gt;
@@ -509,7 +509,7 @@ For more details, check out &lt;a class="reference external" href="http://docs.a
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="running-the-playbook"&gt;
-&lt;h3&gt;&lt;a class="toc-backref" href="#id17"&gt;Running the playbook&lt;/a&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;a class="toc-backref" href="#toc-entry-16"&gt;Running the playbook&lt;/a&gt;&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;root@ansible-cs ~&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="c1"&gt;# ansible-playbook -i /etc/inventory /playbooks/pb-mksysb-tsm.yml -v&lt;/span&gt;
 
 PLAY &lt;span class="o"&gt;[&lt;/span&gt;mksysb &lt;span class="p"&gt;&amp;amp;&lt;/span&gt; tsm client install&lt;span class="o"&gt;]&lt;/span&gt; **********************************************************************************************
@@ -552,11 +552,11 @@ lpar28                     : &lt;span class="nv"&gt;ok&lt;/span&gt;&lt;span clas
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="conclusion"&gt;
-&lt;h2&gt;&lt;a class="toc-backref" href="#id18"&gt;Conclusion&lt;/a&gt;&lt;/h2&gt;
+&lt;h2&gt;&lt;a class="toc-backref" href="#toc-entry-17"&gt;Conclusion&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Ansible is simple tool that can helps a lot system administrators and DevOps to manage their environments.
 In my humble opinion the Ansible documentation is nice and there are a lot of training, tutorials, webinars
 that can help develop the skills about Ansible.&lt;/p&gt;
 &lt;p&gt;I will keep working on modules and more support between Ansible and AIX/PowerVM.&lt;/p&gt;
 &lt;p&gt;Suggestions are welcome. :)&lt;/p&gt;
 &lt;/div&gt;
-</content><category term="aix"></category><category term="ansible"></category><category term="automation"></category><category term="modules"></category><category term="setup"></category><category term="howto"></category></entry></feed>
+</content><category term="Automation Ansible AIX"></category><category term="aix"></category><category term="ansible"></category><category term="automation"></category><category term="modules"></category><category term="setup"></category><category term="howto"></category></entry></feed>
