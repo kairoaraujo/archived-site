@@ -2,26 +2,30 @@ About
 #####
 
 :date: 2017-10-03 10:20
-:modified: 2018-03-21 04:47
+:modified: 2021-10-27 16:26
 :tags: About
 :category: etc
 :authors: Kairo Araujo
 :summary: About me
 
 
-My name is Kairo Araujo, 36 years old, Brazilian, married living in Poland.
+My name is Kairo Araujo, 40+ years old. I was born in Brazil, married, father
+of a lovely boy, and living in The Netherlands since 2018.
 
-I really love Information Technology/Open Source and I have the pleasure to
-work with IT. I work managing systems and solving problems since 1999. :)
-I current work at IBM Poland as Python Developer/Solution Engineer, previously
-asAIX / Linux Senior IT Specialist.
+I love Information Technology(IT)/Open Source, and I have the pleasure to
+work with IT. I have worked managing systems and solving problems since 1999.
+:)
 
-More about my career and skills, please check out my LinkedIn
-http://linkedin.com/in/kairoaraujo
+I worked many years as Unix System Administrator, specializing in AIX, POWER
+Systems, and Linux.
 
-I started coding Python in 2013 and I created some tools for
-infrastructure and recently I started contributions Open Source projects
+Around 2013 I decided to start self-studying Software Engineering and Python.
 
-I like watch & play tennis and I love cooking. :)
+In 2016, my System Administration was more focused on doing more automation,
+working more in SRE/DevOps field.
+In 2017 I had the opportunity to start my career transition and work as a
+Software Engineer full time.
 
-Contact: kairo [@] kairo.eti.br
+I like riding road bikes, running, beer and cooking.
+
+Contact: kairoaraujo [@] gmail.com

@@ -48,6 +48,6 @@ RELATIVE_URLS = True
 # Footer included
 FOOTER_INCLUDE = 'extras/myfooter.html'
 IGNORE_FILES = [FOOTER_INCLUDE]
-EXTRA_TEMPLATES_PATHS = [os.path.dirname(__file__)]
+THEME_TEMPLATES_OVERRIDES = [os.path.dirname(__file__)]
 
 THEME = u'themes/pelican-clean-blog'
