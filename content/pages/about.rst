@@ -2,7 +2,7 @@ About
 #####
 
 :date: 2017-10-03 10:20
-:modified: 2021-10-27 16:26
+:modified: 2021-11-01 18:58
 :tags: About
 :category: etc
 :authors: Kairo Araujo
@@ -15,6 +15,8 @@ of a lovely boy, and living in The Netherlands since 2018.
 I love Information Technology(IT)/Open Source, and I have the pleasure to
 work with IT. I have worked managing systems and solving problems since 1999.
 :)
+
+Currently I work as a Open Source Software Engineer at VMware.
 
 I worked many years as Unix System Administrator, specializing in AIX, POWER
 Systems, and Linux.
