@@ -10,7 +10,7 @@ import sys
 sys.path.append(os.curdir)
 from pelicanconf import *
 
-SITEURL = 'https://kairo.eti.br'
+SITEURL = 'http://kairo.eti.br'
 SITESUBTITLE = "Software Engineer, Python, GoLang, Automation. Former AIX/Linux Engineer"
 RELATIVE_URLS = False
 

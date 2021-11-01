@@ -6,7 +6,7 @@ import os
 AUTHOR = 'Kairo Araujo'
 SITENAME = 'Kairo Araujo'
 SITESUBTITLE = "Python, automation, infrastructure, AIX, PowerVM, Linux, etc"
-SITEURL = 'https://kairo.eti.br'
+SITEURL = 'http://kairo.eti.br'
 GITHUB_URL = 'http://github.com/kairoaraujo'
 TWITTER_URL = 'http://twitter.com/kairoaraujo'
 LINKEDIN_URL = 'https://linkedin.com/in/kairoaraujo'
